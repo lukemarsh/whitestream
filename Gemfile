@@ -33,6 +33,12 @@ group :doc do
 end
 
 gem 'carrierwave'
+gem 'jquery-turbolinks'
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

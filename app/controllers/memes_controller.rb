@@ -24,7 +24,11 @@ class MemesController < ApplicationController
   # POST /memes
   # POST /memes.json
   def create
-    @meme = Meme.new(meme_params)
+    if params[:image].try(:original_filename) == 'blob'
+      params[:image].original_filename << '.png'
+    end
+
+    @meme = Meme.create!(image: params[:image])
 
     respond_to do |format|
       if @meme.save
