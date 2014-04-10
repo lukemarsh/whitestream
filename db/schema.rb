@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403200414) do
+ActiveRecord::Schema.define(version: 20140410135106) do
 
   create_table "memes", force: true do |t|
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "article"
   end
 
 end

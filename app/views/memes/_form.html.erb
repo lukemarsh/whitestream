@@ -1,30 +1,221 @@
-<canvas id="memecanvas">
-  Sorry, canvas not supported
-</canvas>
-<img src='/assets/1148990_10151516396361277_1514704461_n.jpg' style='display:none' class='mfnotransform' id='default-image' crossorigin="anonymous" />
-
-<div class="field">
-  <%= file_field(:meme, :image) %>
-  <input type='text' value='enter some text' id='custom-text' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
+<div class="row">
+  <div class="col-md-6">
+    <canvas id="memecanvas" width="450" height="300">
+      Sorry, canvas not supported
+    </canvas>
+    <img src='/assets/1148990_10151516396361277_1514704461_n.jpg' style='display:none' class='mfnotransform' id='default-image' crossorigin="anonymous" />
+  </div>
+  <div class="col-md-6">
+    <%= file_field(:image, :meme) %>
+    <input type='text' value='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
+    <input type='text' value='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
+    <input type="submit" id="download" />
+    <h3>Text colour</h3>
+    <button data-colour="#000000" class="black">BLACK</button>
+    <button data-colour="#FFFFFF" class="default white">WHITE</button>
+    <h3>Tags</h3>
+    <input type="checkbox" value="NEWS">
+  </div>
 </div>
-<div class="actions">
-  <input type="submit" id="download">
-</div>
-
 <script>
-  var canvas;
-  var canvasWidth;
-  var ctx;
-  var x;
-  var y;
-  var download;
-  var data;
-  var fileInput;
-  var img;
+  var canvas = document.getElementById("memecanvas");
+  var ctx = canvas.getContext("2d");
+
+  var canvasOffset = $("#memecanvas").offset();
+  var offsetX = canvasOffset.left;
+  var offsetY = canvasOffset.top;
+
+  var startX;
+  var startY;
+
+  var pi2 = Math.PI * 2;
+  var resizerRadius = 8;
+  var rr = resizerRadius * resizerRadius;
+  var draggingResizer = {
+      x: 0,
+      y: 0
+  };
+  var imageX = 50;
+  var imageY = 50;
+  var imageWidth, imageHeight, imageRight, imageBottom;
+  var draggingImage = false;
+  var startX;
+  var startY;
+
+  var defaultColour = $("button.default").data('colour');
+
+  var img = document.getElementById('default-image');
+  img.onload = function() {
+    imageWidth = img.width;
+    imageHeight = img.height;
+    imageRight = imageX + imageWidth;
+    imageBottom = imageY + imageHeight;
+
+    ctx.textAlign = 'center';
+    ctx.lineWidth  = 4;
+    ctx.font = '20pt futura';
+    ctx.strokeStyle = 'transparent';
+    ctx.fillStyle = defaultColour;
+
+    draw(true, false);
+  }
+
+  function createText() {
+    topLine = document.getElementById('topLine').value;
+    bottomLine = document.getElementById('bottomLine').value;
+    topLine = topLine.toUpperCase();
+    bottomLine = bottomLine.toUpperCase();
+
+    wrapText(ctx, topLine, canvas.width/2, canvas.height - canvas.height/1.2, imageWidth-imageWidth/3, 30);
+
+    wrapText(ctx, bottomLine, canvas.width/2, canvas.height - canvas.height/8, imageWidth-imageWidth/3, 30);
+  }
+
+  function draw(withAnchors, withBorders) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(img, 0, 0, img.width, img.height, imageX, imageY, imageWidth, imageHeight);
+
+    if (withAnchors) {
+      drawDragAnchor(imageX, imageY);
+      drawDragAnchor(imageRight, imageY);
+      drawDragAnchor(imageRight, imageBottom);
+      drawDragAnchor(imageX, imageBottom);
+    }
+
+    createText();
+  }
+
+  function drawDragAnchor(x, y) {
+    ctx.beginPath();
+    ctx.arc(x, y, resizerRadius, 0, pi2, false);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function anchorHitTest(x, y) {
+
+    var dx, dy;
+
+    // top-left
+    dx = x - imageX;
+    dy = y - imageY;
+    if (dx * dx + dy * dy <= rr) {
+        return (0);
+    }
+    // top-right
+    dx = x - imageRight;
+    dy = y - imageY;
+    if (dx * dx + dy * dy <= rr) {
+        return (1);
+    }
+    // bottom-right
+    dx = x - imageRight;
+    dy = y - imageBottom;
+    if (dx * dx + dy * dy <= rr) {
+        return (2);
+    }
+    // bottom-left
+    dx = x - imageX;
+    dy = y - imageBottom;
+    if (dx * dx + dy * dy <= rr) {
+        return (3);
+    }
+    return (-1);
+
+  }
 
 
-  window.onload = function() {
-    prepareExample();
+  function hitImage(x, y) {
+    return (x > imageX && x < imageX + imageWidth && y > imageY && y < imageY + imageHeight);
+  }
+
+  function handleMouseDown(e) {
+    startX = parseInt(e.clientX - offsetX);
+    startY = parseInt(e.clientY - offsetY);
+    draggingResizer = anchorHitTest(startX, startY);
+    draggingImage = draggingResizer < 0 && hitImage(startX, startY);
+}
+
+function handleMouseUp(e) {
+    draggingResizer = -1;
+    draggingImage = false;
+    draw(true, false);
+}
+
+function handleMouseOut(e) {
+    handleMouseUp(e);
+}
+
+function handleMouseMove(e) {
+
+    if (draggingResizer > -1) {
+
+        mouseX = parseInt(e.clientX - offsetX);
+        mouseY = parseInt(e.clientY - offsetY);
+
+        // resize the image
+        switch (draggingResizer) {
+            case 0:
+                //top-left
+                imageX = mouseX;
+                imageWidth = imageRight - mouseX;
+                imageY = mouseY;
+                imageHeight = imageBottom - mouseY;
+                break;
+            case 1:
+                //top-right
+                imageY = mouseY;
+                imageWidth = mouseX - imageX;
+                imageHeight = imageBottom - mouseY;
+                break;
+            case 2:
+                //bottom-right
+                imageWidth = mouseX - imageX;
+                imageHeight = mouseY - imageY;
+                break;
+            case 3:
+                //bottom-left
+                imageX = mouseX;
+                imageWidth = imageRight - mouseX;
+                imageHeight = mouseY - imageY;
+                break;
+        }
+
+        if(imageWidth<25){imageWidth=25;}
+        if(imageHeight<25){imageHeight=25;}
+
+        // set the image right and bottom
+        imageRight = imageX + imageWidth;
+        imageBottom = imageY + imageHeight;
+
+        // redraw the image with resizing anchors
+        draw(true, true);
+
+    } else if (draggingImage) {
+
+        imageClick = false;
+
+        mouseX = parseInt(e.clientX - offsetX);
+        mouseY = parseInt(e.clientY - offsetY);
+
+        // move the image by the amount of the latest drag
+        var dx = mouseX - startX;
+        var dy = mouseY - startY;
+        imageX += dx;
+        imageY += dy;
+        imageRight += dx;
+        imageBottom += dy;
+        // reset the startXY for next time
+        startX = mouseX;
+        startY = mouseY;
+
+        // redraw the image with border
+        draw(false, true);
+
+    }
+
+
   }
 
   function dataURLtoBlob(dataURL) {
@@ -42,80 +233,6 @@
     return new Blob([new Uint8Array(array)], {type: 'image/png'});
   }
 
-  function prepareExample() {
-    img = document.getElementById('default-image');
-
-    var deviceWidth = window.innerWidth;;
-    canvasWidth = Math.min(600, deviceWidth-20);
-    canvasHeight = Math.min(480, deviceWidth-20);
-    canvas = document.getElementById('memecanvas');
-
-
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    ctx = canvas.getContext('2d');
-
-    x = canvas.width/2 - img.width/2;
-    y = canvas.height/2 - img.height/2;
-
-    ctx.drawImage(img, x, y);
-
-    ctx.textAlign = 'center';
-    ctx.lineWidth  = 4;
-    ctx.font = '20pt impact';
-    ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
-    doTransform();
-
-
-    fileInput = document.getElementById('meme_image');
-
-    fileInput.addEventListener('change', function(e) {
-      var reader = new FileReader();
-      reader.onload = function(event){
-
-        img.onload = function(){
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          x = canvas.width/2 - img.width/2;
-          y = canvas.height/2 - img.height/2;
-          ctx.drawImage(img,x,y);
-        }
-        img.src = reader.result;
-      }
-      reader.readAsDataURL(fileInput.files[0]);
-
-    }, false);
-
-    var save = document.getElementById('download');
-    save.addEventListener('click', function(e) {
-
-      var data = canvas.toDataURL("image/png;base64;");
-      var file = dataURLtoBlob(data);
-      var fd = new FormData();
-      fd.append("image", file);
-
-      request = $.ajax({
-        url: '/memes',
-        type: "POST",
-        dataType: "JSON",
-        data: fd,
-        processData: false,
-        contentType: false
-      });
-
-      request.done(function (response, textStatus, jqXHR){
-        window.location.href = '/memes/'+response.id;
-      });
-    }, false);
-
-    ctx.textAlign = 'center';
-    ctx.lineWidth  = 4;
-    ctx.font = '20pt impact';
-    ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
-
-  }
-
   function doTransform() {
     ctx.save();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -124,13 +241,11 @@
 
     ctx.translate(-canvas.width/2, -canvas.height/2);
 
-    ctx.drawImage(img, x, y);
+    ctx.drawImage(img, imageX, imageY);
 
     ctx.restore();
 
-    text = document.getElementById('custom-text').value;
-    text = text.toUpperCase();
-    wrapText(ctx, text, canvas.width/2, canvas.height - canvas.height/4.5, canvasWidth-canvasWidth/3, 30);
+    createText();
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
@@ -154,4 +269,68 @@
     ctx.strokeText(line, x, y);
     ctx.fillText(line, x, y);
   }
+
+  function imageLoader(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        img = new Image();
+        img.onload = function(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          imageWidth = img.width;
+          imageHeight = img.height;
+          imageRight = imageX + imageWidth;
+          imageBottom = imageY + imageHeight;
+          draw(true, true);
+        }
+        img.src = reader.result;
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function downloadImage() {
+    var data = canvas.toDataURL("image/png;base64;");
+    var file = dataURLtoBlob(data);
+    var fd = new FormData();
+    fd.append("image", file);
+    fd.append("article", "test");
+
+    request = $.ajax({
+      url: '/memes',
+      type: "POST",
+      dataType: "JSON",
+      data: fd,
+      processData: false,
+      contentType: false
+    });
+
+    request.done(function (response, textStatus, jqXHR){
+      window.location.href = '/memes/'+response.id;
+    });
+  }
+
+
+  $("#memecanvas").mousedown(function (e) {
+    handleMouseDown(e);
+  });
+  $("#memecanvas").mousemove(function (e) {
+    handleMouseMove(e);
+  });
+  $("#memecanvas").mouseup(function (e) {
+    handleMouseUp(e);
+  });
+  $("#memecanvas").mouseout(function (e) {
+    handleMouseOut(e);
+  });
+  $("#download").click(function() {
+    downloadImage();
+  });
+  $("#image_meme").change(function() {
+    imageLoader(this);
+  });
+  $("button").click(function() {
+    ctx.fillStyle = $(this).data('colour');
+    draw(true, false);
+  });
 </script>

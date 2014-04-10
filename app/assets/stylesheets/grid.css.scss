@@ -1,0 +1,28 @@
+:before, :after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.row:before, .row:after, .container:before, .container:after {
+  content: " ";
+  display: table;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.row:after, .container:after {
+  clear: both;
+}
+
+@media (min-width: 992px) {
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-6 {
+    float: left;
+  }
+}
