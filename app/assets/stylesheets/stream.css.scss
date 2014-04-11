@@ -1,0 +1,51 @@
+#stream {
+  .meme {
+    float    : left;
+    position : relative;
+    width    : 25%;
+    padding-bottom : 20%;
+
+    .meme-inner {
+      position: absolute;
+      left: 0;
+      right: 10px;
+      top: 0;
+      bottom: 10px;
+      overflow: hidden;
+
+      img {
+        width : 100%;
+      }
+    }
+
+  }
+
+  @media only screen and (max-width : 480px) {
+     /* Smartphone view: 1 tile */
+    .meme {
+      width: 100%;
+      padding-bottom: 74.7%;
+    }
+  }
+  @media only screen and (max-width : 650px) and (min-width : 481px) {
+    /* Tablet view: 2 tiles */
+    .meme {
+      width: 50%;
+      padding-bottom: 37.5%;
+    }
+  }
+  @media only screen and (max-width : 1050px) and (min-width : 651px) {
+    /* Small desktop / ipad view: 3 tiles */
+    .meme {
+      width: 33.3%;
+      padding-bottom: 25.2%;
+    }
+  }
+  @media only screen and (max-width : 1290px) and (min-width : 1051px) {
+    /* Medium desktop: 4 tiles */
+    .meme {
+      width: 25%;
+      padding-bottom: 19%;
+    }
+  }
+}

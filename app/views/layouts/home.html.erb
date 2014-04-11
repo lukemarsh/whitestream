@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Whitestream</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="home">
+  <div id="wrapper">
+    <header>
+      <%= link_to root_url do %>
+        <%= image_tag "logo.gif" %>
+        <h1>White Stream</h1>
+        <p>a deeper meme-ing</p>
+      <% end %>
+    </header>
+    <nav>
+      <ul>
+        <li>
+          <%= link_to "Stream", root_url %>
+        </li>
+      </ul>
+    </nav>
+    <div id="wrapper-inner">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>

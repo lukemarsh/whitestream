@@ -34,6 +34,8 @@ end
 
 gem 'carrierwave'
 gem 'jquery-turbolinks'
+gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'bootsy'
 
 group :development, :test do
   gem 'pry'

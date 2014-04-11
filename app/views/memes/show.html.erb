@@ -5,5 +5,7 @@
   <%= image_tag @meme.image %>
 </p>
 
+<%= raw(@meme.article) %>
+
 <%= link_to 'Edit', edit_meme_path(@meme) %> |
 <%= link_to 'Back', memes_path %>

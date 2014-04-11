@@ -1,3 +1,11 @@
+#memecanvas {
+  border:1px dashed black;
+}
+
 #memecanvas:hover {
   cursor: move;
+}
+
+.mfnotransform {
+  display : none;
 }

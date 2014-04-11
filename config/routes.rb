@@ -1,7 +1,11 @@
 Whitestream::Application.routes.draw do
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   resources :memes
+  resources :home
 
   post ':controller(/:action(/:id(.:format)))'
+
+  root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

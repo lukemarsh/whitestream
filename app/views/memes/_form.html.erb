@@ -1,22 +1,36 @@
 <div class="row">
   <div class="col-md-6">
-    <canvas id="memecanvas" width="450" height="300">
+    <canvas id="memecanvas" width="479" height="356">
       Sorry, canvas not supported
     </canvas>
-    <img src='/assets/1148990_10151516396361277_1514704461_n.jpg' style='display:none' class='mfnotransform' id='default-image' crossorigin="anonymous" />
+    <% if @meme.image.length > 0 %>
+      <%= image_tag @meme.image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+    <% else %>
+      <img src="/assets/1148990_10151516396361277_1514704461_n.jpg" id="default-image" class="mfnotransform" crossorigin="anonymous">
+    <% end %>
   </div>
   <div class="col-md-6">
     <%= file_field(:image, :meme) %>
-    <input type='text' value='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
+    Scale&nbsp;<input id='scale' type='range' min='0.05' max='4' value='1' step='0.01' style="width:40%"/>
+    <div class="row">
+      <div class="col-md-7">
+        <input type='text' value='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
+      </div>
+      <button data-colour="#000000" class="black">BLACK</button>
+      <button data-colour="#FFFFFF" class="default white">WHITE</button>
+    </div>
     <input type='text' value='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
-    <input type="submit" id="download" />
-    <h3>Text colour</h3>
     <button data-colour="#000000" class="black">BLACK</button>
     <button data-colour="#FFFFFF" class="default white">WHITE</button>
+    <input type="submit" id="download" />
     <h3>Tags</h3>
-    <input type="checkbox" value="NEWS">
+    <%= label_tag :tag do %>
+      sdfsdfsdf
+      <%= check_box_tag :tag %>
+    <% end %>
   </div>
 </div>
+<%= bootsy_area "", :article %>
 <script>
   var canvas = document.getElementById("memecanvas");
   var ctx = canvas.getContext("2d");
@@ -31,12 +45,8 @@
   var pi2 = Math.PI * 2;
   var resizerRadius = 8;
   var rr = resizerRadius * resizerRadius;
-  var draggingResizer = {
-      x: 0,
-      y: 0
-  };
-  var imageX = 50;
-  var imageY = 50;
+  var imageX = 0;
+  var imageY = 0;
   var imageWidth, imageHeight, imageRight, imageBottom;
   var draggingImage = false;
   var startX;
@@ -53,7 +63,7 @@
 
     ctx.textAlign = 'center';
     ctx.lineWidth  = 4;
-    ctx.font = '20pt futura';
+    ctx.font = '32pt MyriadPro-BoldCond';
     ctx.strokeStyle = 'transparent';
     ctx.fillStyle = defaultColour;
 
@@ -75,54 +85,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.drawImage(img, 0, 0, img.width, img.height, imageX, imageY, imageWidth, imageHeight);
-
-    if (withAnchors) {
-      drawDragAnchor(imageX, imageY);
-      drawDragAnchor(imageRight, imageY);
-      drawDragAnchor(imageRight, imageBottom);
-      drawDragAnchor(imageX, imageBottom);
-    }
-
     createText();
-  }
-
-  function drawDragAnchor(x, y) {
-    ctx.beginPath();
-    ctx.arc(x, y, resizerRadius, 0, pi2, false);
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  function anchorHitTest(x, y) {
-
-    var dx, dy;
-
-    // top-left
-    dx = x - imageX;
-    dy = y - imageY;
-    if (dx * dx + dy * dy <= rr) {
-        return (0);
-    }
-    // top-right
-    dx = x - imageRight;
-    dy = y - imageY;
-    if (dx * dx + dy * dy <= rr) {
-        return (1);
-    }
-    // bottom-right
-    dx = x - imageRight;
-    dy = y - imageBottom;
-    if (dx * dx + dy * dy <= rr) {
-        return (2);
-    }
-    // bottom-left
-    dx = x - imageX;
-    dy = y - imageBottom;
-    if (dx * dx + dy * dy <= rr) {
-        return (3);
-    }
-    return (-1);
-
   }
 
 
@@ -131,68 +94,24 @@
   }
 
   function handleMouseDown(e) {
-    startX = parseInt(e.clientX - offsetX);
-    startY = parseInt(e.clientY - offsetY);
-    draggingResizer = anchorHitTest(startX, startY);
-    draggingImage = draggingResizer < 0 && hitImage(startX, startY);
-}
+      startX = parseInt(e.clientX - offsetX);
+      startY = parseInt(e.clientY - offsetY);
+      draggingImage = hitImage(startX, startY);
+      imageWidth = img.width;
+  }
 
-function handleMouseUp(e) {
-    draggingResizer = -1;
-    draggingImage = false;
-    draw(true, false);
-}
+  function handleMouseUp(e) {
+      draggingImage = false;
+      draw(true, false);
+  }
 
-function handleMouseOut(e) {
-    handleMouseUp(e);
-}
+  function handleMouseOut(e) {
+      handleMouseUp(e);
+  }
 
-function handleMouseMove(e) {
+  function handleMouseMove(e) {
 
-    if (draggingResizer > -1) {
-
-        mouseX = parseInt(e.clientX - offsetX);
-        mouseY = parseInt(e.clientY - offsetY);
-
-        // resize the image
-        switch (draggingResizer) {
-            case 0:
-                //top-left
-                imageX = mouseX;
-                imageWidth = imageRight - mouseX;
-                imageY = mouseY;
-                imageHeight = imageBottom - mouseY;
-                break;
-            case 1:
-                //top-right
-                imageY = mouseY;
-                imageWidth = mouseX - imageX;
-                imageHeight = imageBottom - mouseY;
-                break;
-            case 2:
-                //bottom-right
-                imageWidth = mouseX - imageX;
-                imageHeight = mouseY - imageY;
-                break;
-            case 3:
-                //bottom-left
-                imageX = mouseX;
-                imageWidth = imageRight - mouseX;
-                imageHeight = mouseY - imageY;
-                break;
-        }
-
-        if(imageWidth<25){imageWidth=25;}
-        if(imageHeight<25){imageHeight=25;}
-
-        // set the image right and bottom
-        imageRight = imageX + imageWidth;
-        imageBottom = imageY + imageHeight;
-
-        // redraw the image with resizing anchors
-        draw(true, true);
-
-    } else if (draggingImage) {
+    if (draggingImage) {
 
         imageClick = false;
 
@@ -239,6 +158,9 @@ function handleMouseMove(e) {
 
     ctx.translate(canvas.width/2, canvas.height/2);
 
+    var val = document.getElementById('scale').value;
+    ctx.scale(val, val);
+
     ctx.translate(-canvas.width/2, -canvas.height/2);
 
     ctx.drawImage(img, imageX, imageY);
@@ -277,6 +199,7 @@ function handleMouseMove(e) {
         img = new Image();
         img.onload = function(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+          document.getElementById('scale').value = 1;
           imageWidth = img.width;
           imageHeight = img.height;
           imageRight = imageX + imageWidth;
@@ -292,9 +215,10 @@ function handleMouseMove(e) {
   function downloadImage() {
     var data = canvas.toDataURL("image/png;base64;");
     var file = dataURLtoBlob(data);
+    var article = $("#_article").val();
     var fd = new FormData();
     fd.append("image", file);
-    fd.append("article", "test");
+    fd.append("article", article);
 
     request = $.ajax({
       url: '/memes',
@@ -328,6 +252,9 @@ function handleMouseMove(e) {
   });
   $("#image_meme").change(function() {
     imageLoader(this);
+  });
+  $("#scale").change(function() {
+    doTransform();
   });
   $("button").click(function() {
     ctx.fillStyle = $(this).data('colour');

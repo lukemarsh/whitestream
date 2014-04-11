@@ -19,6 +19,7 @@ class MemesController < ApplicationController
 
   # GET /memes/1/edit
   def edit
+    @meme = Meme.find(params[:id])
   end
 
   # POST /memes
@@ -28,7 +29,7 @@ class MemesController < ApplicationController
       params[:image].original_filename << '.png'
     end
 
-    @meme = Meme.create!(image: params[:image])
+    @meme = Meme.create!(image: params[:image], article: params[:article])
 
     respond_to do |format|
       if @meme.save

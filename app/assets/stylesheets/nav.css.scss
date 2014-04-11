@@ -1,0 +1,26 @@
+nav {
+  background     : #000;
+  text-align     : center;
+  text-transform : uppercase;
+  color          : #fff;
+  font-family    : 'MyriadPro-Bold';
+  font-size      : 12px;
+  padding        : 9px 0 6px 0;
+  margin         : 0 0 20px 0;
+
+  ul {
+    list-style : none;
+    margin     : 0;
+    padding    : 0;
+
+    a {
+      color : #fff;
+    }
+
+    a:hover {
+      text-decoration : none;
+    }
+
+  }
+
+}
