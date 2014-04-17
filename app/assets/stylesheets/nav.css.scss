@@ -5,13 +5,13 @@ nav {
   color          : #fff;
   font-family    : 'MyriadPro-Bold';
   font-size      : 12px;
-  padding        : 9px 0 6px 0;
   margin         : 0 0 20px 0;
+  position       : relative;
 
   ul {
     list-style : none;
     margin     : 0;
-    padding    : 0;
+    padding        : 9px 0 6px 0;
 
     a {
       color : #fff;
@@ -21,6 +21,20 @@ nav {
       text-decoration : none;
     }
 
+  }
+
+  @media only screen and (max-width : 481px) {
+    ul:first-child {
+      border-bottom : 1px solid #fff;
+    }
+  }
+
+  @media only screen and (min-width : 481px) {
+    .right-menu {
+      position : absolute;
+      right    : 9px;
+      top      : 0;
+    }
   }
 
 }

@@ -29,7 +29,7 @@ class MemesController < ApplicationController
       params[:image].original_filename << '.png'
     end
 
-    @meme = Meme.create!(image: params[:image], article: params[:article])
+    @meme = Meme.create!(image: params[:image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
 
     respond_to do |format|
       if @meme.save

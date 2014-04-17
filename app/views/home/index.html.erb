@@ -1,9 +1,9 @@
 <div id="stream">
-  <% @memes.each do |meme| %>
-    <%= link_to meme, :class => "meme" do %>
-      <div class="meme-inner">
-        <%= image_tag meme.image %>
-      </div>
-    <% end %>
-  <% end %>
+  <h1>Featured</h1>
+  <div id="my-posts">
+    <%= render @memes %>
+  </div>
+  <div id="infinite-scrolling">
+    <%= will_paginate @memes %>
+  </div>
 </div>

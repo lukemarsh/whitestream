@@ -10,28 +10,65 @@
     <% end %>
   </div>
   <div class="col-md-6">
-    <%= file_field(:image, :meme) %>
-    Scale&nbsp;<input id='scale' type='range' min='0.05' max='4' value='1' step='0.01' style="width:40%"/>
-    <div class="row">
-      <div class="col-md-7">
-        <input type='text' value='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
-      </div>
-      <button data-colour="#000000" class="black">BLACK</button>
-      <button data-colour="#FFFFFF" class="default white">WHITE</button>
+    <div class="form-group">
+      <span class="btn btn-default btn-file">
+        <span class="glyphicon glyphicon-upload"></span>
+        Upload image <%= file_field(:image, :meme) %>
+      </span>
     </div>
-    <input type='text' value='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' />
-    <button data-colour="#000000" class="black">BLACK</button>
-    <button data-colour="#FFFFFF" class="default white">WHITE</button>
-    <input type="submit" id="download" />
-    <h3>Tags</h3>
-    <%= label_tag :tag do %>
-      sdfsdfsdf
-      <%= check_box_tag :tag %>
-    <% end %>
+    <div class="form-group">
+      Scale&nbsp;<input id='scale' type='range' min='0.05' max='4' value='1' step='0.01' style="width:40%"/>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-8">
+        <input type='text' value='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" />
+      </div>
+      <div class="col-md-4">
+        <div class="btn-group">
+          <button data-colour="#000000" data-target="top" class="black btn btn-default">BLACK</button>
+        </div>
+        <div class="btn-group">
+          <button data-colour="#FFFFFF" data-target="top" class="default btn white btn-default">WHITE</button>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-8">
+        <input type='text' value='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" />
+      </div>
+      <div class="col-md-4">
+        <div class="btn-group">
+          <button data-colour="#000000" data-target="bottom" class="black btn btn-default">BLACK</button>
+        </div>
+        <div class="btn-group">
+          <button data-colour="#FFFFFF" data-target="bottom" class="default btn white btn-default">WHITE</button>
+        </div>
+      </div>
+    </div>
+    <h4>Tags</h4>
+    <div class="form-group">
+      <%= hidden_field_tag "meme[category_ids][]", nil %>
+      <% Category.all.each do |category| %>
+        <div class="btn-group" data-toggle="buttons">
+          <%= label_tag dom_id(category), :class => "btn btn-default" do %>
+            <span class="glyphicon glyphicon-tag"></span> <%= category.name %>
+            <%= check_box_tag "meme[category_ids][]", category.id, @meme.category_ids.include?(category.id), id: dom_id(category) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <input type="submit" id="download" class="btn btn-primary" />
+    </div>
   </div>
 </div>
 <%= bootsy_area "", :article %>
 <script>
+
+  $('input[type="checkbox"]:checked').each(function(){
+      $(this).parents('label').toggleClass('active');
+  });
+
   var canvas = document.getElementById("memecanvas");
   var ctx = canvas.getContext("2d");
 
@@ -62,7 +99,6 @@
     imageBottom = imageY + imageHeight;
 
     ctx.textAlign = 'center';
-    ctx.lineWidth  = 4;
     ctx.font = '32pt MyriadPro-BoldCond';
     ctx.strokeStyle = 'transparent';
     ctx.fillStyle = defaultColour;
@@ -216,9 +252,23 @@
     var data = canvas.toDataURL("image/png;base64;");
     var file = dataURLtoBlob(data);
     var article = $("#_article").val();
+    var topLine = $("#topLine").val().toUpperCase();
+    var bottomLine = $("#bottomLine").val().toUpperCase();
+    var categories = $("input[type='checkbox']:checked");
+    var arr = [];
+
+    categories.each(function(){
+      arr.push($(this).val());
+    });
+
+    var categoryIdsArray = arr;
+
     var fd = new FormData();
     fd.append("image", file);
+    fd.append("top_line", topLine);
+    fd.append("bottom_line", bottomLine);
     fd.append("article", article);
+    fd.append("category_ids", categoryIdsArray);
 
     request = $.ajax({
       url: '/memes',
