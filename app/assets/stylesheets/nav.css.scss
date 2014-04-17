@@ -21,6 +21,10 @@ nav {
       text-decoration : none;
     }
 
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
   }
 
   @media only screen and (max-width : 481px) {
