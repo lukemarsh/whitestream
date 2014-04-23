@@ -20,6 +20,11 @@
         <li class="dropdown"><%= link_to "Stream", root_url %>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><%= link_to 'FEATURED', {controller: 'home', action: 'index', :tag => 'featured'} %></li>
+            <li><%= link_to 'NEWS', {controller: 'home', action: 'index', :tag => 'News'} %></li>
+            <li><%= link_to 'SHOWBIZ', {controller: 'home', action: 'index', :tag => 'Showbiz'} %></li>
+            <li><%= link_to 'FASHION', {controller: 'home', action: 'index', :tag => 'Fashion'} %></li>
+            <li><%= link_to 'MUSIC', {controller: 'home', action: 'index', :tag => 'Music'} %></li>
+            <li><%= link_to 'IDEAS', {controller: 'home', action: 'index', :tag => 'Ideas'} %></li>
           </ul>
         </li>
       </ul>
