@@ -28,6 +28,7 @@
       <canvas id="memecanvas" width="479" height="356">
         Sorry, canvas not supported
       </canvas>
+      <canvas id="raw_image" width="479" height="356"></canvas>
       <% if @meme.raw_image %>
         <%= image_tag @meme.raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
       <% else %>
@@ -114,16 +115,19 @@
       canvasWidth = Math.min(479, deviceWidth-20);
       canvasHeight = Math.min(356, deviceWidth-20);
       canvas = document.getElementById('memecanvas');
+      raw_image = document.getElementById('raw_image');
 
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
       ctx = canvas.getContext("2d");
+      raw_ctx = raw_image.getContext("2d");
 
       x = canvas.width/2 - img.width/2;
       y = canvas.height/2 - img.height/2;
 
       ctx.drawImage(img, x, y);
+      raw_ctx.drawImage(img, x, y);
 
       ctx.textAlign = 'center';
       ctx.font = '32pt MyriadPro-BoldCond';
@@ -138,11 +142,13 @@
         reader.onload = function(event){
           img.onload = function() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            raw_ctx.clearRect(0, 0, canvas.width, canvas.height);
             document.getElementById('scale').value = 1;
             x = canvas.width/2 - img.width/2;
             y = canvas.height/2 - img.height/2;
 
             ctx.drawImage(img, x, y);
+            raw_ctx.drawImage(img, x, y);
             doTransform();
           }
           img.src = reader.result;
@@ -153,7 +159,9 @@
       var download = document.getElementById('download');
       download.addEventListener('click', function(e) {
         var data = canvas.toDataURL("image/png;base64;");
+        var raw_data = raw_image.toDataURL("image/png;base64;");
         var file = dataURLtoBlob(data);
+        var raw_file = dataURLtoBlob(raw_data);
         if ($("#image_meme")[0].files[0]) {
           var raw_image = $("#image_meme")[0].files[0];
         } else {
@@ -176,7 +184,7 @@
         fd.append("top_line", topLine);
         fd.append("bottom_line", bottomLine);
         fd.append("article", article);
-        fd.append("raw_image", raw_image);
+        fd.append("raw_image", raw_data);
         fd.append("copied_image", copied_image);
         fd.append("category_ids", categoryIdsArray);
 
@@ -227,18 +235,25 @@
 
     function doTransform() {
       ctx.save();
+      raw_ctx.save();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      raw_ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       ctx.translate(canvas.width/2, canvas.height/2);
+      raw_ctx.translate(canvas.width/2, canvas.height/2);
 
       var val = document.getElementById('scale').value;
       ctx.scale(val, val);
+      raw_ctx.scale(val, val);
 
       ctx.translate(-canvas.width/2, -canvas.height/2);
+      raw_ctx.translate(-canvas.width/2, -canvas.height/2);
 
       ctx.drawImage(img, x, y);
+      raw_ctx.drawImage(img, x, y);
 
       ctx.restore();
+      raw_ctx.restore();
 
       createText();
     }
