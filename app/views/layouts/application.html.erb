@@ -5,8 +5,27 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 </head>
-<body>
+<% if current_admin %>
+  <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
+<% end %>
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+  <li>
+    <%= link_to('Edit registration', edit_user_registration_path) %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+  <li>
+    <%= link_to('Register', new_user_registration_path)  %>
+  </li>
+<% end %>
+<body<%= " id=#{@body_id}" if @body_id %>>
   <div id="wrapper">
     <header>
       <%= link_to root_url do %>
@@ -17,9 +36,7 @@
     </header>
     <nav>
       <ul>
-        <li>
-          <%= link_to "Stream", root_url %>
-        </li>
+        <li><%= link_to "Stream", root_url %></li>
       </ul>
       <ul class="right-menu">
         <li><%= link_to "Contribute", new_meme_url %></li>

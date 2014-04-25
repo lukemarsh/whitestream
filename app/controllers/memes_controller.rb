@@ -1,25 +1,44 @@
 class MemesController < ApplicationController
   before_action :set_meme, only: [:show, :edit, :update, :destroy]
+  impressionist :actions=>[:show]
 
   # GET /memes
   # GET /memes.json
   def index
-    @memes = Meme.all
+    @body_id = "home"
+    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 12).order('created_at DESC')
+    @featured = Meme.where("featured = ?", true).where("published = ?", true).paginate(page: params[:page], per_page: 15).order('created_at DESC')
+    category = params[:tag]
+    popular = params[:popular]
+    if popular
+      @memes = Meme.where("featured != ?", true).plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 12)
+    end
+    if category
+      @memes = Meme.joins(:categories).where("name like ?", category).where("published = ?", true).paginate(page: params[:page], per_page: 15).order('created_at DESC')
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /memes/1
   # GET /memes/1.json
   def show
+    impressionist(@meme)
   end
 
   # GET /memes/new
   def new
     @meme = Meme.new
+    @raw_image = params[:raw_image]
+    @top_line = params[:top_line]
+    @bottom_line = params[:bottom_line]
   end
 
   # GET /memes/1/edit
   def edit
-    @meme = Meme.find(params[:id])
+    #@meme = Meme.find(params[:id])
   end
 
   # POST /memes
@@ -29,7 +48,7 @@ class MemesController < ApplicationController
       params[:image].original_filename << '.png'
     end
 
-    @meme = Meme.create!(image: params[:image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
+    @meme = Meme.create!(image: params[:image], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
 
     respond_to do |format|
       if @meme.save
@@ -66,6 +85,22 @@ class MemesController < ApplicationController
     end
   end
 
+  def vote_for_meme
+    @meme = Meme.find(params[:meme_id])
+    current_user.vote_for(@meme)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def vote_against_meme
+    @meme = Meme.find(params[:meme_id])
+    current_user.unvote_for(@meme)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_meme
@@ -74,6 +109,6 @@ class MemesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meme_params
-      params.require(:meme).permit(:image)
+      params.require(:meme).permit(:featured, :published) if params[:meme]
     end
 end

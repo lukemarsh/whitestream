@@ -35,6 +35,11 @@ gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'bootsy'
 gem 'will_paginate', '~> 3.0.5'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
+gem 'devise'
+gem 'thumbs_up'
+gem "social-buttons", '~> 0.3'
+gem 'best_in_place', github: 'bernat/best_in_place'
+gem 'impressionist'
 
 
 group :development, :test do

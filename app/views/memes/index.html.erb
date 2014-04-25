@@ -1,9 +1,12 @@
 <div id="stream">
-  <% @memes.each do |meme| %>
-    <%= link_to meme, :class => "meme" do %>
-      <div class="meme-inner">
-        <%= image_tag meme.image %>
-      </div>
-    <% end %>
-  <% end %>
+  <h1>Featured</h1>
+  <div style="display:inline-block;width:100%;">
+    <%= render partial: 'memes', locals: {memes: @featured} %>
+  </div>
+  <hr>
+  <h1><%= link_to 'NEWS', {controller: 'memes', action: 'index', :tag => 'News'} %> / <%= link_to 'SHOWBIZ', {controller: 'memes', action: 'index', :tag => 'Showbiz'} %> / <%= link_to 'FASHION', {controller: 'memes', action: 'index', :tag => 'Fashion'} %> / <%= link_to 'MUSIC', {controller: 'memes', action: 'index', :tag => 'Music'} %> / <%= link_to 'IDEAS', {controller: 'memes', action: 'index', :tag => 'Ideas'} %> / <%= link_to 'POPULAR', {controller: 'memes', action: 'index', :popular => true} %> / <%= link_to 'ALL', root_url %></h1>
+  <div style="display:inline-block;width:100%;">
+    <%= render partial: 'memes', locals: {memes: @memes} %>
+    <%= will_paginate(@memes) %>
+  </div>
 </div>

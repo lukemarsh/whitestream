@@ -1,0 +1,21 @@
+<% memes.each do |meme| %>
+  <div class="meme">
+    <div class="meme-inner">
+      <div class="overlay"></div>
+      <%= image_tag meme.image %>
+      <ul class="menu">
+        <li><%= link_to 'READ', meme %></li>
+        <li><%= link_to 'REMIX', new_meme_url(:raw_image => meme.raw_image) %></li>
+      </ul>
+    </div>
+    <span class="user">lukeamarsh</span>
+    <span class="actions">
+      <span class="like" id="meme_<%= meme.id %>">
+        <%= render partial: 'like', locals: {meme: meme} %>
+      </span>
+      <span class="views">
+        <span class="glyphicon glyphicon-eye-open"></span> <%= meme.impressionist_count %>
+      </span>
+    </span>
+  </div>
+<% end %>

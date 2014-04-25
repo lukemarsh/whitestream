@@ -1,313 +1,279 @@
-<div class="row">
-  <div class="col-md-6">
-    <canvas id="memecanvas" width="479" height="356">
-      Sorry, canvas not supported
-    </canvas>
-    <% if @meme.image.length > 0 %>
-      <%= image_tag @meme.image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
-    <% else %>
-      <img src="/assets/1148990_10151516396361277_1514704461_n.jpg" id="default-image" class="mfnotransform" crossorigin="anonymous">
-    <% end %>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <span class="btn btn-default btn-file">
-        <span class="glyphicon glyphicon-upload"></span>
-        Upload image <%= file_field(:image, :meme) %>
-      </span>
+<% if current_admin %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= image_tag @meme.image %>
     </div>
-    <div class="form-group">
-      Scale&nbsp;<input id='scale' type='range' min='0.05' max='4' value='1' step='0.01' style="width:40%"/>
-    </div>
-    <div class="row form-group">
-      <div class="col-md-8">
-        <input type='text' value='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" />
-      </div>
-      <div class="col-md-4">
-        <div class="btn-group">
-          <button data-colour="#000000" data-target="top" class="black btn btn-default">BLACK</button>
-        </div>
-        <div class="btn-group">
-          <button data-colour="#FFFFFF" data-target="top" class="default btn white btn-default">WHITE</button>
-        </div>
-      </div>
-    </div>
-    <div class="row form-group">
-      <div class="col-md-8">
-        <input type='text' value='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" />
-      </div>
-      <div class="col-md-4">
-        <div class="btn-group">
-          <button data-colour="#000000" data-target="bottom" class="black btn btn-default">BLACK</button>
-        </div>
-        <div class="btn-group">
-          <button data-colour="#FFFFFF" data-target="bottom" class="default btn white btn-default">WHITE</button>
-        </div>
-      </div>
-    </div>
-    <h4>Tags</h4>
-    <div class="form-group">
-      <%= hidden_field_tag "meme[category_ids][]", nil %>
-      <% Category.all.each do |category| %>
+    <div class="col-md-6">
+      <%= form_for(@meme, :multipart => true) do |f| %>
         <div class="btn-group" data-toggle="buttons">
-          <%= label_tag dom_id(category), :class => "btn btn-default" do %>
-            <span class="glyphicon glyphicon-tag"></span> <%= category.name %>
-            <%= check_box_tag "meme[category_ids][]", category.id, @meme.category_ids.include?(category.id), id: dom_id(category) %>
+          <%= label_tag @meme.featured, :class => "btn btn-default" do %>
+            <span class="glyphicon glyphicon-tag"></span> Feature
+            <%= f.check_box :featured %>
           <% end %>
         </div>
+        <div class="btn-group" data-toggle="buttons">
+          <%= label_tag @meme.published, :class => "btn btn-default" do %>
+            <span class="glyphicon glyphicon-tag"></span> Publish
+            <%= f.check_box :published %>
+          <% end %>
+        </div>
+        <%= f.submit "Submit", :id => "download" %>
       <% end %>
     </div>
-    <div class="form-group">
-      <input type="submit" id="download" class="btn btn-primary" />
+  </div>
+<% else %>
+  <%= text_field_tag 'headline', @headline, :class => 'best_in_place' %>
+  <div class="row" id="new_meme">
+    <div class="col-md-6">
+      <canvas id="memecanvas" width="479" height="356">
+        Sorry, canvas not supported
+      </canvas>
+      <% if @raw_image %>
+        <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+      <% else %>
+        <img src="/assets/1148990_10151516396361277_1514704461_n.jpg" id="default-image" class="mfnotransform" crossorigin="anonymous">
+      <% end %>
+    </div>
+    <div class="col-md-6" id="controls">
+      <div class="form-group">
+        <span class="btn btn-default btn-file">
+          <span class="glyphicon glyphicon-upload"></span>
+          Upload image <%= file_field(:image, :meme) %>
+        </span>
+      </div>
+      <div class="form-group">
+        Scale&nbsp;<input id='scale' type='range' min='0.05' max='4' value='1' step='0.01' style="width:40%"/>
+      </div>
+      <div class="form-group">
+        <% if @top_line %>
+          <%= text_field_tag 'topLine', @top_line, :onkeyup => 'doTransform()', :maxlength => '24', :class => 'form-control' %>
+        <% else %>
+          <input type='text' placeholder='TOP LINE' id='topLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" maxlength="24" />
+        <% end %>
+      </div>
+      <div class="form-group">
+        <% if @bottom_line %>
+          <%= text_field_tag 'bottomLine', @bottom_line, :onkeyup => 'doTransform()', :maxlength => '24', :class => 'form-control' %>
+        <% else %>
+          <input type='text' placeholder='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" maxlength="24" />
+        <% end %>
+      </div>
+      <h4>Text colour</h4>
+      <div class="btn-group" data-toggle="buttons">
+        <label for="black" class="btn btn-default colour" data-colour="#000000">
+          BLACK
+          <input type="radio" id="black" name="colour" value="black">
+        </label>
+      </div>
+      <div class="btn-group" data-toggle="buttons">
+        <label for="black" class="btn btn-default colour" data-colour="#ffffff">
+          WHITE
+          <input type="radio" id="black" name="colour" value="white">
+        </label>
+      </div>
+      <h4>Tags</h4>
+      <div class="form-group">
+        <%= hidden_field_tag "meme[category_ids][]", nil %>
+        <% Category.all.each do |category| %>
+          <div class="btn-group" data-toggle="buttons">
+            <%= label_tag dom_id(category), :class => "btn btn-default" do %>
+              <span class="glyphicon glyphicon-tag"></span> <%= category.name %>
+              <%= check_box_tag "meme[category_ids][]", category.id, @meme.category_ids.include?(category.id), id: dom_id(category) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <input type="submit" id="download" class="btn btn-primary" />
+      </div>
     </div>
   </div>
-</div>
-<%= bootsy_area "", :article %>
-<script>
+  <%= bootsy_area "", :article %>
+  <script>
 
-  $('input[type="checkbox"]:checked').each(function(){
-      $(this).parents('label').toggleClass('active');
-  });
+    $('input[type="checkbox"]:checked').each(function(){
+        $(this).parents('label').toggleClass('active');
+    });
 
-  var canvas = document.getElementById("memecanvas");
-  var ctx = canvas.getContext("2d");
+    var canvas;
+    var canvasWidth;
+    var ctx;
+    var x;
+    var y;
+    var fileInput;
+    var img;
 
-  var canvasOffset = $("#memecanvas").offset();
-  var offsetX = canvasOffset.left;
-  var offsetY = canvasOffset.top;
-
-  var startX;
-  var startY;
-
-  var pi2 = Math.PI * 2;
-  var resizerRadius = 8;
-  var rr = resizerRadius * resizerRadius;
-  var imageX = 0;
-  var imageY = 0;
-  var imageWidth, imageHeight, imageRight, imageBottom;
-  var draggingImage = false;
-  var startX;
-  var startY;
-
-  var defaultColour = $("button.default").data('colour');
-
-  var img = document.getElementById('default-image');
-  img.onload = function() {
-    imageWidth = img.width;
-    imageHeight = img.height;
-    imageRight = imageX + imageWidth;
-    imageBottom = imageY + imageHeight;
-
-    ctx.textAlign = 'center';
-    ctx.font = '32pt MyriadPro-BoldCond';
-    ctx.strokeStyle = 'transparent';
-    ctx.fillStyle = defaultColour;
-
-    draw(true, false);
-  }
-
-  function createText() {
-    topLine = document.getElementById('topLine').value;
-    bottomLine = document.getElementById('bottomLine').value;
-    topLine = topLine.toUpperCase();
-    bottomLine = bottomLine.toUpperCase();
-
-    wrapText(ctx, topLine, canvas.width/2, canvas.height - canvas.height/1.2, imageWidth-imageWidth/3, 30);
-
-    wrapText(ctx, bottomLine, canvas.width/2, canvas.height - canvas.height/8, imageWidth-imageWidth/3, 30);
-  }
-
-  function draw(withAnchors, withBorders) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    ctx.drawImage(img, 0, 0, img.width, img.height, imageX, imageY, imageWidth, imageHeight);
-    createText();
-  }
-
-
-  function hitImage(x, y) {
-    return (x > imageX && x < imageX + imageWidth && y > imageY && y < imageY + imageHeight);
-  }
-
-  function handleMouseDown(e) {
-      startX = parseInt(e.clientX - offsetX);
-      startY = parseInt(e.clientY - offsetY);
-      draggingImage = hitImage(startX, startY);
-      imageWidth = img.width;
-  }
-
-  function handleMouseUp(e) {
-      draggingImage = false;
-      draw(true, false);
-  }
-
-  function handleMouseOut(e) {
-      handleMouseUp(e);
-  }
-
-  function handleMouseMove(e) {
-
-    if (draggingImage) {
-
-        imageClick = false;
-
-        mouseX = parseInt(e.clientX - offsetX);
-        mouseY = parseInt(e.clientY - offsetY);
-
-        // move the image by the amount of the latest drag
-        var dx = mouseX - startX;
-        var dy = mouseY - startY;
-        imageX += dx;
-        imageY += dy;
-        imageRight += dx;
-        imageBottom += dy;
-        // reset the startXY for next time
-        startX = mouseX;
-        startY = mouseY;
-
-        // redraw the image with border
-        draw(false, true);
-
+    window.onload = function() {
+      prepareExample();
     }
 
+    function prepareExample() {
+      img = document.getElementById('default-image');
 
-  }
+      var deviceWidth = window.innerWidth;
+      canvasWidth = Math.min(479, deviceWidth-20);
+      canvasHeight = Math.min(356, deviceWidth-20);
+      canvas = document.getElementById('memecanvas');
 
-  function dataURLtoBlob(dataURL) {
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
 
-    // Decode the dataURL
-    var binary = atob(dataURL.split(',')[1]);
+      ctx = canvas.getContext("2d");
 
-    // Create 8-bit unsigned array
-    var array = [];
-    for(var i = 0; i < binary.length; i++) {
-      array.push(binary.charCodeAt(i));
-    }
+      x = canvas.width/2 - img.width/2;
+      y = canvas.height/2 - img.height/2;
 
-    // Return our Blob object
-    return new Blob([new Uint8Array(array)], {type: 'image/png'});
-  }
+      ctx.drawImage(img, x, y);
 
-  function doTransform() {
-    ctx.save();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.textAlign = 'center';
+      ctx.font = '32pt MyriadPro-BoldCond';
+      ctx.strokeStyle = 'transparent';
+      ctx.fillStyle = '#fff';
 
-    ctx.translate(canvas.width/2, canvas.height/2);
+      doTransform();
 
-    var val = document.getElementById('scale').value;
-    ctx.scale(val, val);
+      fileInput = document.getElementById("image_meme");
+      fileInput.addEventListener('change', function(e) {
+        var reader = new FileReader();
+        reader.onload = function(event){
+          img.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('scale').value = 1;
+            x = canvas.width/2 - img.width/2;
+            y = canvas.height/2 - img.height/2;
 
-    ctx.translate(-canvas.width/2, -canvas.height/2);
-
-    ctx.drawImage(img, imageX, imageY);
-
-    ctx.restore();
-
-    createText();
-  }
-
-  function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-    var words = text.split(' ');
-    var line = '';
-
-    for(var n = 0; n < words.length; n++) {
-      var testLine = line + words[n] + ' ';
-      var metrics = ctx.measureText(testLine);
-      var testWidth = metrics.width;
-      if (testWidth > maxWidth && n > 0) {
-        ctx.strokeText(line, x, y);
-        ctx.fillText(line, x, y);
-        line = words[n] + ' ';
-        y += lineHeight;
-      }
-      else {
-        line = testLine;
-      }
-    }
-    ctx.strokeText(line, x, y);
-    ctx.fillText(line, x, y);
-  }
-
-  function imageLoader(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        img = new Image();
-        img.onload = function(){
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          document.getElementById('scale').value = 1;
-          imageWidth = img.width;
-          imageHeight = img.height;
-          imageRight = imageX + imageWidth;
-          imageBottom = imageY + imageHeight;
-          draw(true, true);
+            ctx.drawImage(img, x, y);
+            doTransform();
+          }
+          img.src = reader.result;
         }
-        img.src = reader.result;
-      }
-      reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(fileInput.files[0]);
+      }, false);
+
+      var download = document.getElementById('download');
+      download.addEventListener('click', function(e) {
+        var data = canvas.toDataURL("image/png;base64;");
+        var file = dataURLtoBlob(data);
+        if ($("#image_meme")[0].files[0]) {
+          var raw_image = $("#image_meme")[0].files[0];
+        } else {
+          var copied_image = $("#default-image").attr('src');
+        }
+        var article = $("#_article").val();
+        var topLine = $("#topLine").val().toUpperCase();
+        var bottomLine = $("#bottomLine").val().toUpperCase();
+        var categories = $("input[type='checkbox']:checked");
+        var arr = [];
+
+        categories.each(function(){
+          arr.push($(this).val());
+        });
+
+        var categoryIdsArray = arr;
+
+        var fd = new FormData();
+        fd.append("image", file);
+        fd.append("top_line", topLine);
+        fd.append("bottom_line", bottomLine);
+        fd.append("article", article);
+        fd.append("raw_image", raw_image);
+        fd.append("copied_image", copied_image);
+        fd.append("category_ids", categoryIdsArray);
+
+        request = $.ajax({
+          url: '/memes',
+          type: "POST",
+          dataType: "JSON",
+          data: fd,
+          cache: false,
+          processData: false,
+          contentType: false
+        });
+
+        request.done(function (response, textStatus, jqXHR){
+          window.location.href = '/memes/'+response.id;
+        });
+      }, false);
+
+      scale = document.getElementById('scale');
+      scale.addEventListener('change', doTransform, false);
+      colour = $('.colour');
+      colour.click(function() {
+        $("input[type='radio']").parent().removeClass("active");
+        ctx.fillStyle = $(this).data('colour');
+        doTransform();
+      });
+
+      ctx.textAlign = 'center';
+      ctx.font = '32pt MyriadPro-BoldCond';
+      ctx.strokeStyle = 'transparent';
+      ctx.fillStyle = '#fff';
     }
-  }
 
-  function downloadImage() {
-    var data = canvas.toDataURL("image/png;base64;");
-    var file = dataURLtoBlob(data);
-    var article = $("#_article").val();
-    var topLine = $("#topLine").val().toUpperCase();
-    var bottomLine = $("#bottomLine").val().toUpperCase();
-    var categories = $("input[type='checkbox']:checked");
-    var arr = [];
+    function dataURLtoBlob(dataURL) {
 
-    categories.each(function(){
-      arr.push($(this).val());
-    });
+      // Decode the dataURL
+      var binary = atob(dataURL.split(',')[1]);
 
-    var categoryIdsArray = arr;
+      // Create 8-bit unsigned array
+      var array = [];
+      for(var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
 
-    var fd = new FormData();
-    fd.append("image", file);
-    fd.append("top_line", topLine);
-    fd.append("bottom_line", bottomLine);
-    fd.append("article", article);
-    fd.append("category_ids", categoryIdsArray);
+      // Return our Blob object
+      return new Blob([new Uint8Array(array)], {type: 'image/png'});
+    }
 
-    request = $.ajax({
-      url: '/memes',
-      type: "POST",
-      dataType: "JSON",
-      data: fd,
-      processData: false,
-      contentType: false
-    });
+    function doTransform() {
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    request.done(function (response, textStatus, jqXHR){
-      window.location.href = '/memes/'+response.id;
-    });
-  }
+      ctx.translate(canvas.width/2, canvas.height/2);
 
+      var val = document.getElementById('scale').value;
+      ctx.scale(val, val);
 
-  $("#memecanvas").mousedown(function (e) {
-    handleMouseDown(e);
-  });
-  $("#memecanvas").mousemove(function (e) {
-    handleMouseMove(e);
-  });
-  $("#memecanvas").mouseup(function (e) {
-    handleMouseUp(e);
-  });
-  $("#memecanvas").mouseout(function (e) {
-    handleMouseOut(e);
-  });
-  $("#download").click(function() {
-    downloadImage();
-  });
-  $("#image_meme").change(function() {
-    imageLoader(this);
-  });
-  $("#scale").change(function() {
-    doTransform();
-  });
-  $("button").click(function() {
-    ctx.fillStyle = $(this).data('colour');
-    draw(true, false);
-  });
-</script>
+      ctx.translate(-canvas.width/2, -canvas.height/2);
+
+      ctx.drawImage(img, x, y);
+
+      ctx.restore();
+
+      createText();
+    }
+
+    function createText() {
+      topLine = document.getElementById('topLine').value;
+      topLine = topLine.toUpperCase();
+      bottomLine = document.getElementById('bottomLine').value;
+      bottomLine = bottomLine.toUpperCase();
+
+      wrapText(ctx, topLine, canvas.width/2, 50, canvasWidth-canvasWidth/6, 30);
+
+      wrapText(ctx, bottomLine, canvas.width/2, 340, canvasWidth-canvasWidth/6, 30);
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      var words = text.split(' ');
+      var line = '';
+
+      for(var n = 0; n < words.length; n++) {
+        var testLine = line + words[n] + ' ';
+        var metrics = ctx.measureText(testLine);
+        var testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          ctx.strokeText(line, x, y);
+          ctx.fillText(line, x, y);
+          line = words[n] + ' ';
+          y += lineHeight;
+        }
+        else {
+          line = testLine;
+        }
+      }
+      ctx.strokeText(line, x, y);
+      ctx.fillText(line, x, y);
+    }
+  </script>
+<% end %>
