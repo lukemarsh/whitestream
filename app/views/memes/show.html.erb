@@ -1,41 +1,10 @@
 <%= @meme.votes.count %> likes
 <div class="row">
-  <div class="col-md-6">
-    <%= image_tag @meme.image %>
-    <%= raw(@meme.article) %>
+  <div class="col-md-8">
     <%= tweet_button %>
     <%= like_button(568398906591962) %>
     <%= pinit_button %>
-  </div>
-  <div class="col-md-6">
-    <input type="text" placeholder="TOP LINE" id="topLine">
-    <%= link_to new_meme_url, :class => 'create' do %>
-      <% if @meme.raw_image.length > 0 %>
-        <%= image_tag @meme.raw_image, :width => "100px" %>
-      <% else %>
-        <%= image_tag @meme.copied_image, :width => "100px" %>
-      <% end %>
-      CREATE
-    <% end %>
-    <%= link_to new_meme_url do %>
-      UPLOAD ANOTHER IMAGE
-    <% end %>
-    <% if @meme.raw_image.length > 0 %>
-      <%= hidden_field_tag :raw_image, @meme.raw_image %>
-    <% else %>
-      <%= hidden_field_tag :raw_image, @meme.copied_image %>
-    <% end %>
-    <input type="text" placeholder="BOTTOM LINE" id="bottomLine">
+    <%= image_tag @meme.image %>
+    <%= raw(@meme.article) %>
   </div>
 </div>
-
-<script>
-  $('.create').click(function(e) {
-    e.preventDefault();
-    var topLine = $("#topLine").val(),
-        bottomLine = $("#bottomLine").val(),
-        image = $("#raw_image").val();
-
-    window.location.href = '/memes/new?raw_image=' + image + '&top_line=' + topLine + '&bottom_line=' + bottomLine
-  });
-</script>

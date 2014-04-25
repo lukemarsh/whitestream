@@ -28,8 +28,8 @@
       <canvas id="memecanvas" width="479" height="356">
         Sorry, canvas not supported
       </canvas>
-      <% if @raw_image %>
-        <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+      <% if @meme.raw_image %>
+        <%= image_tag @meme.raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
       <% else %>
         <img src="/assets/1148990_10151516396361277_1514704461_n.jpg" id="default-image" class="mfnotransform" crossorigin="anonymous">
       <% end %>
@@ -88,7 +88,7 @@
       </div>
     </div>
   </div>
-  <%= bootsy_area "", :article %>
+  <%= bootsy_area 'meme', 'article', value: @meme.article  %>
   <script>
 
     $('input[type="checkbox"]:checked').each(function(){
@@ -159,7 +159,7 @@
         } else {
           var copied_image = $("#default-image").attr('src');
         }
-        var article = $("#_article").val();
+        var article = $("#meme_article").val();
         var topLine = $("#topLine").val().toUpperCase();
         var bottomLine = $("#bottomLine").val().toUpperCase();
         var categories = $("input[type='checkbox']:checked");
