@@ -9,6 +9,10 @@ Whitestream::Application.routes.draw do
     delete :vote_against_meme
   end
 
+  get 'fetch_items', :controller => :memes, :action => :from_category
+  get 'fetch_popular_items', :controller => :memes, :action => :from_popular
+  get 'fetch_all', :controller => :memes, :action => :show_all
+
   #post ':controller(/:action(/:id(.:format)))'
 
   root 'memes#index'

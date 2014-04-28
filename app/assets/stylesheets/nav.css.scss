@@ -1,48 +1,76 @@
 nav {
   background     : #000;
-  text-align     : center;
   text-transform : uppercase;
   color          : #fff;
   font-family    : 'MyriadPro-Bold';
-  font-size      : 12px;
-  margin         : 0 0 20px 0;
-  position       : relative;
+  font-size      : 16px;
 
-  ul {
-    list-style : none;
-    margin     : 0;
-    padding    : 0;
-
-    li {
-      padding : 9px 0 6px 0;
-    }
-
-    a {
-      color : #fff;
-    }
-
-    a:hover {
-      text-decoration : none;
-    }
-
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
+  a {
+    color : #fff;
   }
 
-  @media only screen and (max-width : 481px) {
-    ul:first-child {
-      border-bottom : 1px solid #fff;
-    }
+  ul.navbar-left, ul.navbar-right {
+    position : relative;
+    z-index  : 1;
   }
 
-  @media only screen and (min-width : 481px) {
-    .right-menu {
-      position : absolute;
-      right    : 9px;
-      top      : 0;
-    }
+}
+
+.navbar {
+  border-radius  : 0;
+  min-height     : 32px;
+
+  .container {
+    padding : 0;
+  }
+
+}
+
+.nav > li > a {
+  padding : 7px 0 2px 0;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus,
+.nav > li > a:hover, .nav > li > a:focus {
+  background : inherit;
+  border-color      : inherit;
+  color : inherit;
+}
+
+.navbar-nav {
+  margin : 0;
+  > li > a {
+    line-height : inherit;
+  }
+}
+
+.caret {
+  margin-top : -3px;
+  margin-right : 3px;
+}
+
+.dropdown-menu {
+  border-radius : 0;
+  box-shadow : none;
+
+  > li > a {
+    padding : 5px 15px;
+  }
+}
+
+@media only screen and (max-width : 770px) {
+  nav {
+    text-align : center;
+  }
+}
+
+@media only screen and (min-width : 770px) {
+
+  ul.navbar-center {
+    position : absolute;
+    width : 100%;
+    margin : auto;
+    text-align : center;
   }
 
 }

@@ -1,4 +1,5 @@
 class MemesController < ApplicationController
+  before_filter :authenticate_user!, only: [:new]
   before_action :set_meme, only: [:show, :edit, :update, :destroy]
   impressionist :actions=>[:show]
 
@@ -6,20 +7,20 @@ class MemesController < ApplicationController
   # GET /memes.json
   def index
     @body_id = "home"
-    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 12).order('created_at DESC')
+    @memes = Meme.where("featured != ?", true).where("published = ?", true).paginate(page: params[:page], per_page: 12).order('created_at DESC')
     @featured = Meme.where("featured = ?", true).where("published = ?", true).paginate(page: params[:page], per_page: 15).order('created_at DESC')
-    category = params[:tag]
-    popular = params[:popular]
-    if popular
-      @memes = Meme.where("featured != ?", true).plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 12)
-    end
-    if category
-      @memes = Meme.joins(:categories).where("name like ?", category).where("published = ?", true).paginate(page: params[:page], per_page: 15).order('created_at DESC')
-    end
-    respond_to do |format|
-      format.html
-      format.js
-    end
+  end
+
+  def show_all
+    @memes = Meme.where("featured != ?", true).where("published = ?", true).paginate(page: params[:page], per_page: 12).order('created_at DESC')
+  end
+
+  def from_popular
+    @memes = Meme.where("featured != ?", true).where("published = ?", true).plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 12)
+  end
+
+  def from_category
+    @memes = Meme.joins(:categories).where("featured != ?", true).where("name like ?", params[:category]).where("published = ?", true).paginate(page: params[:page], per_page: 15).order('created_at DESC')
   end
 
   # GET /memes/1
@@ -88,17 +89,11 @@ class MemesController < ApplicationController
   def vote_for_meme
     @meme = Meme.find(params[:meme_id])
     current_user.vote_for(@meme)
-    respond_to do |format|
-      format.js
-    end
   end
 
   def vote_against_meme
     @meme = Meme.find(params[:meme_id])
     current_user.unvote_for(@meme)
-    respond_to do |format|
-      format.js
-    end
   end
 
   private
