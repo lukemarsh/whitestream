@@ -38,7 +38,8 @@ class MemesController < ApplicationController
 
   # GET /memes/1/edit
   def edit
-    #@meme = Meme.find(params[:id])
+    @meme = Meme.find(params[:id])
+    @raw_image = "/uploads/meme/raw_image/#{@meme.id}/blob.png"
   end
 
   # POST /memes
@@ -47,8 +48,12 @@ class MemesController < ApplicationController
     if params[:image].try(:original_filename) == 'blob'
       params[:image].original_filename << '.png'
     end
+    if params[:raw_image].try(:original_filename) == 'blob'
+      params[:raw_image].original_filename << '.png'
+    end
 
     @meme = Meme.create!(image: params[:image], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
+    @meme.user = current_user
 
     respond_to do |format|
       if @meme.save

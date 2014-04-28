@@ -26,6 +26,14 @@
   </li>
 <% end %>
 <body<%= " id=#{@body_id}" if @body_id %>>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=568398906591962";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
   <div id="wrapper">
     <header>
       <%= link_to root_url do %>
@@ -46,5 +54,6 @@
       <%= yield %>
     </div>
   </div>
+  <script src="http://platform.tumblr.com/v1/share.js"></script>
 </body>
 </html>

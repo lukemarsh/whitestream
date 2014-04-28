@@ -28,9 +28,11 @@
       <canvas id="memecanvas" width="479" height="356">
         Sorry, canvas not supported
       </canvas>
-      <canvas id="raw_image" width="479" height="356"></canvas>
-      <% if @meme.raw_image %>
-        <%= image_tag @meme.raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+      <canvas id="rawimage" width="479" height="356" style="display:none;"></canvas>
+      <% if @raw_image %>
+        <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+      <% elsif @copied_image %>
+        <%= image_tag @copied_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
       <% else %>
         <img src="/assets/1148990_10151516396361277_1514704461_n.jpg" id="default-image" class="mfnotransform" crossorigin="anonymous">
       <% end %>
@@ -97,6 +99,7 @@
     });
 
     var canvas;
+    var rawimage;
     var canvasWidth;
     var ctx;
     var x;
@@ -115,13 +118,13 @@
       canvasWidth = Math.min(479, deviceWidth-20);
       canvasHeight = Math.min(356, deviceWidth-20);
       canvas = document.getElementById('memecanvas');
-      raw_image = document.getElementById('raw_image');
+      rawimage = document.getElementById('rawimage');
 
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
       ctx = canvas.getContext("2d");
-      raw_ctx = raw_image.getContext("2d");
+      raw_ctx = rawimage.getContext("2d");
 
       x = canvas.width/2 - img.width/2;
       y = canvas.height/2 - img.height/2;
@@ -159,7 +162,7 @@
       var download = document.getElementById('download');
       download.addEventListener('click', function(e) {
         var data = canvas.toDataURL("image/png;base64;");
-        var raw_data = raw_image.toDataURL("image/png;base64;");
+        var raw_data = rawimage.toDataURL("image/png;base64;");
         var file = dataURLtoBlob(data);
         var raw_file = dataURLtoBlob(raw_data);
         if ($("#image_meme")[0].files[0]) {
@@ -184,7 +187,7 @@
         fd.append("top_line", topLine);
         fd.append("bottom_line", bottomLine);
         fd.append("article", article);
-        fd.append("raw_image", raw_data);
+        fd.append("raw_image", raw_file);
         fd.append("copied_image", copied_image);
         fd.append("category_ids", categoryIdsArray);
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140425144803) do
+ActiveRecord::Schema.define(version: 20140426160807) do
 
   create_table "admins", force: true do |t|
     t.string   "email",              default: "", null: false
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140425144803) do
     t.string   "copied_image"
     t.boolean  "published"
     t.string   "headline"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|

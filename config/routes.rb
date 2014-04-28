@@ -4,6 +4,8 @@ Whitestream::Application.routes.draw do
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
+  resources :users
+
   resources :memes do
     post :vote_for_meme
     delete :vote_against_meme
@@ -12,6 +14,8 @@ Whitestream::Application.routes.draw do
   #post ':controller(/:action(/:id(.:format)))'
 
   root 'memes#index'
+
+  #get '/users/:id', :to => 'users#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -8,10 +8,12 @@
         <li><%= link_to 'REMIX', new_meme_url(:raw_image => meme.raw_image) %></li>
       </ul>
     </div>
-    <span class="user">lukeamarsh</span>
+    <% if meme.user %>
+      <span class="user"><%= link_to meme.user do %><%= meme.user.username %><% end %></span>
+    <% end %>
     <span class="actions">
       <span class="like" id="meme_<%= meme.id %>">
-        <%= render partial: 'like', locals: {meme: meme} %>
+        <%= render partial: 'memes/like', locals: {meme: meme} %>
       </span>
       <span class="views">
         <span class="glyphicon glyphicon-eye-open"></span> <%= meme.impressionist_count %>
