@@ -1,7 +1,49 @@
 #memecanvas {
   border:1px dashed black;
+  width : 100%;
+  height : 100%;
+}
+
+#rawimage {
+  width : 100%;
+  height : 100%;
 }
 
 .mfnotransform {
   display : none;
+}
+
+#meme {
+  font-family : Times;
+
+  img {
+    margin-bottom : 10px;
+  }
+
+  .social-links {
+    margin-bottom : 10px;
+
+    a {
+      vertical-align: top;
+    }
+  }
+
+  .fb_iframe_widget { 
+    vertical-align : top;
+  }
+
+  .details {
+    font-size : 16px;
+    margin-bottom : 10px;
+
+    span {
+      font-style: italic;
+    }
+
+  }
+
+  p {
+    font-size : 16px;
+  }
+
 }

@@ -9,7 +9,7 @@
       </ul>
     </div>
     <% if meme.user %>
-      <span class="user"><%= link_to meme.user do %><%= meme.user.username %><% end %></span>
+      <%= link_to meme.user do %><%= meme.user.username %><% end %>
     <% end %>
     <span class="actions">
       <span class="like" id="meme_<%= meme.id %>">

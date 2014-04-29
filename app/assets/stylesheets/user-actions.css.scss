@@ -1,0 +1,13 @@
+#user-actions {
+  position : absolute;
+  top      : 0;
+  right    : 0;
+  width    : 93px;
+  text-align : center;
+}
+
+@media (min-width : 768px) {
+  #user-actions {
+    right    : 15px;
+  }
+}

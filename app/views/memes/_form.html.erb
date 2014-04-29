@@ -22,13 +22,12 @@
     </div>
   </div>
 <% else %>
-  <%= text_field_tag 'headline', @headline, :class => 'best_in_place' %>
   <div class="row" id="new_meme">
     <div class="col-md-6">
-      <canvas id="memecanvas" width="479" height="356">
+      <canvas id="memecanvas" width="100%">
         Sorry, canvas not supported
       </canvas>
-      <canvas id="rawimage" width="479" height="356" style="display:none;"></canvas>
+      <canvas id="rawimage" width="100%" style="display:none;"></canvas>
       <% if @raw_image %>
         <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
       <% elsif @copied_image %>
@@ -115,13 +114,15 @@
       img = document.getElementById('default-image');
 
       var deviceWidth = window.innerWidth;
-      canvasWidth = Math.min(479, deviceWidth-20);
-      canvasHeight = Math.min(356, deviceWidth-20);
+      canvasWidth = 958;
+      canvasHeight = 721;
       canvas = document.getElementById('memecanvas');
       rawimage = document.getElementById('rawimage');
 
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
+      rawimage.width = canvasWidth;
+      rawimage.height = canvasHeight;
 
       ctx = canvas.getContext("2d");
       raw_ctx = rawimage.getContext("2d");
@@ -133,7 +134,7 @@
       raw_ctx.drawImage(img, x, y);
 
       ctx.textAlign = 'center';
-      ctx.font = '32pt MyriadPro-BoldCond';
+      ctx.font = '64pt MyriadPro-BoldCond';
       ctx.strokeStyle = 'transparent';
       ctx.fillStyle = '#fff';
 
@@ -216,7 +217,7 @@
       });
 
       ctx.textAlign = 'center';
-      ctx.font = '32pt MyriadPro-BoldCond';
+      ctx.font = '64pt MyriadPro-BoldCond';
       ctx.strokeStyle = 'transparent';
       ctx.fillStyle = '#fff';
     }
@@ -267,9 +268,9 @@
       bottomLine = document.getElementById('bottomLine').value;
       bottomLine = bottomLine.toUpperCase();
 
-      wrapText(ctx, topLine, canvas.width/2, 50, canvasWidth-canvasWidth/6, 30);
+      wrapText(ctx, topLine, canvas.width/2, 80, canvasWidth-canvasWidth/6, 30);
 
-      wrapText(ctx, bottomLine, canvas.width/2, 340, canvasWidth-canvasWidth/6, 30);
+      wrapText(ctx, bottomLine, canvas.width/2, canvas.height - 20, canvasWidth-canvasWidth/6, 30);
     }
 
     function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
