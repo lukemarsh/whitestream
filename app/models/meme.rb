@@ -1,5 +1,6 @@
 class Meme < ActiveRecord::Base
   acts_as_voteable
+  acts_as_commentable
   mount_uploader :image, ImageUploader
   mount_uploader :raw_image, ImageUploader
 

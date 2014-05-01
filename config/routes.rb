@@ -9,6 +9,7 @@ Whitestream::Application.routes.draw do
   resources :memes do
     post :vote_for_meme
     delete :vote_against_meme
+    resources :comments
   end
 
   get 'fetch_items', :controller => :memes, :action => :from_category

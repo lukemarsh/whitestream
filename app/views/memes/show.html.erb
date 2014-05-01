@@ -2,29 +2,47 @@
   <div class="col-md-8" id="meme">
     <%= image_tag @meme.image, :width => "100%" %>
     <div class="details">
-        <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
+      <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
     </div>
     <div class="social-links">
-        <span class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></span>
-        <span class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></span>
-        <span>
-        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        </span>
-        <!-- Place this tag where you want the +1 button to render. -->
-        <div class="g-plusone" data-size="medium"></div>
+      <span class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></span>
+      <span class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></span>
+      <span>
+      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </span>
+      <!-- Place this tag where you want the +1 button to render. -->
+      <div class="g-plusone" data-size="medium"></div>
 
-        <!-- Place this tag after the last +1 button tag. -->
-        <script type="text/javascript">
-          (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/platform.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-          })();
-        </script>
-        </span><a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a></span>
-        <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>
+      <!-- Place this tag after the last +1 button tag. -->
+      <script type="text/javascript">
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+      </span><a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a></span>
+      <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>
     </div>
     <%= raw(@meme.article) %>
+  </div>
+  <div class="col-md-4">
+    <ul>
+      <h3><%= @comments.count %> comments</h3>
+      <% for comment in @comments %>
+        <li>
+            <% if comment.user %>
+                <%= comment.user.username %>
+            <% end %>
+            <%= comment.comment %>
+            <%= comment.created_at %>
+        </li>
+      <% end %>
+    </ul>
+    <%= form_for [@meme, @comment] do |f| %>
+      <%= f.text_area :comment %>
+      <%= f.submit %>
+    <% end %>
   </div>
 </div>

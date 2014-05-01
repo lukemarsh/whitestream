@@ -40,6 +40,7 @@ gem 'thumbs_up'
 gem "social-buttons", '~> 0.3'
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'impressionist'
+gem 'acts_as_commentable'
 
 
 group :development, :test do
