@@ -4,4 +4,7 @@ jQuery(function() {
     $(this).parents('.dropdown').find(".desc").html(text);
     $(this).parents('.dropdown-menu').prev().dropdown("toggle");
   });
+  $(".test").click(function(e) {
+    $("#myModal img").attr('src', $(this).attr('data-img'));
+  });
 });

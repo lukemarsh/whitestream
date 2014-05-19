@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-md-8" id="meme">
+<div class="row" id="meme">
+  <div class="col-md-9" id="left">
     <%= image_tag @meme.image, :width => "100%" %>
     <div class="details">
       <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
@@ -25,24 +25,30 @@
       </span><a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a></span>
       <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>
     </div>
-    <%= raw(@meme.article) %>
+    <div id="article">
+      <%= raw(@meme.article) %>
+    </div>
   </div>
-  <div class="col-md-4">
-    <ul>
-      <h3><%= @comments.count %> comments</h3>
-      <% for comment in @comments %>
-        <li>
-            <% if comment.user %>
-                <%= comment.user.username %>
-            <% end %>
-            <%= comment.comment %>
-            <%= comment.created_at %>
-        </li>
+  <div class="col-md-3">
+    <h3>Comments</h3>
+    <div id="comments">
+      <ul>
+        <% for comment in @comments %>
+          <li>
+              <% if comment.user %>
+                <%= link_to comment.user do %>
+                  <%= comment.user.username %>
+                <% end %>
+              <% end %>
+              <%= comment.comment %>
+          </li>
+        <% end %>
+      </ul>
+      <%= form_for [@meme, @comment] do |f| %>
+        <%= f.text_area :comment, :class => 'form-control' %>
+        <%= f.submit 'Submit', :class => 'btn btn-default' %>
       <% end %>
-    </ul>
-    <%= form_for [@meme, @comment] do |f| %>
-      <%= f.text_area :comment %>
-      <%= f.submit %>
-    <% end %>
+    </div><br>
+    <h3>Similar</h3>
   </div>
 </div>

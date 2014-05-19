@@ -14,7 +14,28 @@
 }
 
 #meme {
-  font-family : Times;
+
+  #article, .details, h3 {
+    font-family : Times;
+  }
+
+  h3 {
+    font-style: italic;
+    text-transform : uppercase;
+    font-weight : bold;
+    font-size : 16px;
+    margin-top :0;
+  }
+
+  #comments ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+  }
+
+  textarea {
+    height : 20px;
+  }
 
   img {
     margin-bottom : 10px;
@@ -28,7 +49,7 @@
     }
   }
 
-  .fb_iframe_widget { 
+  .fb_iframe_widget {
     vertical-align : top;
   }
 
@@ -46,4 +67,10 @@
     font-size : 16px;
   }
 
+}
+
+@media (min-width : 992px) {
+  #meme #left {
+    border-right : 1px solid #e7e7e7;
+  }
 }

@@ -1,8 +1,9 @@
 <% memes.each do |meme| %>
   <div class="meme">
     <div class="meme-inner">
-      <div class="overlay"></div>
-      <%= image_tag meme.image %>
+      <%= link_to '#myModal', :class => 'test', :data => {:toggle => 'modal', :img => meme.image} do %>
+        <%= image_tag meme.image %>
+      <% end %>
       <ul class="menu">
         <li><%= link_to 'READ', meme %></li>
         <li><%= link_to 'REMIX', new_meme_url(:raw_image => meme.raw_image) %></li>
@@ -24,3 +25,10 @@
     </span>
   </div>
 <% end %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <img src="" alt="">
+    </div>
+  </div>
+</div>
