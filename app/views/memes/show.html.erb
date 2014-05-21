@@ -5,10 +5,10 @@
       <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
     </div>
     <div class="social-links">
-      <span class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></span>
-      <span class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></span>
+      <span class="fb-share-button" data-href="<%= @meme_url %>" data-type="button_count"></span>
+      <span class="fb-like" data-href="<%= @meme_url %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></span>
       <span>
-      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      <a href="https://twitter.com/share" data-url="<%= @meme_url %>" class="twitter-share-button">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </span>
       <!-- Place this tag where you want the +1 button to render. -->
@@ -22,7 +22,11 @@
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
       </script>
-      </span><a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a></span>
+      <span>
+
+
+
+        <a href="http://www.tumblr.com/share/link?url=" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a></span>
       <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>
     </div>
     <div id="article">
