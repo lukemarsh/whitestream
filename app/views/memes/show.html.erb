@@ -28,22 +28,39 @@
     <div id="comments">
       <ul>
         <% for comment in @comments %>
-          <li>
-              <% if comment.user %>
-                <%= image_tag "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(comment.user.email.downcase)}.png?s=48" %>
-                <%= link_to comment.user do %>
+          <li class="comment">
+            <% if comment.user %>
+              <%= image_tag "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(comment.user.email.downcase)}.png?s=48" %>
+              <div class="text">
+                <h4><%= link_to comment.user do %>
                   <%= comment.user.username %>
                 <% end %>
-              <% end %>
-              <%= comment.comment %>
+                </h4>
+                <p><%= comment.comment %></p>
+                <p class="date"><%= comment.created_at.to_formatted_s(:month_and_year) %></p>
+              </div>
+            <% end %>
           </li>
         <% end %>
       </ul>
-      <%= form_for [@meme, @comment] do |f| %>
-        <%= f.text_area :comment, :class => 'form-control' %>
-        <%= f.submit 'Submit', :class => 'btn btn-default' %>
+      <% if current_user %>
+      <hr>
+      <%= link_to 'Add comment', '', :class => 'btn btn-default btn-sm', :data => {:target => '#commentModal', :toggle => 'modal'} %>
       <% end %>
     </div><br>
-    <h3>Similar</h3>
+    <h3>More from this artist</h3>
+    <%= render partial: 'memes/memes', locals: {memes: @memes} %>
+  </div>
+</div>
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <%= form_for [@meme, @comment] do |f| %>
+          <%= f.text_area :comment, :class => 'form-control' %>
+          <br>
+          <%= f.submit 'Submit', :class => 'btn btn-default btn-sm' %>
+        <% end %>
+    </div>
   </div>
 </div>

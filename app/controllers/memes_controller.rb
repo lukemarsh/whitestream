@@ -30,6 +30,7 @@ class MemesController < ApplicationController
     @meme = Meme.find(params[:id])
     @comment = @meme.comments.new
     @comments = @meme.comments.recent.limit(10).all
+    @memes = Meme.where('user_id = ?', @meme.user).paginate(page: params[:page], per_page: 12).order('created_at DESC')
   end
 
   # GET /memes/new

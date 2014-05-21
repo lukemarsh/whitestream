@@ -4,6 +4,7 @@ jQuery(function() {
     $(this).parents('.dropdown').find(".desc").html(text);
     $(this).parents('.dropdown-menu').prev().dropdown("toggle");
   });
+  $('textarea').css('overflow', 'hidden').autogrow();
   $('.lightbox').click(function(e) {
     $('.modal-meme').attr('src', $(this).data('image').image.url);
 

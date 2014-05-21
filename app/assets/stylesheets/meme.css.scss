@@ -62,3 +62,39 @@
     border-right : 1px solid #e7e7e7;
   }
 }
+
+#comments {
+  border : 1px solid #b6b6b6;
+  padding : 10px;
+}
+
+.comment {
+  font-size : 11px;
+  position: relative;
+  padding-left:33px;
+  display:inline-block;
+}
+
+#meme .comment p {
+  font-size : 11px;
+  color : #555;
+}
+
+.comment img {
+  width  : 28px;
+  height : 28px;
+  margin-right : 5px;
+  position: absolute;
+  left:0;
+}
+
+#meme .comment .date {
+  color : #000;
+  float:right;
+  text-transform:uppercase;
+  font-weight:bold;
+}
+
+.modal-body textarea {
+  height: 100px;
+}
