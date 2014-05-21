@@ -68,11 +68,17 @@
   padding : 10px;
 }
 
+#comments ul {
+  height:350px;
+  overflow:auto;
+}
+
 .comment {
   font-size : 11px;
   position: relative;
   padding-left:33px;
   display:inline-block;
+  width:100%;
 }
 
 #meme .comment p {

@@ -83,29 +83,29 @@
     }
   }
 
-  @media (min-width: 480px ) {
-    .memes {
-      margin-left : -2.5%;
-      font-size   : 0;
-      .meme {
-        margin: 0 0 2.5% 2.5%;
-        width : 47.5%;
-      } 
-    }
-  }
+}
 
-  @media (min-width: 768px) {
-    .memes .meme {
-      width : 30.8%;
-    }
+@media (min-width: 480px ) {
+.memes {
+    margin-left : -2.5%;
+    font-size   : 0;
+    .meme {
+    margin: 0 0 2.5% 2.5%;
+    width : 47.5%;
   }
+  }
+}
 
-  @media (min-width: 992px) {
-    .memes .meme {
-      width : 22.5%;
-    }
+@media (min-width: 768px) {
+  .memes .meme {
+    width : 30.8%;
   }
-  
+}
+
+@media (min-width: 992px) {
+  .memes .meme {
+    width : 22.5%;
+  }
 }
 
 .modal-meme {
