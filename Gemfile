@@ -31,7 +31,7 @@ end
 
 gem 'carrierwave'
 gem 'jquery-turbolinks'
-gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootsy'
 gem 'will_paginate', '~> 3.0.5'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
