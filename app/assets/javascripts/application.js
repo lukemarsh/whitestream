@@ -17,5 +17,6 @@
 //= require bootsy
 //= require bootstrap
 //= require jquery.autogrow-textarea
+//= require owl.carousel
 
 //= require_tree .

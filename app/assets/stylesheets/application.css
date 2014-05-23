@@ -11,5 +11,8 @@
  *= require bootstrap
  *= require_self
  *= require bootsy
+ *= require owl.carousel
+ *= require owl.theme
+ *= require owl.transitions
  *= require_tree .
  */

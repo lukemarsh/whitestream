@@ -7,20 +7,20 @@ class MemesController < ApplicationController
   # GET /memes.json
   def index
     @body_id = "home"
-    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 15).order('created_at DESC')
-    @featured = Meme.where("featured = ?", true).paginate(page: params[:page], per_page: 4).order('created_at DESC')
+    @memes = Meme.paginate(page: params[:page], per_page: 15).order('created_at DESC')
+    @featured = Meme.where("featured = ?", true).order('created_at DESC')
   end
 
   def show_all
-    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 12).order('created_at DESC')
+    @memes = Meme.paginate(page: params[:page], per_page: 12).order('created_at DESC')
   end
 
   def from_popular
-    @memes = Meme.where("featured != ?", true).plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 12)
+    @memes = Meme.plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 12)
   end
 
   def from_category
-    @memes = Meme.joins(:categories).where("featured != ?", true).where("name like ?", params[:category]).paginate(page: params[:page], per_page: 15).order('created_at DESC')
+    @memes = Meme.joins(:categories).where("name like ?", params[:category]).paginate(page: params[:page], per_page: 15).order('created_at DESC')
   end
 
   # GET /memes/1
@@ -30,7 +30,7 @@ class MemesController < ApplicationController
     @meme = Meme.find(params[:id])
     @comment = @meme.comments.new
     @comments = @meme.comments.recent.limit(10).all
-    @memes = Meme.where('user_id = ?', @meme.user).paginate(page: params[:page], per_page: 12).order('created_at DESC')
+    @memes = Meme.where('user_id = ?', @meme.user).order('created_at DESC').limit(4)
   end
 
   # GET /memes/new

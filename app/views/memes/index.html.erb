@@ -1,11 +1,23 @@
 <div id="stream">
   <h1>Featured</h1>
-  <div class="memes">
+  <div id="carousel" class="memes owl-carousel">
     <%= render partial: 'memes', locals: {memes: @featured} %>
   </div>
   <hr>
   <div class="memes" id="reload">
+    <div class="test">
     <%= render partial: 'memes', locals: {memes: @memes} %>
+    </div>
   </div>
   <%= will_paginate(@memes) %>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img src="" alt="" width="100%" class="modal-meme">
+        <span id="like"></span>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,13 +1,30 @@
-
-
-.meme {
-  display : inline-block;
-  color : #999;
-  font-size:12px;
+#reload .meme {
   width: 100%;
   position : relative;
   margin-bottom : 2.5%;
   vertical-align:top;
+  float : left;
+}
+
+.owl-item .meme {
+  margin : 0 10px;
+}
+
+#carousel {
+  border:1px solid #000;
+  padding:15px 5px;
+}
+
+.meme {
+  color : #999;
+  font-size:12px;
+  position:relative;
+
+  .delete {
+    position : absolute;
+    top:5px;
+    right:5px;
+  }
 
   .actions {
     float : right;
@@ -86,7 +103,7 @@
 }
 
 @media (min-width: 480px ) {
-.memes {
+#reload {
     margin-left : -2.5%;
     font-size   : 0;
     .meme {
@@ -97,13 +114,13 @@
 }
 
 @media (min-width: 768px) {
-  .memes .meme {
+  #reload .meme {
     width : 30.8%;
   }
 }
 
 @media (min-width: 992px) {
-  .memes .meme {
+  #reload .meme {
     width : 22.5%;
   }
 }
