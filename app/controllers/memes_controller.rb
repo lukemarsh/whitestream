@@ -34,7 +34,7 @@ class MemesController < ApplicationController
     @meme = Meme.find(params[:id])
     @comment = @meme.comments.new
     @comments = @meme.comments.recent.limit(10).all
-    @memes = Meme.where('user_id = ?', @meme.user).where('id != ?', @meme.id).order('created_at DESC').limit(4)
+    @memes = Meme.where('user_id = ?', @meme.user).where('id != ?', @meme.id).order('created_at DESC').limit(2)
   end
 
   # GET /memes/new
