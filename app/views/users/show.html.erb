@@ -3,6 +3,16 @@
     <%= render partial: 'memes/memes', locals: {memes: @memes} %>
   </div>
 </div>
+</div>
+<div id="pagination">
+  <div class="container">
+    <% if @memes.previous_page %>
+      <%= link_to "< Previous", params.merge(page: @memes.previous_page), :class => "prev" %>
+    <% end %>
+    <% if @memes.next_page %>
+      <%= link_to "Next >", params.merge(page: @memes.next_page), :class => "next" %>
+    <% end %>
+  </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

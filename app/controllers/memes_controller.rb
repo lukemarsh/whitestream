@@ -7,16 +7,17 @@ class MemesController < ApplicationController
   # GET /memes.json
   def index
     @body_id = "home"
-    @memes = Meme.paginate(page: params[:page], per_page: 15).order('created_at DESC')
+    @memes = Meme.paginate(page: params[:page], per_page: 8).order('created_at DESC')
     @featured = Meme.where("featured = ?", true).order('created_at DESC')
+    render :layout => 'home'
   end
 
   def show_all
-    @memes = Meme.paginate(page: params[:page], per_page: 12).order('created_at DESC')
+    @memes = Meme.paginate(page: params[:page], per_page: 8).order('created_at DESC')
   end
 
   def from_popular
-    @memes = Meme.plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 12)
+    @memes = Meme.plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 8)
   end
 
   def from_category
@@ -26,6 +27,7 @@ class MemesController < ApplicationController
   # GET /memes/1
   # GET /memes/1.json
   def show
+    @body_id = "show"
     impressionist(@meme)
     @meme = Meme.find(params[:id])
     @comment = @meme.comments.new

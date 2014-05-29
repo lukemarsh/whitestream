@@ -33,7 +33,7 @@
       <% elsif @copied_image %>
         <%= image_tag @copied_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
       <% else %>
-        <img src="/assets/1148990_10151516396361277_1514704461_n.jpg" id="default-image" class="mfnotransform" crossorigin="anonymous">
+        <img src="" id="default-image" class="mfnotransform" crossorigin="anonymous">
       <% end %>
     </div>
     <div class="col-md-6" id="controls">
@@ -60,7 +60,8 @@
           <input type='text' placeholder='BOTTOM LINE' id='bottomLine' onkeyup='doTransform()' oninput='doTransform' onpaste='doTransform' class="form-control" maxlength="24" />
         <% end %>
       </div>
-      <h4>Text colour</h4>
+      <label>Text colour</label>
+      <br>
       <div class="btn-group" data-toggle="buttons">
         <label for="black" class="btn btn-default colour" data-colour="#000000">
           BLACK
@@ -73,7 +74,9 @@
           <input type="radio" id="black" name="colour" value="white">
         </label>
       </div>
-      <h4>Tags</h4>
+      <br>
+      <br>
+      <label>Tags</label>
       <div class="form-group">
         <%= hidden_field_tag "meme[category_ids][]", nil %>
         <% Category.all.each do |category| %>
@@ -85,12 +88,14 @@
           </div>
         <% end %>
       </div>
-      <div class="form-group">
-        <input type="submit" id="download" class="btn btn-primary" />
-      </div>
     </div>
   </div>
+  <hr>
+  <h1>Write your article</h1>
   <%= bootsy_area 'meme', 'article', value: @meme.article  %>
+  <div class="form-group">
+    <input type="submit" id="download" class="btn btn-primary" />
+  </div>
   <script>
 
     $('input[type="checkbox"]:checked').each(function(){
@@ -136,7 +141,7 @@
       ctx.textAlign = 'center';
       ctx.font = '64pt MyriadPro-BoldCond';
       ctx.strokeStyle = 'transparent';
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = '#000';
 
       doTransform();
 
@@ -192,19 +197,28 @@
         fd.append("copied_image", copied_image);
         fd.append("category_ids", categoryIdsArray);
 
-        request = $.ajax({
-          url: '/memes',
-          type: "POST",
-          dataType: "JSON",
-          data: fd,
-          cache: false,
-          processData: false,
-          contentType: false
-        });
+        if ($("#image_meme")[0].files[0]) {
 
-        request.done(function (response, textStatus, jqXHR){
-          window.location.href = '/memes/'+response.id;
-        });
+          request = $.ajax({
+            url: '/memes',
+            type: "POST",
+            dataType: "JSON",
+            data: fd,
+            cache: false,
+            processData: false,
+            contentType: false
+          });
+
+
+
+          request.done(function (response, textStatus, jqXHR){
+            window.location.href = '/memes/'+response.id;
+          });
+
+        } else {
+          alert("Please upload an image");
+        }
+
       }, false);
 
       scale = document.getElementById('scale');
@@ -219,7 +233,7 @@
       ctx.textAlign = 'center';
       ctx.font = '64pt MyriadPro-BoldCond';
       ctx.strokeStyle = 'transparent';
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = '#000';
     }
 
     function dataURLtoBlob(dataURL) {

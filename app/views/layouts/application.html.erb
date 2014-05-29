@@ -1,6 +1,9 @@
 <%= render 'shared/header' %>
+      <ul class="nav navbar-left">
+        <li>&nbsp;</li>
+      </ul>
       <ul class="nav navbar-center">
-        <li><%= link_to "White Stream", root_url %></li>
+        <li><%= link_to "World Edit", root_url %></li>
       </ul>
       <ul class="nav navbar-right">
         <li><%= link_to "Contribute", new_meme_url %></li>
@@ -10,5 +13,13 @@
   <div class="container">
     <%= yield %>
   </div>
+  <footer>
+    <div class="container">
+    <a href="#">CONTACT US</a>
+      <p class="copyright">
+        &copy; 2014 WE media.
+      </p>
+    </div>
+  </footer>
 </body>
 </html>

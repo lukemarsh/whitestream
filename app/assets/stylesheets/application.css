@@ -16,3 +16,52 @@
  *= require owl.transitions
  *= require_tree .
  */
+
+ footer {
+  background: black;
+  color : white;
+  text-align: center;
+  font-style:italic;
+ }
+
+ body:not(#home #show) footer {
+  margin-top : 50px;
+ }
+
+ footer a {
+  font-family: 'MyriadPro-Bold';
+  color:white;
+  margin-top : 60px;
+  display: block;
+ }
+
+ .copyright {
+  margin-top : 80px;
+  font-family : Times;
+ }
+
+ #pagination {
+  margin-top:20px;
+  background: black;
+  font-family: 'MyriadPro-Bold';
+  font-style:italic;
+  text-transform: uppercase;
+  padding:10px 0 0 0;
+ }
+
+ #pagination a {
+  color : #fff;
+ }
+
+ #pagination .next {
+  float : right;
+ }
+
+ .delete {
+  color : white;
+  text-decoration: none;
+ }
+
+ .delete:hover {
+  color : red;
+ }

@@ -1,6 +1,6 @@
 <div class="row" id="meme">
-  <div class="col-md-9" id="left">
-    <%= image_tag @meme.image, :width => "100%" %>
+  <div class="col-md-8" id="left">
+    <%= image_tag @meme.image %>
     <div class="details">
       <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
     </div>
@@ -23,38 +23,43 @@
       <%= raw(@meme.article) %>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <h3>Comments</h3>
     <div id="comments">
       <ul>
-        <% for comment in @comments %>
-          <li class="comment">
-            <% if comment.user %>
-              <%= image_tag "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(comment.user.email.downcase)}.png?s=48" %>
-              <div class="text">
-                <% if comment.user == current_user %>
-                  <div class="actions">
-                    <%= link_to '', '#', :class => "glyphicon glyphicon-pencil", :id => "edit-" + comment.id.to_s %>
-                    <%= link_to '', meme_comment_path(@meme, comment), :method => :delete, :class => "glyphicon glyphicon-remove",  data: {confirm: "Are you sure you want to delete this comment?"} %>
-                  </div>
-                <% end %>
-                <h4><%= link_to comment.user do %>
-                  <%= comment.user.username %>
-                <% end %>
-                </h4>
-                <p><%= best_in_place comment, :comment, :activator => '#edit-' + comment.id.to_s, :path => meme_comment_path(@meme, comment), :type => 'textarea' %></p>
-                <p class="date"><%= comment.created_at.to_formatted_s(:month_and_year) %></p>
-              </div>
-            <% end %>
-          </li>
+        <% if @comments %>
+          <% for comment in @comments %>
+            <li class="comment">
+              <% if comment.user %>
+                <%= image_tag "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(comment.user.email.downcase)}.png?s=48" %>
+                <div class="text">
+                  <% if comment.user == current_user %>
+                    <div class="actions">
+                      <%= link_to '', '#', :class => "glyphicon glyphicon-pencil", :id => "edit-" + comment.id.to_s %>
+                      <%= link_to '', meme_comment_path(@meme, comment), :method => :delete, :class => "glyphicon glyphicon-remove",  data: {confirm: "Are you sure you want to delete this comment?"} %>
+                    </div>
+                  <% end %>
+                  <h4><%= link_to comment.user do %>
+                    <%= comment.user.username %>
+                  <% end %>
+                  </h4>
+                  <p><%= best_in_place comment, :comment, :activator => '#edit-' + comment.id.to_s, :path => meme_comment_path(@meme, comment), :type => 'textarea' %></p>
+                  <p class="date"><%= comment.created_at.to_formatted_s(:month_and_year) %></p>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
       <% if current_user %>
-      <hr>
-      <%= link_to 'Add comment', '', :class => 'btn btn-default btn-sm', :data => {:target => '#commentModal', :toggle => 'modal'} %>
+        <%= form_for [@meme, @comment] do |f| %>
+          <%= f.text_area :comment, :class => 'form-control', :placeholder => "Write a comment..." %>
+          <br>
+          <%= f.submit 'Submit', :class => 'btn btn-default btn-sm' %>
+        <% end %>
       <% end %>
     </div><br>
-    <h3>More from this artist</h3>
+    <h3>More from this user</h3>
     <%= render partial: 'memes/memes', locals: {memes: @memes} %>
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -62,23 +67,15 @@
       <div class="modal-content">
         <div class="modal-body">
           <img src="" alt="" width="100%" class="modal-meme">
-          <div id="toolbox"></div>
-          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5015a9a0733e9218"></script>
-          <!-- AddThis Button END -->
+          <div id="social-share-buttons">
+            <span id="like"></span>
+            <span id="tweet"></span>
+            <span id="plusone"></span>
+            <span id="tumblr"></span>
+            <span id="reddit"></span>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <%= form_for [@meme, @comment] do |f| %>
-          <%= f.text_area :comment, :class => 'form-control' %>
-          <br>
-          <%= f.submit 'Submit', :class => 'btn btn-default btn-sm' %>
-        <% end %>
     </div>
   </div>
 </div>
