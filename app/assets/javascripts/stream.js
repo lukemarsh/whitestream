@@ -20,7 +20,12 @@ jQuery(function() {
     tumblr_button.innerHTML = "Share on Tumblr";
     $("#tumblr").html(tumblr_button);
 
-    $('#reddit').html('<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5&url=' + $(this).data('url') + '"></script>');
+    var oScript = document.createElement("script");
+    document.write = function(text) {
+      $("#reddit").html(text);
+    };
+    oScript.src = "http://www.reddit.com/buttonlite.js?i=5&url=" + $(this).data('url');
+    document.body.appendChild(oScript);
 
     if (typeof FB !== 'undefined') {
       FB.XFBML.parse(document.getElementById('like'));
