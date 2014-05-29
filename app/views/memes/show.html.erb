@@ -1,23 +1,26 @@
 <div class="row" id="meme">
   <div class="col-md-8" id="left">
-    <%= image_tag @meme.image %>
+    <%= image_tag @meme.image, :class => "single-meme" %>
     <div class="details">
       <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
     </div>
-    <div class="social-links">
-      <!-- AddThis Button BEGIN -->
-      <div class="addthis_toolbox addthis_default_style addthis_20x20_style" addthis:url="<%= @meme_url %>"
-      addthis:title="An Example Title"
-      addthis:description="An Example Description">
-      <a class="addthis_counter_facebook"></a>
-      <a class="addthis_counter_twitter"></a>
-      <a class="addthis_counter_google"></a>
-      <a class="addthis_counter_tumblr"></a>
-      <a class="addthis_counter_reddit"></a>
-      </div>
-      <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5015a9a0733e9218"></script>
-      <!-- AddThis Button END -->
+    <div id="share-buttons">
+      <span id="like">
+        <iframe src="//www.facebook.com/plugins/like.php?href=<%= request.original_url %>&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=568398906591962" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>
+      </span>
+      <span id="tweet">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= request.original_url %>" data-text="This is fun">
+        Tweet</a>
+      </span>
+      <span id="plusone">
+        <div class="g-plusone" data-size="medium" data-href="<%= request.original_url %>"></div>
+      </span>
+      <span id="tumblr">
+        <a href="http://www.tumblr.com/share/link?url=<%= request.original_url %>&name=test&description=test" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
+      </span>
+      <span id="reddit">
+        <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5&url=<%= request.original_url %>"></script>
+      </span>
     </div>
     <div id="article">
       <%= raw(@meme.article) %>
