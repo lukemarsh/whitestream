@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  mount_uploader :profile_picture, ImageUploader
+  mount_uploader :profile_picture, ProfilePictureUploader
 
   acts_as_voter
   has_many :memes

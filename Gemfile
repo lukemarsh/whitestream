@@ -42,6 +42,7 @@ gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'impressionist'
 gem 'acts_as_commentable'
 gem 'fog'
+gem 'rmagick', :require => 'RMagick'
 
 
 group :development, :test do
