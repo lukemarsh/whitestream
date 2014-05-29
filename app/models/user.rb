@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   acts_as_voter
   has_many :memes
 
+  validates :username, :presence => true
+
   def update_with_password(params={})
     if params[:password].blank?
       params.delete(:password)

@@ -24,7 +24,7 @@
   font-style:italic;
  }
 
- body:not(#home #show) footer {
+ body:not(#home) footer, body:not(#show) footer {
   margin-top : 50px;
  }
 

@@ -1,9 +1,11 @@
 <div id="stream">
-  <h1>Featured</h1>
-  <div id="carousel" class="memes owl-carousel">
-    <%= render partial: 'memes', locals: {memes: @featured} %>
-  </div>
-  <hr>
+  <% if @featured.length > 0 %>
+    <h1>Featured</h1>
+    <div id="carousel" class="memes owl-carousel">
+      <%= render partial: 'memes', locals: {memes: @featured} %>
+    </div>
+    <hr>
+  <% end %>
   <div class="memes" id="reload">
     <div class="test">
     <%= render partial: 'memes', locals: {memes: @memes} %>
@@ -11,16 +13,18 @@
   </div>
 </div>
 </div>
-<div id="pagination">
-  <div class="container">
-    <% if @memes.previous_page %>
-      <%= link_to "< Previous", params.merge(page: @memes.previous_page), :class => "prev" %>
-    <% end %>
-    <% if @memes.next_page %>
-      <%= link_to "Next >", params.merge(page: @memes.next_page), :class => "next" %>
-    <% end %>
+<% if @memes.length > 12 %>
+  <div id="pagination">
+    <div class="container">
+      <% if @memes.previous_page %>
+        <%= link_to "< Previous", params.merge(page: @memes.previous_page), :class => "prev" %>
+      <% end %>
+      <% if @memes.next_page %>
+        <%= link_to "Next >", params.merge(page: @memes.next_page), :class => "next" %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

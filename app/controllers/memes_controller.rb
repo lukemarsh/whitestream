@@ -7,6 +7,8 @@ class MemesController < ApplicationController
   # GET /memes.json
   def index
     @body_id = "home"
+    #binding.pry
+    @meme_categories = Meme.joins(:categories).distinct
     @memes = Meme.paginate(page: params[:page], per_page: 8).order('created_at DESC')
     @featured = Meme.where("featured = ?", true).order('created_at DESC')
     render :layout => 'home'
@@ -32,7 +34,7 @@ class MemesController < ApplicationController
     @meme = Meme.find(params[:id])
     @comment = @meme.comments.new
     @comments = @meme.comments.recent.limit(10).all
-    @memes = Meme.where('user_id = ?', @meme.user).order('created_at DESC').limit(4)
+    @memes = Meme.where('user_id = ?', @meme.user).where('id != ?', @meme.id).order('created_at DESC').limit(4)
   end
 
   # GET /memes/new

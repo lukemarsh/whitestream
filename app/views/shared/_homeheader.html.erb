@@ -55,17 +55,21 @@
     <div class="container">
       <ul class="nav navbar-left navbar-nav">
         <li class="dropdown">
-          <%= link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do %>
-            <b class="caret"></b> <span class="desc">Show all</span>
+          <% if @memes.length > 0 %>
+            <%= link_to '#', :class => 'dropdown-toggle', :data => {:toggle => 'dropdown'} do %>
+              <b class="caret"></b> <span class="desc">Show all</span>
+            <% end %>
+            <ul class="dropdown-menu" role="menu">
+              <li><%= link_to 'Show all', fetch_all_path, :remote => true %></li>
+              <% @meme_categories.each do |c| %>
+                <% c.categories.each do |t| %>
+                  <li><%= link_to t.name, fetch_items_path(:category => t.name), :remote => true %></li>
+                <% end %>
+              <% end %>
+              <li><%= link_to 'POPULAR', fetch_popular_items_path, :remote => true %></li>
+            </ul>
+          <% else %>
+            <li>&nbsp;</li>
           <% end %>
-          <ul class="dropdown-menu" role="menu">
-            <li><%= link_to 'Show all', fetch_all_path, :remote => true %></li>
-            <li><%= link_to 'NEWS', fetch_items_path(:category => 'News'), :remote => true %></li>
-            <li><%= link_to 'SHOWBIZ', fetch_items_path(:category => 'Showbiz'), :remote => true %></li>
-            <li><%= link_to 'FASHION', fetch_items_path(:category => 'Fashion'), :remote => true %></li>
-            <li><%= link_to 'MUSIC', fetch_items_path(:category => 'Music'), :remote => true %></li>
-            <li><%= link_to 'IDEAS', fetch_items_path(:category => 'Ideas'), :remote => true %></li>
-            <li><%= link_to 'POPULAR', fetch_popular_items_path, :remote => true %></li>
-          </ul>
         </li>
       </ul>

@@ -31,7 +31,7 @@
           <% for comment in @comments %>
             <li class="comment">
               <% if comment.user %>
-                <%= image_tag "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(comment.user.email.downcase)}.png?s=48" %>
+                <%= image_tag avatar_url(comment.user) %>
                 <div class="text">
                   <% if comment.user == current_user %>
                     <div class="actions">

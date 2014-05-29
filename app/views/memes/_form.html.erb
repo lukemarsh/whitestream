@@ -22,6 +22,7 @@
     </div>
   </div>
 <% else %>
+  <h1>Step 1. Create your image</h1>
   <div class="row" id="new_meme">
     <div class="col-md-6">
       <canvas id="memecanvas" width="100%">
@@ -91,8 +92,9 @@
     </div>
   </div>
   <hr>
-  <h1>Write your article</h1>
+  <h1>Step 2. Write your article <span>(optional)</span></h1>
   <%= bootsy_area 'meme', 'article', value: @meme.article  %>
+  <br><br>
   <div class="form-group">
     <input type="submit" id="download" class="btn btn-primary" />
   </div>

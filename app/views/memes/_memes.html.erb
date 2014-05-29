@@ -21,9 +21,11 @@
       <span class="views">
         <span class="glyphicon glyphicon-eye-open"></span> <%= meme.impressionist_count %>
       </span>
-      <span class="comments">
-        <span class="glyphicon glyphicon-comment"></span> <%= meme.comments.count %>
-      </span>
+      <% if meme.article.length > 0 %>
+        <span class="comments">
+          <span class="glyphicon glyphicon-comment"></span> <%= meme.comments.count %>
+        </span>
+      <% end %>
       <span class="like" id="meme_<%= meme.id %>">
         <%= render partial: 'memes/like', locals: {meme: meme} %>
       </span>
