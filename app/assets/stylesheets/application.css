@@ -20,7 +20,7 @@
 html,
 body { height: 100%; }
 
-body:not(#home):not(.form-control):not(#show), {
+body:not(#home):not(.form-control):not(#show) {
   display: table;
   width: 100%;
 }
