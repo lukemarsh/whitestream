@@ -64,8 +64,10 @@
         <p><%= link_to 'Log in', new_user_session_path %> to post a comment</p>
       <% end %>
     </div><br>
-    <h3>More from this user</h3>
-    <%= render partial: 'memes/memes', locals: {memes: @memes} %>
+    <% if @memes %>
+      <h3>More from this user</h3>
+      <%= render partial: 'memes/memes', locals: {memes: @memes} %>
+    <% end %>
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
