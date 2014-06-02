@@ -138,6 +138,7 @@
     fileInput.addEventListener('change', function(e) {
       var reader = new FileReader();
       reader.onload = function(event){
+        img = new Image();
         img.onload = function() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           raw_ctx.clearRect(0, 0, canvas.width, canvas.height);
