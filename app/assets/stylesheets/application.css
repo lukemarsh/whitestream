@@ -20,17 +20,17 @@
 html,
 body { height: 100%; }
 
-body:not(#home) {
+body:not(#home):not(.form-control) {
   display: table;
   width: 100%;
 }
 
-body:not(#home) #wrap, body:not(#home) footer {
+body:not(#home):not(.wysihtml5-supported) #wrap, body:not(#home):not(.wysihtml5-supported) footer {
   display: table-row;
   height: 1px;
 }
 
-body:not(#home) #wrap {
+body:not(#home):not(.wysihtml5-supported) #wrap {
    height: 100%;
 }
 
