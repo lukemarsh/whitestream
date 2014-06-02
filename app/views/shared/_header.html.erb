@@ -41,7 +41,7 @@
             <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
             </li>
             <li>
-              <%= link_to('Edit', edit_user_registration_path) %>
+              <%= link_to('Profile', current_user) %>
             </li>
           <% else %>
             <li>
