@@ -14,7 +14,7 @@ jQuery(function() {
     $('.modal-body #plusone').html('<div class="g-plusone" data-size="medium" data-href="' + $(this).data('url') + '"></div>');
 
     var tumblr_button = document.createElement("a");
-    tumblr_button.setAttribute("href", "http://www.tumblr.com/share/link?url=" + $(this).data('url') + "&name=test&description=test");
+    tumblr_button.setAttribute("href", "http://www.tumblr.com/share/link?url=" + $(this).data('url').replace("http://", "") + "&name=test&description=test");
     tumblr_button.setAttribute("title", "Share on Tumblr");
     tumblr_button.setAttribute("style", "display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;");
     tumblr_button.innerHTML = "Share on Tumblr";
