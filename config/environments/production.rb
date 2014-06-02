@@ -86,7 +86,7 @@ Whitestream::Application.configure do
     domain: "railscasts.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: 'worldedit',
-    password: 'hellomate12'
+    user_name: ENV['USER_NAME'],
+    password: ENV['PASSWORD']
   }
 end
