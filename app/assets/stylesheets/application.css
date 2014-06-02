@@ -20,17 +20,17 @@
 html,
 body { height: 100%; }
 
-body {
+body:not(#home) {
   display: table;
   width: 100%;
 }
 
-#wrap, footer {
+body:not(#home) #wrap, body:not(#home) footer {
   display: table-row;
   height: 1px;
 }
 
-#wrap {
+body:not(#home) #wrap {
    height: 100%;
 }
 
@@ -41,7 +41,7 @@ body {
   font-style:italic;
  }
 
- body:not('#home') footer, body:not('#show') footer {
+ body:not(#home) footer, body:not(#show) footer {
   margin-top : 50px;
  }
 
