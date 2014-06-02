@@ -64,7 +64,7 @@
         <p><%= link_to 'Log in', new_user_session_path %> to post a comment</p>
       <% end %>
     </div><br>
-    <% if @memes %>
+    <% if @memes.length > 0 %>
       <h3>More from this user</h3>
       <%= render partial: 'memes/memes', locals: {memes: @memes} %>
     <% end %>
