@@ -10,11 +10,11 @@ jQuery(function() {
 
 
     $('.modal-body #like').html('<iframe src="//www.facebook.com/plugins/like.php?href=' + $(this).data('url') + '&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=568398906591962" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>');
-    $('.modal-body #tweet').html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + $(this).data('url') + '" data-text="This is fun">Tweet</a>');
+    $('.modal-body #tweet').html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + $(this).data('url') + '" data-text="Check out this article on World Edit">Tweet</a>');
     $('.modal-body #plusone').html('<div class="g-plusone" data-size="medium" data-href="' + $(this).data('url') + '"></div>');
 
     var tumblr_button = document.createElement("a");
-    tumblr_button.setAttribute("href", "http://www.tumblr.com/share/link?url=" + $(this).data('url').replace("http://", "") + "&name=test&description=test");
+    tumblr_button.setAttribute("href", "http://www.tumblr.com/share/link?url=" + $(this).data('url').replace("http://", ""));
     tumblr_button.setAttribute("title", "Share on Tumblr");
     tumblr_button.setAttribute("style", "display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;");
     tumblr_button.innerHTML = "Share on Tumblr";

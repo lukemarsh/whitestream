@@ -9,14 +9,14 @@
         <iframe src="//www.facebook.com/plugins/like.php?href=<%= request.original_url %>&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=568398906591962" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>
       </span>
       <span id="tweet">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= request.original_url %>" data-text="This is fun">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= request.original_url %>" data-text="Check out this article on World Edit">
         Tweet</a>
       </span>
       <span id="plusone">
         <div class="g-plusone" data-size="medium" data-href="<%= request.original_url %>"></div>
       </span>
       <span id="tumblr">
-        <a href="http://www.tumblr.com/share/link?url=<%= request.original_url.gsub! 'http://', '' %>&name=test&description=test" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
+        <a href="http://www.tumblr.com/share/link?url=<%= request.original_url.gsub! 'http://', '' %>" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('http://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
       </span>
       <div id="reddit">
         <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5&url=<%= request.original_url %>"></script>
