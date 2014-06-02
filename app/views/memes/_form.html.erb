@@ -78,7 +78,7 @@
 </div>
 <hr>
 <h1>2/ Write your article <span>(optional)</span></h1>
-<%= text_area 'meme', 'article', value: @meme.article  %>
+<%= bootsy_area 'meme', 'article', value: @meme.article, class: 'form-control', rows: 12  %>
 <br><br>
 <div class="form-group">
   <button id="download" class="btn btn-primary">
