@@ -28,7 +28,7 @@
   <div class="container">
     <div style="position:absolute;">
       <% if @user.profile_picture_url %>
-        <% if current_user %>
+        <% if current_user && current_user == @user %>
           <%= link_to edit_user_registration_path do %>
             <div class="glyphicon glyphicon-camera" style="position:absolute;color:white;font-size:20px;bottom:5px;left:5px;top: inherit;text-shadow:0 0px 10px rgba(0, 0, 0, 1);"></div>
           <% end %>

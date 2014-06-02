@@ -8,22 +8,22 @@ class MemesController < ApplicationController
   def index
     @body_id = "home"
     #binding.pry
-    @meme_categories = Meme.joins(:categories).distinct
-    @memes = Meme.paginate(page: params[:page], per_page: 8).order('created_at DESC')
+    @meme_categories = Category.all
+    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 8).order('created_at DESC')
     @featured = Meme.where("featured = ?", true).order('created_at DESC')
     render :layout => 'home'
   end
 
   def show_all
-    @memes = Meme.paginate(page: params[:page], per_page: 8).order('created_at DESC')
+    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 8).order('created_at DESC')
   end
 
   def from_popular
-    @memes = Meme.plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 8)
+    @memes = Meme.where("featured != ?", true).plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 8)
   end
 
   def from_category
-    @memes = Meme.joins(:categories).where("name like ?", params[:category]).paginate(page: params[:page], per_page: 15).order('created_at DESC')
+    @memes = Meme.where("featured != ?", true).joins(:categories).where("name like ?", params[:category]).paginate(page: params[:page], per_page: 15).order('created_at DESC')
   end
 
   # GET /memes/1
@@ -97,6 +97,19 @@ class MemesController < ApplicationController
       format.html { redirect_to memes_url }
       format.json { head :no_content }
     end
+  end
+
+  def feature
+    @meme = Meme.find(params[:meme_id])
+    if @meme.update(featured: true)
+      redirect_to memes_url
+    end
+  end
+
+  def unfeature
+    @meme = Meme.find(params[:meme_id])
+    @meme.update(featured: false)
+    redirect_to memes_url
   end
 
   def vote_for_meme

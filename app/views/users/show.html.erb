@@ -3,27 +3,3 @@
     <%= render partial: 'memes/memes', locals: {memes: @memes} %>
   </div>
 </div>
-</div>
-<% if @memes.length > 12 %>
-<div id="pagination">
-  <div class="container">
-    <% if @memes.previous_page %>
-      <%= link_to "< Previous", params.merge(page: @memes.previous_page), :class => "prev" %>
-    <% end %>
-    <% if @memes.next_page %>
-      <%= link_to "Next >", params.merge(page: @memes.next_page), :class => "next" %>
-    <% end %>
-  </div>
-<% end %>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <img src="" alt="" width="100%" class="modal-meme">
-        <div id="toolbox"></div>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5015a9a0733e9218"></script>
-        <!-- AddThis Button END -->
-      </div>
-    </div>
-  </div>
-</div>

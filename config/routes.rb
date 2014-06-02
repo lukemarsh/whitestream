@@ -7,6 +7,8 @@ Whitestream::Application.routes.draw do
   resources :users
 
   resources :memes do
+    post :feature
+    delete :unfeature
     post :vote_for_meme
     delete :vote_against_meme
     resources :comments

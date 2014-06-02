@@ -2,9 +2,6 @@
   <div class="meme">
     <div class="meme-inner">
       <%= image_tag meme.image %>
-      <% if meme.user == current_user %>
-        <%= link_to '', meme, :method => :delete, :class => "glyphicon glyphicon-remove delete",  data: {confirm: "Are you sure you want to delete this article?"} %>
-      <% end %>
       <ul class="menu">
         <% if meme.article.length > 0 %>
           <li><%= link_to 'READ', meme %></li>
@@ -18,6 +15,20 @@
       <%= link_to meme.user do %><%= meme.user.username %><% end %>
     <% end %>
     <span class="actions">
+      <% if meme.user == current_user || current_admin %>
+        <%= link_to '', meme, :method => :delete, :class => "glyphicon glyphicon-trash",  data: {confirm: "Are you sure you want to delete this article?"} %>
+      <% end %>
+      <% if current_admin %>
+        <% if meme.featured %>
+          <%= link_to meme_unfeature_path(meme), :method => :delete, :class => "feature" do %>
+            <span class="glyphicon glyphicon-star"></span>
+          <% end %>
+        <% else %>
+          <%= link_to meme_feature_path(meme), :method => :post, :class => "feature" do %>
+            <span class="glyphicon glyphicon-star"></span>
+          <% end %>
+        <% end %>
+      <% end %>
       <span class="views">
         <span class="glyphicon glyphicon-eye-open"></span> <%= meme.impressionist_count %>
       </span>
