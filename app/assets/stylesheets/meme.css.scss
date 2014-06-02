@@ -112,6 +112,10 @@
   right:0;
 }
 
+.meme .text {
+  display: none;
+}
+
 .comment input {
   width: 100%;
   height: 100%;
@@ -120,3 +124,43 @@
 #reddit a {
   vertical-align: top;
 }
+
+#article {
+  margin-bottom : 10px;
+}
+
+#right ul {
+  list-style: none;
+  padding:0;
+  font-size : 12px;
+}
+
+#right .actions {
+  color: #999;
+}
+
+#right .actions .heart.liked {
+color: #e94d8a;
+}
+
+#right .actions {
+  margin-bottom : 20px;
+}
+
+#right .actions .glyphicon {
+  width : 15px;
+}
+
+#right .actions li {
+padding: 5px 0;
+  border-bottom : 1px solid #eeeeee;
+  a {
+  color: #999;
+text-decoration: none;
+  }
+
+}
+
+#right .actions .views {
+  color : #999;
+  }

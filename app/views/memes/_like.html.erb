@@ -1,11 +1,19 @@
 <% if current_user %>
   <% if current_user.voted_for?(meme) %>
     <%= link_to meme_vote_against_meme_path(meme), method: :delete, remote: true do %>
-      <span class="glyphicon glyphicon-heart heart liked"></span> <%= meme.votes.count %>
+      <span class="glyphicon glyphicon-heart heart liked"></span> <%= meme.votes.count %> 
+      <span class="text">
+        <% word = "like" %>
+        <% if meme.votes.count > 1 %>
+          <%= word.pluralize %>
+        <% else %>
+          <%= word %>
+        <% end %>
+      </span>
     <% end %>
   <% else %>
     <%= link_to meme_vote_for_meme_path(meme), method: :post, remote: true do %>
-      <span class="glyphicon glyphicon-heart heart"></span> <%= meme.votes.count %>
+      <span class="glyphicon glyphicon-heart heart"></span> <%= meme.votes.count %> <span class="text">likes</span>
     <% end %>
   <% end %>
 <% end %>
