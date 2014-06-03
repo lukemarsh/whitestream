@@ -60,14 +60,21 @@ body:not(#home):not(.wysihtml5-supported):not(#show) #wrap {
  }
 
  #pagination {
+  clear:both;
   font-family: 'MyriadPro-Bold';
   font-style:italic;
   text-transform: uppercase;
-  padding-top : 10px;
+  padding : 10px 0;
+ }
+
+ @media (min-width: 480px ) {
+  #pagination {
+    margin-left : 2.5%;
+  }
  }
 
  #pagination a {
-  color : #fff;
+  color : #000;
  }
 
  #pagination .prev {

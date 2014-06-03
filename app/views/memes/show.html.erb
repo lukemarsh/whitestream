@@ -45,11 +45,9 @@
       <li class="views">
         <span class="glyphicon glyphicon-eye-open"></span> <%= pluralize(@meme.impressionist_count, 'view') %>
       </li>
-      <% if @meme.article.length > 0 %>
-        <li class="comments">
-          <span class="glyphicon glyphicon-comment"></span> <%= pluralize(@meme.comments.count, 'comment') %>
-        </li>
-      <% end %>
+      <li class="comments">
+        <span class="glyphicon glyphicon-comment"></span> <%= pluralize(@meme.comments.count, 'comment') %>
+      </li>
       <% if @current_user %>
         <li class="like" id="meme_<%= @meme.id %>">
           <%= render partial: 'memes/like', locals: {meme: @meme} %>

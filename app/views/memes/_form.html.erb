@@ -129,7 +129,12 @@
 
     ctx.textAlign = 'center';
     ctx.font = '64pt MyriadPro-BoldCond';
-    ctx.strokeStyle = 'transparent';
+    if (ctx.fillStyle === '#ffffff') {
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth  = 4;
+    } else {
+      ctx.strokeStyle = 'transparent'
+    }
     ctx.fillStyle = '#000';
 
     doTransform();
@@ -232,7 +237,12 @@
 
     ctx.textAlign = 'center';
     ctx.font = '64pt MyriadPro-BoldCond';
-    ctx.strokeStyle = 'transparent';
+    if (ctx.fillStyle === '#ffffff') {
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth  = 4;
+    } else {
+      ctx.strokeStyle = 'transparent'
+    }
     ctx.fillStyle = '#000';
   }
 
@@ -304,6 +314,12 @@
       else {
         line = testLine;
       }
+    }
+    if (ctx.fillStyle === '#ffffff') {
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth  = 4;
+    } else {
+      ctx.strokeStyle = 'transparent'
     }
     ctx.strokeText(line, x, y);
     ctx.fillText(line, x, y);

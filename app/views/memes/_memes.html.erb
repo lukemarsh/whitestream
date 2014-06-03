@@ -1,18 +1,12 @@
 <% memes.each do |meme| %>
   <div class="meme">
     <div class="meme-inner">
-      <%= image_tag meme.image %>
-      <ul class="menu">
-        <% if meme.article.length > 0 %>
-          <li><%= link_to 'READ', meme %></li>
-        <% else %>
-          <li><%= link_to 'VIEW', '#', :class => 'lightbox', data: {:image => meme.image, :url => meme_url(meme)} %></li>
-        <% end %>
-        <li><%= link_to 'REMIX', new_meme_url(:raw_image => meme.raw_image) %></li>
-      </ul>
+      <%= link_to meme do %>
+        <%= image_tag meme.image %>
+      <% end %>
     </div>
-    <% if meme.user %>
-      <%= link_to meme.user do %><%= meme.user.username %><% end %>
+    <%= link_to meme.user do %>
+      <%= meme.user.username %>
     <% end %>
     <span class="actions">
       <% if meme.user == current_user || current_admin %>
