@@ -25,12 +25,12 @@ body:not(#home):not(.form-control):not(#show) {
   width: 100%;
 }
 
-body:not(#home):not(.wysihtml5-supported) #wrap, body:not(#home):not(.wysihtml5-supported) footer {
+body:not(#home):not(.wysihtml5-supported):not(#show) #wrap, body:not(#home):not(.wysihtml5-supported):not(#show) footer {
   display: table-row;
   height: 1px;
 }
 
-body:not(#home):not(.wysihtml5-supported) #wrap {
+body:not(#home):not(.wysihtml5-supported):not(#show) #wrap {
    height: 100%;
 }
 
