@@ -83,3 +83,19 @@ footer, .page-wrap:after {
  .delete:hover {
   color : red;
  }
+
+ #loading {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+ }
+
+ .spin{
+   -webkit-transform-origin: 50% 58%;
+   transform-origin:50% 58%;
+   -ms-transform-origin:50% 58%; /* IE 9 */
+   -webkit-animation: spin .2s infinite linear;
+   -moz-animation: spin .2s infinite linear;
+   -o-animation: spin .2s infinite linear;
+   animation: spin .2s infinite linear;
+}
