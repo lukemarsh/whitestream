@@ -1,29 +1,15 @@
-      <%= render 'shared/header' %>
-      <ul class="nav navbar-left">
-        <li>&nbsp;</li>
-      </ul>
-      <ul class="nav navbar-center">
-        <li><%= link_to "World Edit", root_url %></li>
-      </ul>
-      <ul class="nav navbar-right">
-        <li><%= link_to "Contribute", new_meme_url %></li>
-      </ul>
-    </div>
-  </nav>
-  <div id="wrap">
-    <div class="container">
-      <%= yield %>
-    </div>
-    <div id="push"></div>
-  </div>
+  <%= render 'shared/site_header' %>
+  <%= render 'shared/top_nav' %>
 </div>
-<footer>
-  <div class="container clearfix">
-    <p class="copyright pull-left">
-      &copy; 2014 WE media.
-    </p>
-    <a href="mailto:we.worldedit@gmail.com" id="contact" class="pull-right">Contact us</a>
+<%= render 'shared/logo' %>
+<nav class="navbar">
+  <div class="container">
+    <ul class="nav navbar-left">
+      <li>&nbsp;</li>
+    </ul>
+    <%= render 'shared/navbar_right' %>
   </div>
-</footer>
-</body>
-</html>
+</nav>
+<%= render 'shared/navbar_right' %>
+<%= render 'shared/content' %>
+<%= render 'shared/site_footer' %>
