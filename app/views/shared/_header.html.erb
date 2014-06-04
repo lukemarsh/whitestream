@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>World Edit</title>
+  <title><%= yield(:title) %>World Edit</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -28,6 +28,7 @@
     })();
   </script>
   <script src="http://platform.tumblr.com/v1/share.js"></script>
+<div class="page-wrap">
   <div class="container">
     <nav class="navbar" id="user-actions">
       <ul class="nav">

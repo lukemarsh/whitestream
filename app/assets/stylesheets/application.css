@@ -20,43 +20,33 @@
 html,
 body { height: 100%; }
 
-body:not(#home):not(.form-control):not(#show) {
-  display: table;
-  width: 100%;
+  .page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -50px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
 }
 
-body:not(#home):not(.wysihtml5-supported):not(#show) #wrap, body:not(#home):not(.wysihtml5-supported):not(#show) footer {
-  display: table-row;
-  height: 1px;
-}
-
-body:not(#home):not(.wysihtml5-supported):not(#show) #wrap {
-   height: 100%;
+footer, .page-wrap:after {
+  height : 50px;
 }
 
  footer {
   background: black;
   color : white;
-  text-align: center;
-  font-style:italic;
- }
-
- body:not(#home):not(#show) footer {
-  margin-top : 50px;
- }
-
- #contact {
-  font-family: 'MyriadPro-Bold';
-  margin-top : 60px;
-  display: block;
-  color : #fff;
-  margin-bottom: 60px;
+  line-height: 50px;
+  font-size: 12px;
  }
 
  .copyright {
-  font-family : Times;
-  margin:0;
-  padding-bottom: 10px;
+  margin : 0;
+ }
+
+ #contact {
+  color : #fff;
  }
 
  #pagination {

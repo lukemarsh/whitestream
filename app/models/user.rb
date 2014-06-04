@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :memes
 
   validates :username, :presence => true
+  validates_uniqueness_of :username
 
   def update_with_password(params={})
     if params[:password].blank?

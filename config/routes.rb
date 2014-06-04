@@ -14,9 +14,7 @@ Whitestream::Application.routes.draw do
     resources :comments
   end
 
-  get 'fetch_items', :controller => :memes, :action => :from_category
-  get 'fetch_popular_items', :controller => :memes, :action => :from_popular
-  get 'fetch_all', :controller => :memes, :action => :show_all
+  get '/:username', to: 'users#show', :as => 'username'
 
   #post ':controller(/:action(/:id(.:format)))'
 

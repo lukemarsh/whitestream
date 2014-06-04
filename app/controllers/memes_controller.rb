@@ -7,23 +7,19 @@ class MemesController < ApplicationController
   # GET /memes.json
   def index
     @body_id = "home"
-    #binding.pry
     @meme_categories = Category.all
-    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 8).order('created_at DESC')
-    @featured = Meme.where("featured = ?", true).order('created_at DESC')
+    filter = params[:filter]
+    @sort = params[:sort]
+
+    if filter
+      @meme_count = Meme.where("featured != ?", true).joins(:categories).filter(filter).length
+    else
+      @meme_count = Meme.where("featured != ?", true).sort(@sort).length
+    end
+
+    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 8).filter(filter).sort(@sort).order('created_at DESC')
+    @featured = Meme.where("featured = ?", true)
     render :layout => 'home'
-  end
-
-  def show_all
-    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 8).order('created_at DESC')
-  end
-
-  def from_popular
-    @memes = Meme.where("featured != ?", true).plusminus_tally({:order => "vote_count DESC"}).paginate(page: params[:page], per_page: 8)
-  end
-
-  def from_category
-    @memes = Meme.where("featured != ?", true).joins(:categories).where("name like ?", params[:category]).paginate(page: params[:page], per_page: 15).order('created_at DESC')
   end
 
   # GET /memes/1

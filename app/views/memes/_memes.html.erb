@@ -2,10 +2,10 @@
   <div class="meme">
     <div class="meme-inner">
       <%= link_to meme do %>
-        <%= image_tag meme.image %>
+        <%= image_tag meme.image, :alt => meme.alt_tag %>
       <% end %>
     </div>
-    <%= link_to meme.user do %>
+    <%= link_to username_path(meme.user.username) do %>
       <%= meme.user.username %>
     <% end %>
     <span class="actions">

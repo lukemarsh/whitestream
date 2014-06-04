@@ -1,5 +1,6 @@
+<% content_for :title do %><%= @user.username %> | <% end %>
 <div id="stream">
-  <div class="memes" id="reload">
-    <%= render partial: 'memes/memes', locals: {memes: @memes} %>
+  <div id="reload">
+    <%= render partial: 'memes/all_memes', locals: {memes: @memes} %>
   </div>
 </div>

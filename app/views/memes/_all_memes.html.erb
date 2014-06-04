@@ -1,0 +1,13 @@
+<div class="memes">
+  <div class="test">
+    <%= render partial: 'memes/memes', locals: {memes: @memes} %>
+    <div id="pagination" class="clearfix">
+      <% if @memes.previous_page %>
+        <%= link_to "< Previous", params.merge(page: @memes.previous_page), :class => "prev", :remote => true %>
+      <% end %>
+      <% if @meme_count != 8 && (@meme_count/8).ceil >= @memes.current_page %>
+       <%= link_to "Next >", params.merge(page: @memes.current_page + 1), {:page => @memes.current_page, :class => "next", :remote => true} %>
+      <% end %>
+    </div>
+  </div>
+</div>

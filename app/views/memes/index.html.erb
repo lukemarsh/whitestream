@@ -6,17 +6,7 @@
     </div>
     <hr>
   <% end %>
-  <div class="memes" id="reload">
-    <div class="test">
-      <%= render partial: 'memes', locals: {memes: @memes} %>
-      <div id="pagination" class="clearfix">
-        <% if @memes.previous_page %>
-          <%= link_to "< Previous", params.merge(page: @memes.previous_page), :class => "prev", :remote => true %>
-        <% end %>
-        <% if @memes.next_page %>
-          <%= link_to "Next >", params.merge(page: @memes.next_page), :class => "next", :remote => true %>
-        <% end %>
-      </div>
-    </div>
+  <div id="reload">
+    <%= render partial: 'all_memes', locals: {memes: @memes} %>
   </div>
 </div>
