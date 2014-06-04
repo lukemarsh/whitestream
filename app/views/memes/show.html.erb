@@ -49,11 +49,9 @@
       <li class="comments">
         <span class="glyphicon glyphicon-comment"></span> <%= pluralize(@meme.comments.count, 'comment') %>
       </li>
-      <% if @current_user %>
-        <li class="like" id="meme_<%= @meme.id %>">
-          <%= render partial: 'memes/like', locals: {meme: @meme} %>
-        </li>
-      <% end %>
+      <li class="like" id="meme_<%= @meme.id %>">
+        <%= render partial: 'memes/like', locals: {meme: @meme} %>
+      </li>
     </ul>
     <h3>Comments</h3>
     <div id="comments">
@@ -96,21 +94,5 @@
       <h3>More from this user</h3>
       <%= render partial: 'memes/memes', locals: {memes: @memes} %>
     <% end %>
-  </div>
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-body">
-          <img src="" alt="" width="100%" class="modal-meme">
-          <div id="social-share-buttons">
-            <span id="like"></span>
-            <span id="tweet"></span>
-            <span id="plusone"></span>
-            <span id="tumblr"></span>
-            <div id="reddit"></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

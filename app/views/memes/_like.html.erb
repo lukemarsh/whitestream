@@ -17,5 +17,13 @@
     <% end %>
   <% end %>
 <% else %>
-  <span class="glyphicon glyphicon-heart heart"></span> <%= meme.votes.count %> <span class="text">likes</span>
+  <span class="glyphicon glyphicon-heart heart"></span> <%= meme.votes.count %> 
+  <span class="text">
+    <% word = "like" %>
+    <% if meme.votes.count > 1 %>
+      <%= word.pluralize %>
+    <% else %>
+      <%= word %>
+    <% end %>
+  </span>
 <% end %>
