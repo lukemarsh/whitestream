@@ -1,6 +1,10 @@
 <% content_for :title do %><%= @user.username %> | <% end %>
 <div id="stream">
   <div id="reload">
+    <% if @memes.length > 0 %>
     <%= render partial: 'memes/all_memes', locals: {memes: @memes} %>
+    <% else %>
+      <p>This user hasn't posted any content yet</p>
+    <% end %>
   </div>
 </div>

@@ -16,4 +16,6 @@
       <span class="glyphicon glyphicon-heart heart"></span> <%= meme.votes.count %> <span class="text">likes</span>
     <% end %>
   <% end %>
+<% else %>
+  <span class="glyphicon glyphicon-heart heart"></span> <%= meme.votes.count %> <span class="text">likes</span>
 <% end %>
