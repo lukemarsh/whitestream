@@ -1,5 +1,5 @@
 class RegistrationsController < DeviseController
-  respond_to :html, :js
+  respond_to :html, :js, :json
   prepend_before_filter :require_no_authentication, only: [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy]
 
@@ -27,8 +27,7 @@ class RegistrationsController < DeviseController
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
     else
-      clean_up_passwords resource
-      respond_with resource
+      render :json=> resource.errors, :status=>422
     end
   end
 

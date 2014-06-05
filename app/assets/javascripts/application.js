@@ -18,13 +18,62 @@
 //= require bootstrap
 //= require jquery.autogrow-textarea
 //= require owl.carousel
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 
 //= require_tree .
 
 $(document).on('submit', '#login_form, #registration_form', function () {
-  console.log('test');
 }).on('ajax:success', '#login_form, #registration_form', function () {
   $('.modal').modal('hide');
-}).on('ajax:error', '#login_form, #registration_form', function () {
-  alert('errors!');
+}).on('ajax:error', '#login_form, #registration_form', function (response, errors) {
+  if (errors.responseText) {
+    if ($(".errors").length < 1) {
+      $("#login_form").prepend("<span class='errors'>" + errors.responseText + "</span>");
+    }
+  } else {
+    for (var key in errors.responseJSON) {
+       if(errors.responseJSON.hasOwnProperty(key)){
+        $("#user_" + key).parent().append("<span class='error'>" + key + " is required</span>");
+      }
+    }
+  }
+});
+
+jQuery(function () {
+  $('body').on('shown.bs.modal', '.modal', function () {
+    $("#registration_form").validate({
+      rules: {
+        "user[username]": "required",
+        "user[email]": {
+          required: true,
+          email: true
+        },
+        "user[password]": {
+          required: true
+        }
+      },
+      messages: {
+        "user[username]": {
+          required: "Please enter a username",
+          minlength: "Your username must consist of at least 2 characters"
+        },
+        "user[password]": {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+        "user[email]": "Please enter a valid email address",
+      }
+    });
+    $("#login_form").validate({
+      rules: {
+        "user[email]": "required",
+        "user[password]": "required"
+      },
+      messages: {
+        "user[email]": "Please enter your email address",
+        "user[password]": "Please enter your password",
+      }
+    });
+  });
 });

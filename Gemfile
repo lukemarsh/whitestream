@@ -43,7 +43,7 @@ gem 'impressionist'
 gem 'acts_as_commentable'
 gem 'fog'
 gem 'rmagick', :require => 'RMagick'
-gem 'client_side_validations', github: "bcardarella/client_side_validations", :branch => "4-0-beta"
+gem 'jquery-validation-rails'
 
 
 group :development, :test do
