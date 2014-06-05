@@ -44,7 +44,9 @@ class MemesController < ApplicationController
   # GET /memes/1/edit
   def edit
     @meme = Meme.find(params[:id])
-    @raw_image = "/uploads/meme/raw_image/#{@meme.id}/blob.png"
+    @raw_image = @meme.raw_image
+    @top_line = @meme.top_line
+    @bottom_line = @meme.bottom_line
   end
 
   # POST /memes
@@ -74,8 +76,18 @@ class MemesController < ApplicationController
   # PATCH/PUT /memes/1
   # PATCH/PUT /memes/1.json
   def update
+    if params[:image].try(:original_filename) == 'blob'
+      params[:image].original_filename << '.png'
+    end
+    if params[:raw_image].try(:original_filename) == 'blob'
+      params[:raw_image].original_filename << '.png'
+    end
+
+    @meme = Meme.find(params[:id])
+    @meme.user = current_user
+
     respond_to do |format|
-      if @meme.update(meme_params)
+      if @meme.update_attributes(image: params[:image], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
         format.html { redirect_to @meme, notice: 'Meme was successfully updated.' }
         format.json { head :no_content }
       else
