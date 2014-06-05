@@ -3,7 +3,7 @@
   <div class="col-md-8" id="left">
     <%= image_tag @meme.image, :class => "single-meme", :alt => @meme.alt_tag %>
     <div class="details">
-      <span>By <%= @meme.user.username %></span> | <span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
+      <% if @meme.user %><span>By <%= @meme.user.username %></span> | <% end %><span><%= @meme.created_at.to_formatted_s(:month_and_year) %></span>
     </div>
     <div id="share-buttons">
       <span id="like">
@@ -44,7 +44,7 @@
         <% end %>
       <% end %>
       <li class="views">
-        <span class="glyphicon glyphicon-eye-open"></span> <%= pluralize(@meme.impressionist_count, 'view') %>
+        <span class="glyphicon glyphicon-eye-open"></span> <%= pluralize(@meme.impressionist_count(:filter=>:ip_address), 'view') %>
       </li>
       <li class="comments">
         <span class="glyphicon glyphicon-comment"></span> <%= pluralize(@meme.comments.count, 'comment') %>

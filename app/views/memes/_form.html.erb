@@ -1,3 +1,6 @@
+<div id="current">
+  <%= render 'shared/current_user' %>
+</div>
 <div class="modal indicate" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="progress progress-striped active">
@@ -193,32 +196,13 @@
       fd.append("category_ids", categoryIdsArray);
 
       if ($("#image_meme")[0].files[0] || copied_image) {
+        var current_user = $("#current_user").val();
+        if (current_user != "{:value=>nil}") {
+          sendRequest(fd);
 
-        $('.indicate').modal('show');
-
-        request = $.ajax({
-          url: '/memes',
-          xhrFields: {
-            onprogress: function (e) {
-              if (e.lengthComputable) {
-                //console.log(e.loaded / e.total * 100 + '%');
-                $(".progress-bar").width(e.loaded / e.total * 100 + '%').attr('aria-valuenow', e.loaded / e.total * 100 + '%');
-              }
-            }
-          },
-          type: "POST",
-          dataType: "JSON",
-          data: fd,
-          cache: false,
-          processData: false,
-          contentType: false
-        });
-
-        //debugger
-
-        request.done(function (response, textStatus, jqXHR){
-          window.location.href = '/memes/'+response.id;
-        });
+        } else {
+          $('#myModal').modal('show');
+        }
 
       } else {
         alert("Please upload an image");
@@ -244,6 +228,31 @@
       ctx.strokeStyle = 'transparent'
     }
     ctx.fillStyle = '#000';
+  }
+
+  function sendRequest(fd) {
+    request = $.ajax({
+      url: '/memes',
+      xhrFields: {
+        onprogress: function (e) {
+          if (e.lengthComputable) {
+            $('.indicate').modal('show');
+            $(".progress-bar").width(e.loaded / e.total * 100 + '%').attr('aria-valuenow', e.loaded / e.total * 100 + '%');
+          }
+        }
+      },
+      type: "POST",
+      dataType: "JSON",
+      data: fd,
+      cache: false,
+      processData: false,
+      contentType: false
+    });
+
+    request.done(function (response, textStatus, jqXHR){
+      window.location.href = '/memes/'+response.id;
+    });
+
   }
 
   function dataURLtoBlob(dataURL) {
@@ -325,3 +334,22 @@
     ctx.fillText(line, x, y);
   }
 </script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h1>Your content has been created!</h1>
+        <p>However, it looks like you're not logged in. If you have an account, <a href="<%= new_user_session_path %>?login=true" data-toggle="modal" data-target="#login">sign in</a> to access our juicy content</p>
+        <p>If you don't have an account, register <a href="<%= new_user_registration_path %>?login=true" data-toggle="modal" data-target="#register">here</a></p>
+        <p>By registering you:</p>
+        <ul>
+          <li>Will have your own profile page</li>
+          <li>Can edit, and update your own content</li>
+          <li>Can comment and like other content</li>
+        </ul>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="continue">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

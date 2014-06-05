@@ -25,10 +25,10 @@
           </li>
         <% else %>
           <li>
-          <%= link_to('Login', new_user_session_path)  %>
+            <%= link_to 'Login', new_user_session_path, :data => {:toggle => 'modal', :target => '#login'}  %>
           </li>
           <li>
-            <%= link_to('Register', new_user_registration_path)  %>
+            <%= link_to 'Register', new_user_registration_path, :data => {:toggle => 'modal', :target => '#register'}  %>
           </li>
         <% end %>
       <% end %>
@@ -44,3 +44,4 @@
 </nav>
 <%= render 'shared/content' %>
 <%= render 'shared/site_footer' %>
+<%= render 'shared/auth' %>

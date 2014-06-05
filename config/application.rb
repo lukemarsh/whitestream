@@ -21,5 +21,9 @@ module Whitestream
     # config.i18n.default_locale = :de
 
     config.serve_static_assets = true
+    config.to_prepare do
+        Devise::SessionsController.layout ""
+        Devise::RegistrationsController.layout ""
+    end
   end
 end

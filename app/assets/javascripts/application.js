@@ -20,3 +20,11 @@
 //= require owl.carousel
 
 //= require_tree .
+
+$(document).on('submit', '#login_form, #registration_form', function () {
+  console.log('test');
+}).on('ajax:success', '#login_form, #registration_form', function () {
+  $('.modal').modal('hide');
+}).on('ajax:error', '#login_form, #registration_form', function () {
+  alert('errors!');
+});
