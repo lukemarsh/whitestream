@@ -163,8 +163,7 @@
       reader.readAsDataURL(fileInput.files[0]);
     }, false);
 
-    var download = document.getElementById('download');
-    download.addEventListener('click', function(e) {
+    $("#download").on('click', function(e, continueSubmission) {
       var data = canvas.toDataURL("image/png;base64;");
       var raw_data = rawimage.toDataURL("image/png;base64;");
       var file = dataURLtoBlob(data);
@@ -197,9 +196,8 @@
 
       if ($("#image_meme")[0].files[0] || copied_image) {
         var current_user = $("#current_user").val();
-        if (current_user != "{:value=>nil}") {
+        if (current_user != "{:value=>nil}" || continueSubmission) {
           sendRequest(fd);
-
         } else {
           $('#myModal').modal('show');
         }
@@ -208,7 +206,7 @@
         alert("Please upload an image");
       }
 
-    }, false);
+    });
 
     scale = document.getElementById('scale');
     scale.addEventListener('change', doTransform, false);
@@ -339,16 +337,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <h1>Your content has been created!</h1>
-        <p>However, it looks like you're not logged in. If you have an account, <a href="<%= new_user_session_path %>?login=true" data-toggle="modal" data-target="#login">sign in</a> to access our juicy content</p>
-        <p>If you don't have an account, register <a href="<%= new_user_registration_path %>?login=true" data-toggle="modal" data-target="#register">here</a></p>
-        <p>By registering you:</p>
-        <ul>
-          <li>Will have your own profile page</li>
-          <li>Can edit, and update your own content</li>
-          <li>Can comment and like other content</li>
-        </ul>
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="continue">Continue</button>
+        <h1>You're almost finished</h1>
+        <div class="btn-group btn-group-justified btn-group-lg">
+          <a href="<%= new_user_session_path %>?login=true" data-toggle="modal" data-target="#login" class="btn btn-default">Log in</a>
+          <a href="<%= new_user_registration_path %>?login=true" data-toggle="modal" data-target="#register" class="btn btn-default">Register</a>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" id="continue">Submit</button>
       </div>
     </div>
   </div>
