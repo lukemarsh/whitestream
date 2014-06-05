@@ -1,5 +1,4 @@
 class MemesController < ApplicationController
-  before_filter :authenticate_user!, only: [:new]
   before_action :set_meme, only: [:show, :edit, :update, :destroy]
   impressionist :actions=>[:show]
 
