@@ -87,7 +87,7 @@
           <%= f.submit 'Submit', :class => 'btn btn-default btn-sm' %>
         <% end %>
       <% else %>
-        <p><%= link_to 'Log in', new_user_session_path %> to post a comment</p>
+        <p><%= link_to 'Log in', new_user_session_path, :data => {:toggle => 'modal', :target => '#login'} %> to post a comment</p>
       <% end %>
     </div><br>
     <% if @memes.length > 0 %>
