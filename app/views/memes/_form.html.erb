@@ -54,11 +54,11 @@
     <div class="btn-group" data-toggle="buttons">
       <%= label_tag "black", :class => "btn btn-default colour", :data => {:colour => "#000000"} do %>
         BLACK
-        <%= radio_button_tag "colour", "#000000", @meme.colour == "#000000" ? true : false %>
+        <%= radio_button_tag "colour", "#000000", @meme.colour && @meme.colour == "#000000" ? true : false %>
       <% end %>
       <%= label_tag "white", :class => "btn btn-default colour", :data => {:colour => "#ffffff"} do %>
         WHITE
-        <%= radio_button_tag "colour", "#ffffff", @meme.colour == "#ffffff" ? true : false %>
+        <%= radio_button_tag "colour", "#ffffff", @meme.colour && @meme.colour == "#ffffff" ? true : false %>
       <% end %>
     </div>
     <br>
