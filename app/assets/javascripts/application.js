@@ -25,7 +25,7 @@
 
 $(document).on('submit', '#login_form, #registration_form', function () {
 }).on('ajax:success', '#login_form, #registration_form, #password_form', function () {
-  $('.modal').modal('hide');
+  $('.modal').not(".indicate").modal('hide');
 }).on('ajax:error', '#login_form, #registration_form', function (response, errors) {
   if (errors.responseText) {
     if ($(".errors").length < 1) {
