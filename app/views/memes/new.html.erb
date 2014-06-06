@@ -167,10 +167,14 @@
       contentType: false
     });
 
+    request.done(function (response, textStatus, jqXHR){
+      window.location.href = '/memes/'+response.id;
+    });
+
     var authorization = 'Client-ID d84ae3d33cf9385';
 
     var imgurrequest = $.ajax({
-      url: 'https://api.imgur.com/3/gallery/theworldedit',
+      url: 'https://api.imgur.com/3/gallery/image',
       dataType: "JSON",
       type: 'POST',
       headers: {
