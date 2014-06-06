@@ -43,6 +43,7 @@ gem 'impressionist'
 gem 'acts_as_commentable'
 gem 'fog'
 gem 'rmagick', :require => 'RMagick'
+gem 'jquery-validation-rails'
 
 
 group :development, :test do

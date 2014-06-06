@@ -11,7 +11,7 @@
   <div class="form-group"><%= f.label :password_confirmation, "Confirm new password" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %></div>
 
-  <div class="form-group"><%= f.submit "Change my password" %></div>
+  <div class="form-group"><%= f.submit "Change my password", :class => "btn btn-default" %></div>
 <% end %>
 
 <%= render "users/shared/links" %>

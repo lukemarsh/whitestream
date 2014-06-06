@@ -99,3 +99,20 @@ footer, .page-wrap:after {
    -o-animation: spin .2s infinite linear;
    animation: spin .2s infinite linear;
 }
+
+.errors {
+  margin-bottom: 10px;
+}
+
+.error {
+  margin-top:5px;
+}
+
+label.error {
+  font-weight: normal;
+}
+
+.error, .errors {
+  color : red;
+  display: block;
+}

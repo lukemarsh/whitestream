@@ -1,8 +1,13 @@
 <h1>Editing meme</h1>
 <%= render 'form' %>
+<div style="font-family: MyriadPro-BoldCond;">.</div>
 <script>
 
   $('input[type="checkbox"]:checked').each(function(){
+      $(this).parents('label').toggleClass('active');
+  });
+
+  $('input[type="radio"]:checked').each(function(){
       $(this).parents('label').toggleClass('active');
   });
 
@@ -50,7 +55,11 @@
     } else {
       ctx.strokeStyle = 'transparent'
     }
-    ctx.fillStyle = '#000';
+    if ('<%= @meme.colour %>') {
+      ctx.fillStyle = '<%= @meme.colour %>';
+    } else {
+      ctx.fillStyle = '#000';
+    }
 
     doTransform();
 
@@ -90,6 +99,11 @@
       var topLine = $("#topLine").val().toUpperCase();
       var bottomLine = $("#bottomLine").val().toUpperCase();
       var categories = $("input[type='checkbox']:checked");
+      if ($("input[type='radio']:checked").length > 0) {
+        var colour = $("input[type='radio']:checked")[0].value;
+      } else {
+        var colour = "#000000";
+      }
       var arr = [];
 
       categories.each(function(){
@@ -101,6 +115,7 @@
       var fd = new FormData();
       fd.append("image", file);
       fd.append("top_line", topLine);
+      fd.append("colour", colour);
       fd.append("bottom_line", bottomLine);
       fd.append("article", article);
       fd.append("raw_image", raw_file);
@@ -159,7 +174,11 @@
     } else {
       ctx.strokeStyle = 'transparent'
     }
-    ctx.fillStyle = '#000';
+    if ('<%= @meme.colour %>') {
+      ctx.fillStyle = '<%= @meme.colour %>';
+    } else {
+      ctx.fillStyle = '#000';
+    }
   }
 
   function dataURLtoBlob(dataURL) {

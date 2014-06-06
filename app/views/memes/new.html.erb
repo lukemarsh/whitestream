@@ -75,8 +75,7 @@
       reader.readAsDataURL(fileInput.files[0]);
     }, false);
 
-    var download = document.getElementById('download');
-    download.addEventListener('click', function(e) {
+    $("#download").on('click', function(e, continueSubmission) {
       var data = canvas.toDataURL("image/png;base64;");
       var raw_data = rawimage.toDataURL("image/png;base64;");
       var file = dataURLtoBlob(data);
@@ -90,6 +89,11 @@
       var topLine = $("#topLine").val().toUpperCase();
       var bottomLine = $("#bottomLine").val().toUpperCase();
       var categories = $("input[type='checkbox']:checked");
+      if ($("input[type='radio']:checked").length > 0) {
+        var colour = $("input[type='radio']:checked")[0].value;
+      } else {
+        var colour = "#000000";
+      }
       var arr = [];
 
       categories.each(function(){
@@ -100,6 +104,7 @@
 
       var fd = new FormData();
       fd.append("image", file);
+      fd.append("colour", colour);
       fd.append("top_line", topLine);
       fd.append("bottom_line", bottomLine);
       fd.append("article", article);
@@ -108,38 +113,18 @@
       fd.append("category_ids", categoryIdsArray);
 
       if ($("#image_meme")[0].files[0] || copied_image) {
-
-        $('.indicate').modal('show');
-
-        request = $.ajax({
-          url: '/memes',
-          xhrFields: {
-            onprogress: function (e) {
-              if (e.lengthComputable) {
-                //console.log(e.loaded / e.total * 100 + '%');
-                $(".progress-bar").width(e.loaded / e.total * 100 + '%').attr('aria-valuenow', e.loaded / e.total * 100 + '%');
-              }
-            }
-          },
-          type: "POST",
-          dataType: "JSON",
-          data: fd,
-          cache: false,
-          processData: false,
-          contentType: false
-        });
-
-        //debugger
-
-        request.done(function (response, textStatus, jqXHR){
-          window.location.href = '/memes/'+response.id;
-        });
+        var current_user = $("#current_user").val();
+        if (current_user != "{:value=>nil}" || continueSubmission) {
+          sendRequest(fd);
+        } else {
+          $('#myModal').modal('show');
+        }
 
       } else {
         alert("Please upload an image");
       }
 
-    }, false);
+    });
 
     scale = document.getElementById('scale');
     scale.addEventListener('change', doTransform, false);
@@ -159,6 +144,32 @@
       ctx.strokeStyle = 'transparent'
     }
     ctx.fillStyle = '#000';
+  }
+
+  function sendRequest(fd) {
+    $('.indicate').modal('show');
+
+    request = $.ajax({
+      url: '/memes',
+      xhrFields: {
+        onprogress: function (e) {
+          if (e.lengthComputable) {
+            $(".progress-bar").width(e.loaded / e.total * 100 + '%').attr('aria-valuenow', e.loaded / e.total * 100 + '%');
+          }
+        }
+      },
+      type: "POST",
+      dataType: "JSON",
+      data: fd,
+      cache: false,
+      processData: false,
+      contentType: false
+    });
+
+    request.done(function (response, textStatus, jqXHR){
+      window.location.href = '/memes/'+response.id;
+    });
+
   }
 
   function dataURLtoBlob(dataURL) {
@@ -240,3 +251,19 @@
     ctx.fillText(line, x, y);
   }
 </script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h1>You're almost finished</h1>
+        <div class="btn-group btn-group-justified btn-group-lg">
+          <a href="<%= new_user_session_path %>?login=true" data-toggle="modal" data-dismiss="modal" data-target="#login" class="btn btn-default">Log in to post as a user</a>
+          <a href="<%= new_user_registration_path %>?login=true" data-toggle="modal" data-dismiss="modal" data-target="#register" class="btn btn-default">Register for an account</a>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" id="continue">Submit as a guest</button>
+      </div>
+    </div>
+  </div>
+</div>

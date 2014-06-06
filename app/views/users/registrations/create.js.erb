@@ -1,0 +1,6 @@
+$("#nav").html("<%= escape_javascript(render 'shared/top_nav') %>");
+$("#current").html("<%= escape_javascript(render 'shared/current_user') %>");
+var loggin = $("#loggin");
+if (loggin.length) {
+  $("#download").trigger( "click" );
+}
