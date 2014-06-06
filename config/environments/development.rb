@@ -37,7 +37,7 @@ Whitestream::Application.configure do
     domain: "railscasts.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: 'lukeamarsh',
-    password: 'smurfitt1986'
+    user_name: 'lukeamarsh@gmail.com',
+    password: 'Smurfitt1986!'
   }
 end

@@ -23,7 +23,7 @@ class SessionsController < DeviseController
     respond_to do |format|
         format.json { render :json => {}, :status => :ok }
         format.html { respond_with resource, :location => after_sign_in_path_for(resource) }
-        format.js
+        format.js {}
     end
   end
 

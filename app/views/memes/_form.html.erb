@@ -339,11 +339,11 @@
       <div class="modal-body">
         <h1>You're almost finished</h1>
         <div class="btn-group btn-group-justified btn-group-lg">
-          <a href="<%= new_user_session_path %>?login=true" data-toggle="modal" data-target="#login" class="btn btn-default">Log in</a>
-          <a href="<%= new_user_registration_path %>?login=true" data-toggle="modal" data-target="#register" class="btn btn-default">Register</a>
+          <a href="<%= new_user_session_path %>?login=true" data-toggle="modal" data-dismiss="modal" data-target="#login" class="btn btn-default">Log in to post as a user</a>
+          <a href="<%= new_user_registration_path %>?login=true" data-toggle="modal" data-dismiss="modal" data-target="#register" class="btn btn-default">Register for an account</a>
         </div>
         <hr>
-        <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" id="continue">Submit</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" id="continue">Submit as a guest</button>
       </div>
     </div>
   </div>

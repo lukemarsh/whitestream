@@ -24,7 +24,7 @@
 //= require_tree .
 
 $(document).on('submit', '#login_form, #registration_form', function () {
-}).on('ajax:success', '#login_form, #registration_form', function () {
+}).on('ajax:success', '#login_form, #registration_form, #password_form', function () {
   $('.modal').modal('hide');
 }).on('ajax:error', '#login_form, #registration_form', function (response, errors) {
   if (errors.responseText) {
@@ -74,6 +74,11 @@ jQuery(function () {
         "user[email]": "Please enter your email address",
         "user[password]": "Please enter your password",
       }
+    });
+    $("#password_form").validate({
+      rules: {
+        "user[email]": "required"
+      },
     });
   });
 });
