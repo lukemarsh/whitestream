@@ -77,6 +77,7 @@
 
     $("#download").on('click', function(e, continueSubmission) {
       var data = canvas.toDataURL("image/png;base64;");
+      var imgurdata = data.replace(/^data:image\/(png|jpg);base64,/, "");
       var raw_data = rawimage.toDataURL("image/png;base64;");
       var file = dataURLtoBlob(data);
       var raw_file = dataURLtoBlob(raw_data);
@@ -115,7 +116,7 @@
       if ($("#image_meme")[0].files[0] || copied_image) {
         var current_user = $("#current_user").val();
         if (current_user != "{:value=>nil}" || continueSubmission) {
-          sendRequest(fd);
+          sendRequest(fd, imgurdata);
         } else {
           $('#myModal').modal('show');
         }
@@ -146,7 +147,7 @@
     ctx.fillStyle = '#000';
   }
 
-  function sendRequest(fd) {
+  function sendRequest(fd, imgurdata) {
     $('.indicate').modal('show');
 
     request = $.ajax({
@@ -166,8 +167,23 @@
       contentType: false
     });
 
-    request.done(function (response, textStatus, jqXHR){
-      window.location.href = '/memes/'+response.id;
+    var authorization = 'Client-ID d84ae3d33cf9385';
+
+    var imgurrequest = $.ajax({
+      url: 'https://api.imgur.com/3/gallery/theworldedit',
+      dataType: "JSON",
+      type: 'POST',
+      headers: {
+        Authorization: authorization,
+        Accept: 'application/json'
+      },
+      data: {
+        image:  imgurdata
+      }
+    });
+
+    imgurrequest.done(function (response, textStatus, jqXHR){
+      debugger
     });
 
   }
