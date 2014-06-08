@@ -145,7 +145,7 @@
               }
             })
           ).then(function() {
-            submitToImgur(fd, authorization, imgurdata);
+            submitToImgur(fd, authorization, imgurdata, topLine, bottomLine);
           });
 
         } else {
@@ -183,7 +183,7 @@
     }
   }
 
-  function submitToImgur(fd, authorization, imgurdata) {
+  function submitToImgur(fd, authorization, imgurdata, topLine, bottomLine) {
     $.ajax({
       url: 'https://api.imgur.com/3/image',
       dataType: "JSON",
@@ -193,7 +193,8 @@
         Accept: 'application/json'
       },
       data: {
-        image:  imgurdata
+        image:  imgurdata,
+        title: topLine + " - " + bottomLine
       },
       success: function(result) {
         var imgur_url = 'http://imgur.com/' + result.data.id;

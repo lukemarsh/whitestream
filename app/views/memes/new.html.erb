@@ -130,7 +130,8 @@
               Accept: 'application/json'
             },
             data: {
-              image:  imgurdata
+              image:  imgurdata,
+              title: topLine + " - " + bottomLine
             },
             success: function(result) {
               var imgur_url = 'http://imgur.com/' + result.data.id;
