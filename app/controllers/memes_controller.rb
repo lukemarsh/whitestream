@@ -29,6 +29,9 @@ class MemesController < ApplicationController
     @meme = Meme.find(params[:id])
     @comment = @meme.comments.new
     @comments = @meme.comments.recent.limit(10).all
+    if @meme.imgur_url
+      @imgur_image = @meme.imgur_url.gsub("http://", "http://i.") + ".png"
+    end
     @memes = Meme.where('user_id = ?', @meme.user).where('id != ?', @meme.id).order('created_at DESC').limit(2)
   end
 
