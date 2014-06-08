@@ -129,40 +129,28 @@
 
       if ($("#image_meme")[0].files[0] || copied_image) {
 
-        $.when(
-          $.ajax({
-            url: 'https://api.imgur.com/3/image/<%= @meme.deletehash %>',
-            dataType: "JSON",
-            type: 'DELETE',
-            headers: {
-              Authorization: authorization,
-              Accept: 'application/json'
-            },
-            data: {
-              image:  imgurdata
-            }
-          })
-        ).then(function() {
-          $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            dataType: "JSON",
-            type: 'POST',
-            headers: {
-              Authorization: authorization,
-              Accept: 'application/json'
-            },
-            data: {
-              image:  imgurdata
-            },
-            success: function(result) {
-              var imgur_url = 'http://imgur.com/' + result.data.id;
-              var deletehash = result.data.deletehash;
-              fd.append("imgur_url", imgur_url);
-              fd.append("deletehash", deletehash);
-              sendRequest(fd);
-            }
+        if ("<%= @meme.deletehash %>") {
+        
+          $.when(
+            $.ajax({
+              url: 'https://api.imgur.com/3/image/<%= @meme.deletehash %>',
+              dataType: "JSON",
+              type: 'DELETE',
+              headers: {
+                Authorization: authorization,
+                Accept: 'application/json'
+              },
+              data: {
+                image:  imgurdata
+              }
+            })
+          ).then(function() {
+            submitToImgur(fd, authorization, imgurdata);
           });
-        });
+
+        } else {
+          submitToImgur(fd, authorization, imgurdata);
+        }
         
 
       } else {
@@ -193,6 +181,28 @@
     } else {
       ctx.fillStyle = '#000';
     }
+  }
+
+  function submitToImgur(fd, authorization, imgurdata) {
+    $.ajax({
+      url: 'https://api.imgur.com/3/image',
+      dataType: "JSON",
+      type: 'POST',
+      headers: {
+        Authorization: authorization,
+        Accept: 'application/json'
+      },
+      data: {
+        image:  imgurdata
+      },
+      success: function(result) {
+        var imgur_url = 'http://imgur.com/' + result.data.id;
+        var deletehash = result.data.deletehash;
+        fd.append("imgur_url", imgur_url);
+        fd.append("deletehash", deletehash);
+        sendRequest(fd);
+      }
+    });   
   }
 
   function sendRequest(fd) {
