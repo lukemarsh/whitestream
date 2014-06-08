@@ -29,6 +29,10 @@
   </div>
   <div class="col-md-4" id="right">
     <div id="actions">
+      <div id="imgur">
+        <%= text_field_tag '', @meme.imgur_url, :class => 'form-control' %>
+      </div>
+      <br>
       <%= render partial: 'memes/actions', locals: {meme: @meme} %>
     </div>
     <h3>Comments</h3>

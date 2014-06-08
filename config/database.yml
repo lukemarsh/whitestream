@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: whitestream_development
   pool: 5
-  username: luke
+  username: Luke
   password:
 
 test:
@@ -11,5 +11,5 @@ test:
   encoding: unicode
   database: whitestream_test
   pool: 5
-  username: luke
+  username: Luke
   password:

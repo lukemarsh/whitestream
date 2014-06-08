@@ -76,26 +76,26 @@
     }, false);
 
     $("#download").on('click', function(e, continueSubmission) {
+      var image_meme = $("#image_meme")[0].files[0];
       var data = canvas.toDataURL("image/png;base64;");
       var imgurdata = data.replace(/^data:image\/(png|jpg);base64,/, "");
+      var fd = new FormData();
+      var authorization = 'Client-ID d84ae3d33cf9385';
       var raw_data = rawimage.toDataURL("image/png;base64;");
       var file = dataURLtoBlob(data);
       var raw_file = dataURLtoBlob(raw_data);
-      if ($("#image_meme")[0].files[0]) {
-        var raw_image = $("#image_meme")[0].files[0];
-      } else {
-        var copied_image = $("#default-image").attr('src');
-      }
       var article = $("#meme_article").val();
       var topLine = $("#topLine").val().toUpperCase();
       var bottomLine = $("#bottomLine").val().toUpperCase();
       var categories = $("input[type='checkbox']:checked");
+      var arr = [];
       if ($("input[type='radio']:checked").length > 0) {
         var colour = $("input[type='radio']:checked")[0].value;
       } else {
         var colour = "#000000";
       }
-      var arr = [];
+      
+      $('.indicate').modal('show');
 
       categories.each(function(){
         arr.push($(this).val());
@@ -103,7 +103,12 @@
 
       var categoryIdsArray = arr;
 
-      var fd = new FormData();
+      if (image_meme) {
+        var raw_image = $("#image_meme")[0].files[0];
+      } else {
+        var copied_image = $("#default-image").attr('src');
+      }
+
       fd.append("image", file);
       fd.append("colour", colour);
       fd.append("top_line", topLine);
@@ -113,18 +118,39 @@
       fd.append("copied_image", copied_image);
       fd.append("category_ids", categoryIdsArray);
 
-      if ($("#image_meme")[0].files[0] || copied_image) {
-        var current_user = $("#current_user").val();
-        if (current_user != "{:value=>nil}" || continueSubmission) {
-          sendRequest(fd, imgurdata);
-        } else {
-          $('#myModal').modal('show');
-        }
+      if (image_meme || copied_image) {
+
+        $.when(
+          $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            dataType: "JSON",
+            type: 'POST',
+            headers: {
+              Authorization: authorization,
+              Accept: 'application/json'
+            },
+            data: {
+              image:  imgurdata
+            },
+            success: function(result) {
+              var imgur_url = 'http://imgur.com/' + result.data.id;
+              var deletehash = result.data.deletehash;
+              fd.append("imgur_url", imgur_url);
+              fd.append("deletehash", deletehash);
+            }
+          })
+        ).then(function() {
+          var current_user = $("#current_user").val();
+          if (current_user != "{:value=>nil}" || continueSubmission) {
+            sendRequest(fd);
+          } else {
+            $('#myModal').modal('show');
+          }
+        });
 
       } else {
         alert("Please upload an image");
       }
-
     });
 
     scale = document.getElementById('scale');
@@ -147,8 +173,7 @@
     ctx.fillStyle = '#000';
   }
 
-  function sendRequest(fd, imgurdata) {
-    $('.indicate').modal('show');
+  function sendRequest(fd) {
 
     request = $.ajax({
       url: '/memes',
@@ -169,25 +194,6 @@
 
     request.done(function (response, textStatus, jqXHR){
       window.location.href = '/memes/'+response.id;
-    });
-
-    var authorization = 'Client-ID d84ae3d33cf9385';
-
-    var imgurrequest = $.ajax({
-      url: 'https://api.imgur.com/3/gallery/image',
-      dataType: "JSON",
-      type: 'POST',
-      headers: {
-        Authorization: authorization,
-        Accept: 'application/json'
-      },
-      data: {
-        image:  imgurdata
-      }
-    });
-
-    imgurrequest.done(function (response, textStatus, jqXHR){
-      debugger
     });
 
   }

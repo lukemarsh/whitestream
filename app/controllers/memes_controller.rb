@@ -61,7 +61,7 @@ class MemesController < ApplicationController
       params[:raw_image].original_filename << '.png'
     end
 
-    @meme = Meme.create!(image: params[:image], colour: params[:colour], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
+    @meme = Meme.create!(image: params[:image], imgur_url: params[:imgur_url], deletehash: params[:deletehash], colour: params[:colour], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
     @meme.user = current_user
 
     respond_to do |format|
@@ -89,7 +89,7 @@ class MemesController < ApplicationController
     @meme.user = current_user
 
     respond_to do |format|
-      if @meme.update_attributes(image: params[:image], colour: params[:colour], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
+      if @meme.update_attributes(image: params[:image], imgur_url: params[:imgur_url], deletehash: params[:deletehash], colour: params[:colour], copied_image: params[:copied_image], raw_image: params[:raw_image], top_line: params[:top_line], bottom_line: params[:bottom_line], article: params[:article], category_ids: params[:category_ids].split(','))
         format.html { redirect_to @meme, notice: 'Meme was successfully updated.' }
         format.json { head :no_content }
       else
