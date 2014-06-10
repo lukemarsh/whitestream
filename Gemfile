@@ -44,7 +44,8 @@ gem 'acts_as_commentable'
 gem 'fog'
 gem 'rmagick', :require => 'RMagick'
 gem 'jquery-validation-rails'
-
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'pry'

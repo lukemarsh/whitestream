@@ -1,5 +1,5 @@
 Whitestream::Application.routes.draw do
-  devise_for :users, :controllers => {:sessions => 'sessions', :registrations => 'registrations', :passwords => 'passwords'}
+  devise_for :users, :controllers => {:sessions => 'sessions', :registrations => 'registrations', :passwords => 'passwords', omniauth_callbacks: "omniauth_callbacks"}
   devise_for :admins
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
