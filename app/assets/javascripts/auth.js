@@ -6,5 +6,7 @@ jQuery(function () {
     $("#continue").on('click', function () {
       $("#download").trigger("click", "continueSubmission");
     });
+    
   });
 });
+

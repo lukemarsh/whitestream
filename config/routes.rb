@@ -14,12 +14,14 @@ Whitestream::Application.routes.draw do
     resources :comments
   end
 
+  match '/profile/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+
   post "memes/:id" => "memes#update"
 
   get '/:username', to: 'users#show', :as => 'username'
 
   #post ':controller(/:action(/:id(.:format)))'
-
+  
   root 'memes#index'
 
   #get '/users/:id', :to => 'users#show'

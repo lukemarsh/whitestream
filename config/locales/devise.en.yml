@@ -1,6 +1,10 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
 en:
+  users:
+    shared:
+      links:
+        login_with_link: Log in with %{provider}
   devise:
     confirmations:
       confirmed: "Your account was successfully confirmed."

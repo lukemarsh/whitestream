@@ -23,10 +23,10 @@
 
 //= require_tree .
 
-$(document).on('submit', '#login_form, #registration_form', function () {
-}).on('ajax:success', '#login_form, #registration_form, #password_form', function () {
+$(document).on('submit', '#login_form', function () {
+}).on('ajax:success', '#login_form, #password_form', function () {
   $('.modal').not(".indicate").modal('hide');
-}).on('ajax:error', '#login_form, #registration_form', function (response, errors) {
+}).on('ajax:error', '#login_form', function (response, errors) {
   if (errors.responseText) {
     if ($(".errors").length < 1) {
       $("#login_form").prepend("<span class='errors'>" + errors.responseText + "</span>");
@@ -36,6 +36,17 @@ $(document).on('submit', '#login_form, #registration_form', function () {
        if(errors.responseJSON.hasOwnProperty(key)){
         $("#user_" + key).parent().append("<span class='error'>" + key + " is required</span>");
       }
+    }
+  }
+});
+
+$(document).on('submit', '#registration_form', function () {
+}).on('ajax:success', '#registration_form', function () {
+  $('.modal').not(".indicate").modal('hide');
+}).on('ajax:error', '#registration_form', function (response, errors) {
+  for (var key in errors.responseJSON) {
+     if(errors.responseJSON.hasOwnProperty(key)){
+      $("#user_" + key).parent().append("<span class='error'>" + key + " has already been taken</span>");
     }
   }
 });

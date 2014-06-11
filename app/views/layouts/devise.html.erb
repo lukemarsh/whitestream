@@ -1,17 +1,1 @@
-  <%= render 'shared/site_header' %>
-  <div id="nav">
-    <%= render 'shared/top_nav' %>
-  </div>
-</div>
-<%= render 'shared/logo' %>
-<nav class="navbar">
-  <div class="container">
-    <ul class="nav navbar-left">
-      <li>&nbsp;</li>
-    </ul>
-    <%= render 'shared/navbar_right' %>
-  </div>
-</nav>
-<%= render 'shared/content' %>
-<%= render 'shared/site_footer' %>
-<%= render 'shared/auth' %>
+<%= yield %>

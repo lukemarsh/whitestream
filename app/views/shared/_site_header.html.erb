@@ -17,5 +17,50 @@
     })();
   </script>
   <script src="http://platform.tumblr.com/v1/share.js"></script>
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId  : '568398906591962',
+      status : true, // check login status
+      cookie : true, // enable cookies to allow the server to access the session
+      xfbml  : true  // parse XFBML
+    });
+  };
+
+  (function(d) {
+    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    d.getElementsByTagName('head')[0].appendChild(js);
+  }(document));
+
+  $(function() {
+    $('body').on('shown.bs.modal', '.modal', function () {
+      $('#sign_in').click(function(e) {
+        e.preventDefault();
+
+        FB.login(function(response) {
+          if (response.authResponse) {
+            console.log('Connected! Hitting OmniAuth callback (GET /auth/facebook/callback)...');
+
+            // since we have cookies enabled, this request will allow omniauth to parse
+            // out the auth code from the signed request in the fbsr_XXX cookie
+            $.getJSON('/users/auth/facebook/callback', function(json) {
+              var user_profile_name = json.user.username.indexOf("changeme") >= 0 ? "users/" + json.user.id : json.user.username
+              $("#login-button").html("<a data-method='delete' href='/users/sign_out' rel='nofollow'>Logout</a>");
+              $("#register-button").html("<a href=" + '/' + user_profile_name + ">Profile</a>");
+              $("#current").html(json.user);
+              var loggin = $("#loggin");
+              if (loggin.length) {
+                $("#download").trigger( "click" );
+              }
+              $('.modal').not(".indicate").modal('hide');
+            });
+          }
+        }, { scope: 'email' });
+      });
+    });
+  });
+</script>
   <div class="page-wrap">
     <div class="container">
