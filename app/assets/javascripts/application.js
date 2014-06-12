@@ -20,6 +20,9 @@
 //= require owl.carousel
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require binaryajax
+//= require exif
+//= require canvasResize
 
 //= require_tree .
 

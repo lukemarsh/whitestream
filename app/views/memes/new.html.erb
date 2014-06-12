@@ -80,6 +80,16 @@
           raw_ctx.drawImage(img, x, y);
           doTransform();
         }
+        var file = e.target.files[0];
+        canvasResize(file, {
+        width: 958,
+        height: 0,
+        crop: false,
+        quality: 100,
+        callback: function(data, width, height) {
+          img.src = data;
+        }
+        });
         img.src = reader.result;
       }
       reader.readAsDataURL(fileInput.files[0]);
