@@ -1,8 +1,13 @@
 <% content_for :title do %>Create your article | <% end %>
 <%= render 'form' %>
+<div style="font-family: MyriadPro-BoldCond;text-indent:-9999px">.</div>
 <script>
 
   $('input[type="checkbox"]:checked').each(function(){
+      $(this).parents('label').toggleClass('active');
+  });
+
+  $('input[type="radio"]:checked').each(function(){
       $(this).parents('label').toggleClass('active');
   });
 
@@ -50,7 +55,11 @@
     } else {
       ctx.strokeStyle = 'transparent'
     }
-    ctx.fillStyle = '#000';
+    if ('<%= @meme.colour %>') {
+      ctx.fillStyle = '<%= @meme.colour %>';
+    } else {
+      ctx.fillStyle = '#000';
+    }
 
     doTransform();
 
@@ -171,7 +180,11 @@
     } else {
       ctx.strokeStyle = 'transparent'
     }
-    ctx.fillStyle = '#000';
+    if ('<%= @meme.colour %>') {
+      ctx.fillStyle = '<%= @meme.colour %>';
+    } else {
+      ctx.fillStyle = '#000';
+    }
   }
 
   function sendRequest(fd) {

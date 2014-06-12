@@ -41,6 +41,7 @@ class MemesController < ApplicationController
     @raw_image = params[:raw_image]
     @top_line = params[:top_line]
     @bottom_line = params[:bottom_line]
+    @meme.colour = "#" + params[:colour]
   end
 
   # GET /memes/1/edit

@@ -29,6 +29,16 @@
   </div>
   <div class="col-md-4" id="right">
     <div id="actions">
+      <div class="well">
+      <h3>Recaption this image</h3>
+      <div class="form-group">
+        <input type="text" placeholder="TOP TEXT" class="form-control" id="topText">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="BOTTOM TEXT" class="form-control" id="bottomText">
+      </div>
+      <input type="submit" value="generate" class="btn btn-primary" id="remix" data-image="<%= @meme.raw_image %>" data-colour="<%= @meme.colour %>">
+      </div>
       <% if @imgur_image %>
         <div id="imgur">
           <%= text_field_tag '', @imgur_image, :class => 'form-control' %>
