@@ -26,6 +26,7 @@
 
   function prepareExample() {
     img = document.getElementById('default-image');
+    img.crossOrigin = 'http://profile.ak.fbcdn.net/crossdomain.xml';
 
     var deviceWidth = window.innerWidth;
     canvasWidth = 958;

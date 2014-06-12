@@ -18,9 +18,9 @@
     </canvas>
     <canvas id="rawimage" width="100%" style="display:none;"></canvas>
     <% if @raw_image %>
-      <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+      <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossOrigin => '' %>
     <% elsif @copied_image %>
-      <%= image_tag @copied_image, :class => 'mfnotransform', :id => 'default-image', :crossorigin => 'anonymous' %>
+      <%= image_tag @copied_image, :class => 'mfnotransform', :id => 'default-image', :crossOrigin => '' %>
     <% else %>
       <img src="" id="default-image" class="mfnotransform" crossorigin="anonymous">
     <% end %>
