@@ -32,10 +32,10 @@
       <div class="well">
       <h3>Recaption this image</h3>
       <div class="form-group">
-        <input type="text" placeholder="TOP TEXT" class="form-control" id="topText">
+        <input type="text" placeholder="TOP TEXT" class="form-control" id="topText" maxLength="24" style="text-transform:uppercase;">
       </div>
       <div class="form-group">
-        <input type="text" placeholder="BOTTOM TEXT" class="form-control" id="bottomText">
+        <input type="text" placeholder="BOTTOM TEXT" class="form-control" id="bottomText" maxLength="24" style="text-transform:uppercase;">
       </div>
       <input type="submit" value="generate" class="btn btn-primary" id="remix" data-image="<%= @meme.raw_image %>" data-colour="<%= @meme.colour %>">
       </div>

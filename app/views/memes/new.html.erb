@@ -80,10 +80,27 @@
           raw_ctx.drawImage(img, x, y);
           doTransform();
         }
+        var uploadedFile = e.target.files[0];
+        canvasResize(uploadedFile, {
+        width: 958,
+        height: 0,
+        crop: false,
+        quality: 100,
+        callback: function(data, width, height) {
+          img.src = data;
+        }
+        });
         img.src = reader.result;
       }
       reader.readAsDataURL(fileInput.files[0]);
     }, false);
+
+    //$('body').on('shown.bs.modal', '.modal', function () {
+      $("#continue").click(function () {
+        $("#download").trigger("click", "continue");
+      });
+    //});
+
 
     $("#download").on('click', function(e, continueSubmission) {
       var image_meme = $("#image_meme")[0].files[0];
@@ -104,8 +121,6 @@
       } else {
         var colour = "#000000";
       }
-      
-      $('.indicate').modal('show');
 
       categories.each(function(){
         arr.push($(this).val());
@@ -129,38 +144,37 @@
       fd.append("category_ids", categoryIdsArray);
 
       if (image_meme || copied_image) {
-
-        $.when(
-          $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            dataType: "JSON",
-            type: 'POST',
-            headers: {
-              Authorization: authorization,
-              Accept: 'application/json'
-            },
-            data: {
-              image:  imgurdata,
-              title: topLine + " - " + bottomLine
-            },
-            success: function(result) {
-              var imgur_url = 'http://imgur.com/' + result.data.id;
-              var deletehash = result.data.deletehash;
-              fd.append("imgur_url", imgur_url);
-              fd.append("deletehash", deletehash);
-            }
-          })
-        ).then(function() {
-          var current_user = $("#current_user").val();
-          if (current_user != "{:value=>nil}" || continueSubmission) {
+        $('.indicate').modal('show');
+        var current_user = $("#current_user").val();
+        if (current_user != "{:value=>nil}" || continueSubmission) {
+          $.when(
+            $.ajax({
+              url: 'https://api.imgur.com/3/image',
+              dataType: "JSON",
+              type: 'POST',
+              headers: {
+                Authorization: authorization,
+                Accept: 'application/json'
+              },
+              data: {
+                image:  imgurdata,
+                title: topLine + " - " + bottomLine
+              },
+              success: function(result) {
+                var imgur_url = 'http://imgur.com/' + result.data.id;
+                var deletehash = result.data.deletehash;
+                fd.append("imgur_url", imgur_url);
+                fd.append("deletehash", deletehash);
+              }
+            })
+          ).then(function() {
             sendRequest(fd);
-          } else {
-            $('#myModal').modal('show');
-          }
-        });
-
+          });
+        } else {
+          $("#myModal").modal('show');
+        }
       } else {
-        alert("Please upload an image");
+        alert("Please upload and image");
       }
     });
 
