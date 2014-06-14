@@ -1,18 +1,29 @@
 header {
   text-align    : center;
-  padding-bottom : 27px;
   background    : #000;
+  font-style: italic;
+  padding-top: 15px;
 
   a {
-    color : #000;
+    color : #fff;
   }
 
   a:hover {
+    color           : #fff;
     text-decoration : none;
   }
 
   #logo {
-    margin-top : 34px;
+    font-size: 13.47px;
+    span {
+      font-size: 54px;
+      font-weight: bold;
+      display:block;
+      line-height: 40px;
+      margin-bottom: 6px;
+    }
   }
+
+  
 
 }
