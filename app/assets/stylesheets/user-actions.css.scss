@@ -2,10 +2,14 @@
   position : absolute;
   top      : 0;
   right    : 0;
-  width    : 93px;
+  width    : 80px;
   text-align : center;
   border   : 1px solid #fff;
   border-top : 0;
+
+  a {
+  padding : 6px 0 3px 0;
+  }
 }
 
 @media (min-width : 768px) {

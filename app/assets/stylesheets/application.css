@@ -51,7 +51,7 @@ footer, .page-wrap:after {
 
  #pagination {
   clear:both;
-  font-family: 'MyriadPro-Bold';
+  font-weight: bold;
   font-style:italic;
   text-transform: uppercase;
   padding : 10px 0;

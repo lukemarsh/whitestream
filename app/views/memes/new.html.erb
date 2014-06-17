@@ -54,7 +54,8 @@
       ctx.strokeStyle = 'black';
       ctx.lineWidth  = 4;
     } else {
-      ctx.strokeStyle = 'transparent'
+       ctx.strokeStyle = 'white'
+       ctx.lineWidth = 4;
     }
     if ('<%= @meme.colour %>') {
       ctx.fillStyle = '<%= @meme.colour %>';
@@ -160,6 +161,13 @@
                 image:  imgurdata,
                 title: topLine + " - " + bottomLine
               },
+              xhrFields: {
+                onprogress: function (e) {
+                  if (e.lengthComputable) {
+                    $(".progress-bar").width(e.loaded / e.total * 100 + '%').attr('aria-valuenow', e.loaded / e.total * 100 + '%');
+                  }
+                }
+              },
               success: function(result) {
                 var imgur_url = 'http://imgur.com/' + result.data.id;
                 var deletehash = result.data.deletehash;
@@ -193,7 +201,8 @@
       ctx.strokeStyle = 'black';
       ctx.lineWidth  = 4;
     } else {
-      ctx.strokeStyle = 'transparent'
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth  = 4;
     }
     if ('<%= @meme.colour %>') {
       ctx.fillStyle = '<%= @meme.colour %>';
@@ -300,7 +309,8 @@
       ctx.strokeStyle = 'black';
       ctx.lineWidth  = 4;
     } else {
-      ctx.strokeStyle = 'transparent'
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth  = 4;
     }
     ctx.strokeText(line, x, y);
     ctx.fillText(line, x, y);

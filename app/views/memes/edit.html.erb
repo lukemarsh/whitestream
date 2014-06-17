@@ -53,7 +53,8 @@
       ctx.strokeStyle = 'black';
       ctx.lineWidth  = 4;
     } else {
-      ctx.strokeStyle = 'transparent'
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth  = 4;
     }
     if ('<%= @meme.colour %>') {
       ctx.fillStyle = '<%= @meme.colour %>';
@@ -184,7 +185,8 @@
       ctx.strokeStyle = 'black';
       ctx.lineWidth  = 4;
     } else {
-      ctx.strokeStyle = 'transparent'
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth  = 4;
     }
     if ('<%= @meme.colour %>') {
       ctx.fillStyle = '<%= @meme.colour %>';
@@ -316,7 +318,8 @@
       ctx.strokeStyle = 'black';
       ctx.lineWidth  = 4;
     } else {
-      ctx.strokeStyle = 'transparent'
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth  = 4;
     }
     ctx.strokeText(line, x, y);
     ctx.fillText(line, x, y);

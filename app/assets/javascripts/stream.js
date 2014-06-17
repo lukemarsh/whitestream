@@ -8,8 +8,8 @@ jQuery(function() {
   $('textarea').css('overflow', 'hidden').autogrow();
 
   $("#carousel").owlCarousel({
-    items: 4,
-    navigation: true,
+    items: 5,
+    navigation: false,
     scrollPerPage: true
   });
 

@@ -16,7 +16,7 @@ class MemesController < ApplicationController
       @meme_count = Meme.where("featured != ?", true).sort(@sort).length
     end
 
-    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 8).filter(filter).sort(@sort).order('created_at DESC')
+    @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 10).filter(filter).sort(@sort).order('created_at DESC')
     @featured = Meme.where("featured = ?", true).order('created_at DESC')
     render :layout => 'home'
   end
