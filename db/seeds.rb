@@ -6,6 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-categories = Category.create([{ name: 'News' }, { name: 'Showbiz' }, { name: 'Fashion' }, { name: 'Music' }, { name: 'Ideas' }])
+categories = Category.create([{ name: 'News' }, { name: 'Arts & Entertainment' }, { name: 'Nature' }, { name: 'Technology' }, { name: 'Sport' }])
 admins = Admin.create!({:email => 'lukeamarsh@gmail.com', :password => 'smurfitt', :password_confirmation => 'smurfitt'})
 admins = Admin.create!({:email => 'we.worldedit@gmail.com', :password => 'hellomate', :password_confirmation => 'hellomate'})
