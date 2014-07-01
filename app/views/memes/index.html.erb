@@ -1,6 +1,6 @@
 <div id="stream">
   <% if @featured.length > 0 %>
-    <h1>Featured</h1>
+    <h1 style="font-style:italic;">A new news site</h1>
     <div id="carousel" class="memes owl-carousel">
       <%= render partial: 'memes', locals: {memes: @featured} %>
     </div>
