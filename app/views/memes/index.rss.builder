@@ -17,6 +17,11 @@ xml.rss 'xmlns:content' => 'http://purl.org/rss/1.0/modules/content/', 'xmlns:wf
         else
           xml.author 'guest'
         end
+        if meme.categories
+          meme.categories.each do |c|
+            xml.category c.name
+          end
+        end
       end
     end
   end
