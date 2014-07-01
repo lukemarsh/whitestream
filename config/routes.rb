@@ -21,7 +21,7 @@ Whitestream::Application.routes.draw do
   get '/:username', to: 'users#show', :as => 'username'
 
   #post ':controller(/:action(/:id(.:format)))'
-  
+
   root 'memes#index'
 
   #get '/users/:id', :to => 'users#show'
