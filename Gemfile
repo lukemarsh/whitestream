@@ -48,6 +48,7 @@ gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-twitter'
 gem 'oauth2'
+gem 'sitemap_generator'
 
 group :development, :test do
   gem 'pry'
