@@ -111,6 +111,7 @@
 
     fileInput = document.getElementById("image_meme");
     fileInput.addEventListener('change', function(e) {
+      canvas.classList.add('dropped');
       var reader = new FileReader();
       reader.onload = function(event){
         img = new Image();
@@ -188,7 +189,9 @@
       fd.append("copied_image", copied_image);
       fd.append("category_ids", categoryIdsArray);
 
-      if (image_meme || copied_image) {
+      //debugger
+
+      if (img.src.indexOf('data:image') > -1) {
         $('.indicate').modal('show');
         var current_user = $("#current_user").val();
         if (current_user != "{:value=>nil}" || continueSubmission) {

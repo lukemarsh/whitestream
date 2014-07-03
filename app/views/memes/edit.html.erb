@@ -110,6 +110,7 @@
 
     fileInput = document.getElementById("image_meme");
     fileInput.addEventListener('change', function(e) {
+      canvas.classList.add('dropped');
       var reader = new FileReader();
       reader.onload = function(event){
         img = new Image();
