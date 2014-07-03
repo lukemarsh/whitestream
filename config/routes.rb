@@ -26,6 +26,8 @@ Whitestream::Application.routes.draw do
 
   root 'memes#index'
 
+  match '/sitemap.xml' => 'sitemap#index', via: [:get]
+
   #get '/users/:id', :to => 'users#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
