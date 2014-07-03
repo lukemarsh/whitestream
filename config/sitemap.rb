@@ -1,7 +1,5 @@
 # config/sitemap.rb
 SitemapGenerator::Sitemap.default_host = 'http://www.worldedit.org'
-SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
-SitemapGenerator::Sitemap.sitemaps_host = ENV['SITEMAP_HOST']
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 

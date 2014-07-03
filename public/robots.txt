@@ -1,1 +1,1 @@
-Sitemap: https://s3-eu-west-1.amazonaws.com/worldedit/sitemaps/sitemap_index.xml.gz
+Sitemap: sitemaps/sitemap_index.xml.gz
