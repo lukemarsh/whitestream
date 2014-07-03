@@ -14,6 +14,8 @@ Whitestream::Application.routes.draw do
     resources :comments
   end
 
+  #resources :memes, path: "", except: [:index, :new, :create]
+
   match '/profile/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
   post "memes/:id" => "memes#update"

@@ -17,6 +17,7 @@
  *= require_tree .
  */
 
+
 html,
 body { height: 100%; }
 
@@ -117,4 +118,32 @@ label.error {
 .error, .errors {
   color : red;
   display: block;
+}
+
+#canvasContainer {
+  position: relative;
+}
+
+#canvasContainer div {
+  position: absolute;
+  width:100%;
+  top:50%;
+  text-align:center;
+  vertical-align: middle;
+  font-size: 40px;
+  color:#d8d8d8;
+  margin-top:-28.5px;
+}
+
+#memecanvas.hover {
+  border: 3px dashed #d8d8d8;
+  cursor: crosshair;
+}
+
+canvas:active, canvas:focus {
+  cursor: crosshair;
+}
+
+#canvasContainer .dropped {
+  text-indent : -999px;
 }

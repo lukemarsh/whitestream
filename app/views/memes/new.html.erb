@@ -65,6 +65,50 @@
 
     doTransform();
 
+    drop = function(evt) {
+      evt.target.previousElementSibling.classList.add('dropped');
+      evt.stopPropagation();
+      evt.preventDefault();
+      var reader = new FileReader();
+      reader.onload = function(event){
+        img = new Image();
+        img.onload = function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          raw_ctx.clearRect(0, 0, canvas.width, canvas.height);
+          document.getElementById('scale').value = 1;
+          x = canvas.width/2 - img.width/2;
+          y = canvas.height/2 - img.height/2;
+
+          ctx.drawImage(img, x, y);
+          raw_ctx.drawImage(img, x, y);
+          doTransform();
+        }
+        img.src = reader.result;
+      }
+      reader.readAsDataURL(evt.dataTransfer.files[0]);
+      evt.target.classList.remove("hover");
+    }
+
+    dragEnter = function(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+      evt.target.classList.add("hover");
+    }
+    dragExit = function(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+      evt.target.classList.remove("hover");
+    }
+    dragOver = function(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+    }
+
+    canvas.addEventListener("dragenter", dragEnter, false);
+    canvas.addEventListener("dragleave", dragExit, false);
+    canvas.addEventListener("dragover", dragOver, false);
+    canvas.addEventListener("drop", drop, false);
+
     fileInput = document.getElementById("image_meme");
     fileInput.addEventListener('change', function(e) {
       var reader = new FileReader();

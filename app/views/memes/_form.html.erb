@@ -13,9 +13,10 @@
 <h1>1/ Create your image</h1>
 <div class="row" id="new_meme">
   <div class="col-md-6">
-    <canvas id="memecanvas" width="100%">
-      Sorry, canvas not supported
-    </canvas>
+    <div id="canvasContainer">
+      <div style="z-index:-1;">Drop files here</div>
+      <canvas id="memecanvas" width="100%" />
+    </div>
     <canvas id="rawimage" width="100%" style="display:none;"></canvas>
     <% if @raw_image %>
       <%= image_tag @raw_image, :class => 'mfnotransform', :id => 'default-image', :crossOrigin => '' %>
