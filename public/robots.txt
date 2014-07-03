@@ -1,1 +1,1 @@
-Sitemap: https://YOUR_BUCKET.s3.amazonaws.com/sitemaps/sitemap_index.xml.gz
+Sitemap: https://s3-eu-west-1.amazonaws.com/worldedit/sitemaps/sitemap_index.xml.gz
