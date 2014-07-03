@@ -46,6 +46,8 @@ class Meme < ActiveRecord::Base
   def alt_tag
     if top_line != '' && bottom_line != ''
       top_line + ' - ' + bottom_line
+    else
+      id
     end
   end
 
@@ -53,7 +55,7 @@ class Meme < ActiveRecord::Base
     if top_line != '' && bottom_line != ''
       top_line + ' - ' + bottom_line + " | "
     else
-      id
+      id.to_s + " | "
     end
   end
 

@@ -8,13 +8,23 @@ class MemesController < ApplicationController
     @body_id = "home"
     @meme_categories = Category.all
     filter = params[:filter]
-    @sort = params[:sort]
+    sort = params[:sort]
+
+    if filter || sort
+      unless sort == 'recent'
+        @sort = sort
+      end
+    else
+      @sort = 'popular'
+    end
 
     if filter
       @meme_count = Meme.where("featured != ?", true).joins(:categories).filter(filter).length
     else
       @meme_count = Meme.where("featured != ?", true).sort(@sort).length
     end
+
+    #binding.pry
 
     @memes = Meme.where("featured != ?", true).paginate(page: params[:page], per_page: 10).filter(filter).sort(@sort).order('created_at DESC')
     @feed = Meme.order("created_at")
