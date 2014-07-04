@@ -1,4 +1,4 @@
-<%= content_for :head, auto_discovery_link_tag(:atom, memes_url(format: "atom")) %>
+<%= content_for :head, auto_discovery_link_tag(:rss, memes_url(format: "rss")) %>
 
 <div id="stream">
   <% if @featured.length > 0 %>
