@@ -147,3 +147,15 @@ canvas:active, canvas:focus {
 #canvasContainer .dropped {
   text-indent : -99999px;
 }
+
+#logo {
+  font-style: italic;
+}
+
+nav li {
+  float : left;
+}
+
+#wrap .container {
+  background : #fff;
+}

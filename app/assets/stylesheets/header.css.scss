@@ -1,7 +1,12 @@
+#header {
+  position: fixed;
+  width:100%;
+  z-index:1;
+  top:0;
+}
+
 header {
-  text-align    : center;
   background    : #000;
-  font-style: italic;
   padding-top: 15px;
 
   a {
@@ -23,7 +28,5 @@ header {
       margin-bottom: 6px;
     }
   }
-
-  
 
 }

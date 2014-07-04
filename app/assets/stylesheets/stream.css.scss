@@ -44,8 +44,13 @@
 .meme {
   color : #999;
   font-size:12px;
-  position:relative;
-  min-height:165px;
+  border-bottom :1px solid #ccc;
+  padding-bottom : 10px;
+  margin-bottom  : 10px;
+
+  img {
+    width : 100%;
+  }
 
   .actions {
     float : right;
@@ -67,14 +72,6 @@
       color : #e94d8a;
     }
 
-  }
-
-  .meme-inner {
-    margin-bottom : 2.5%;
-
-    img {
-      width : 100%;
-    }
   }
 
 }

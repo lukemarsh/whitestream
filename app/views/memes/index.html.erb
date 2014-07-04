@@ -1,6 +1,13 @@
 <%= content_for :head, auto_discovery_link_tag(:rss, memes_url(format: "rss")) %>
 
-<div id="stream">
+<div class="col-sm-8">
+  <%= render partial: 'all_memes', locals: {memes: @memes} %>
+</div>
+<div class="col-sm-3">
+  sdfsdfsdf
+</div>
+
+<!--<div id="stream">
   <% if @featured.length > 0 %>
     <h1 style="font-style:italic;">A new news site</h1>
     <div id="carousel" class="memes owl-carousel">
@@ -11,4 +18,4 @@
   <div id="reload">
     <%= render partial: 'all_memes', locals: {memes: @memes} %>
   </div>
-</div>
+</div>-->

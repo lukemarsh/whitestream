@@ -1,18 +1,4 @@
-  <%= render 'shared/site_header' %>
-  <div id="nav">
-    <%= render 'shared/top_nav' %>
-  </div>
-</div>
-<%= render 'shared/logo' %>
-<nav class="navbar">
-  <div class="container">
-    <%= render 'shared/filter' %>
-    <ul class="nav navbar-center">
-      <li><%= link_to '', memes_url(format: "rss"), class: "fa fa-rss fa-lg", target: "_blank" %></li>
-    </ul>
-    <%= render 'shared/navbar_right' %>
-  </div>
-</nav>
+<%= render 'shared/site_header' %>
 <%= render 'shared/content' %>
 <%= render 'shared/auth' %>
 <%= render 'shared/site_footer' %>
