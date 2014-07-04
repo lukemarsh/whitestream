@@ -1,3 +1,5 @@
+<%= content_for :head, auto_discovery_link_tag(:atom, memes_url(format: "atom")) %>
+
 <div id="stream">
   <% if @featured.length > 0 %>
     <h1 style="font-style:italic;">A new news site</h1>

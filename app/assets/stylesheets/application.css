@@ -145,5 +145,5 @@ canvas:active, canvas:focus {
 }
 
 #canvasContainer .dropped {
-  text-indent : -999px;
+  text-indent : -99999px;
 }
