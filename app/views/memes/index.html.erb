@@ -1,6 +1,6 @@
 <%= content_for :head, auto_discovery_link_tag(:rss, memes_url(format: "rss")) %>
-
-<div class="col-sm-8">
+<%= render partial: 'memes_featured', locals: {memes: @featured} %>
+<div class="col-sm-9" id="reload">
   <%= render partial: 'all_memes', locals: {memes: @memes} %>
 </div>
 <div class="col-sm-3">

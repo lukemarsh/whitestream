@@ -1,17 +1,21 @@
 <% memes.each do |meme| %>
-  <div class="meme clearfix">
+  <div class="meme row">
     <div class="col-sm-4">
       <%= link_to meme do %>
         <%= image_tag meme.image, :alt => meme.alt_tag %>
       <% end %>
     </div>
     <div class="col-sm-8">
-      <%= raw meme.article.truncate(500) %>
+      <%= raw meme.article.truncate(300) %>
       <div class="pull-left">
+        <%= meme.created_at.to_s(:month_and_year) %>
         <% if meme.user %>
           <%= link_to username_path(meme.user.username) do %>
             <%= meme.user.username %>
           <% end %>
+        <% end %>
+        <% meme.categories.each do |category| %>
+          <%= category.name %>
         <% end %>
       </div>
       <div class="pull-right">

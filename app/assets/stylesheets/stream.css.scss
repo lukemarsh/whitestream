@@ -25,14 +25,6 @@
   }
 }
 
-#reload .meme {
-  width: 100%;
-  position : relative;
-  margin-bottom : 2.5%;
-  vertical-align:top;
-  float : left;
-}
-
 .owl-item .meme {
   margin : 0 10px;
 }
@@ -41,12 +33,15 @@
   padding:10px 0;
 }
 
-.meme {
-  color : #999;
-  font-size:12px;
+#reload .meme {
   border-bottom :1px solid #ccc;
   padding-bottom : 10px;
   margin-bottom  : 10px;
+}
+
+.meme {
+  color : #999;
+  font-size:12px;
 
   img {
     width : 100%;
@@ -74,35 +69,6 @@
 
   }
 
-}
-
-@media (min-width: 480px ) {
-#reload {
-    margin-left : -2.5%;
-    
-    .meme {
-    margin: 0 0 2.5% 2.5%;
-    width : 47.5%;
-  }
-  }
-}
-
-@media (min-width: 768px) {
-  #reload .meme {
-    width : 30.8%;
-  }
-}
-
-@media (min-width: 992px) {
-  #reload .meme {
-    width : 22.5%;
-  }
-}
-
-@media (min-width: 1124px) {
-  #reload .meme {
-    width : 17.5%;
-  }
 }
 
 .modal-meme {
@@ -143,4 +109,53 @@
 #reddit {
   display :inline-block;
   vertical-align: top;
+}
+
+.meme {
+  position : relative;
+}
+
+#thumbnails {
+  height : 470px;
+  overflow : auto;
+}
+
+#thumbnails .even {
+  background : #f3f3f3;
+}
+
+#thumbnails .meme:not(.current):hover {
+  background : #aeaeae;
+}
+
+#thumbnails .current {
+  background : #8d8d8d;
+}
+
+#thumbnails .meme:not(.current):hover, #thumbnails .current {
+  color : #fff;
+}
+
+#featured {
+  padding : 0 15px;
+  margin-bottom : 15px;
+}
+
+#featured #left, #featured #right {
+  padding : 0;
+}
+
+#featured #right .meme {
+  padding : 11.2px 15px;
+}
+
+#right {
+  border-top :1px solid #ccc;
+  border-right :1px solid #ccc;
+  border-bottom :1px solid #ccc;
+}
+
+#featured p {
+  font-size : 12px;
+  line-height : 16px;
 }

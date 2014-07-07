@@ -10,7 +10,7 @@ body {
   font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   background: #e6e4e4;
-  padding-top:110px;
+  padding-top:117px;
 }
 
 .dropdown-menu {
@@ -31,4 +31,8 @@ body {
 
 .fb_iframe_widget {
   vertical-align : top;
+}
+
+.container {
+  max-width : 970px;
 }
