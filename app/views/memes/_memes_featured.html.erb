@@ -15,7 +15,6 @@
               <%= image_tag meme.image, :alt => meme.alt_tag %>
             </div>
             <div class="col-sm-6">
-              <h4><%= meme.alt_tag %></h4>
               <%= raw meme.article.truncate(60) %>
               <div class="pull-right">
                 <% if meme.user && meme.user == current_user || current_admin  %>

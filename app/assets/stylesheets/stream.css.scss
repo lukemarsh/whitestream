@@ -132,8 +132,10 @@
   background : #8d8d8d;
 }
 
-#thumbnails .meme:not(.current):hover, #thumbnails .current {
+#thumbnails .meme:not(.current):hover, #thumbnails .current, #thumbnails .meme:not(.current):hover p, #thumbnails .current p,
+#thumbnails .meme:not(.current):hover a, #thumbnails .current a {
   color : #fff;
+  text-decoration: none;
 }
 
 #featured {
