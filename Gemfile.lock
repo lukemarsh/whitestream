@@ -1,10 +1,10 @@
 GIT
   remote: git://github.com/bernat/best_in_place.git
-  revision: df178520bf9ba405baee9528d5dbb630d6ff760c
+  revision: bc00bb7912193ea5c9c8984455cb5fe01905e6cb
   specs:
-    best_in_place (2.1.0)
-      jquery-rails
-      rails (>= 3.1)
+    best_in_place (3.1.1)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -26,7 +26,7 @@ GEM
       activerecord-deprecated_finders (~> 1.0.2)
       activesupport (= 4.0.3)
       arel (~> 4.0.0)
-    activerecord-deprecated_finders (1.0.3)
+    activerecord-deprecated_finders (1.0.4)
     activesupport (4.0.3)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -35,8 +35,7 @@ GEM
       tzinfo (~> 0.3.37)
     acts_as_commentable (4.0.1)
     arel (4.0.2)
-    atomic (1.1.16)
-    bcrypt (3.1.7)
+    bcrypt (3.1.13)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.10)
@@ -55,19 +54,21 @@ GEM
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.2.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.7.0)
-    devise (3.2.4)
+    coffee-script-source (1.12.2)
+    concurrent-ruby (1.1.6)
+    devise (3.5.10)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
+      responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
     excon (0.33.0)
-    execjs (2.0.2)
+    execjs (2.7.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     fog (1.22.0)
@@ -92,26 +93,25 @@ GEM
     hike (1.2.3)
     httpauth (0.2.0)
     httpclient (2.3.4.1)
-    i18n (0.6.9)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     impressionist (1.5.1)
       httpclient (~> 2.2)
       nokogiri (~> 1.5)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jquery-rails (3.1.0)
+    jquery-rails (3.1.5)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-turbolinks (2.0.2)
+    jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-validation-rails (1.11.1.1)
-      railties (>= 3.2, < 5.0)
-      thor (~> 0.14)
+    jquery-validation-rails (1.19.0)
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    mail (2.5.4)
+    mail (2.5.5)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.2)
@@ -120,7 +120,7 @@ GEM
       subexec (~> 0.2.1)
     mini_portile (0.5.3)
     minitest (4.7.5)
-    multi_json (1.9.2)
+    multi_json (1.14.1)
     multipart-post (1.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -150,15 +150,15 @@ GEM
       omniauth-oauth (~> 1.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
-    polyglot (0.3.4)
+    polyglot (0.3.5)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
-    rack (1.5.2)
-    rack-test (0.6.2)
+    rack (1.5.5)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.0.3)
       actionmailer (= 4.0.3)
@@ -173,26 +173,28 @@ GEM
       activesupport (= 4.0.3)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.2.2)
+    rake (13.0.1)
     rdoc (4.1.1)
       json (~> 1.4)
     remotipart (1.2.1)
+    responders (1.1.2)
+      railties (>= 3.2, < 4.2)
     rmagick (2.13.2)
-    sass (3.2.18)
-    sass-rails (4.0.2)
+    sass (3.2.19)
+    sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.0)
-      sprockets (~> 2.8, <= 2.11.0)
-      sprockets-rails (~> 2.0.0)
+      sass (~> 3.2.2)
+      sprockets (~> 2.8, < 3.0)
+      sprockets-rails (~> 2.0)
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
     sitemap_generator (5.0.4)
       builder
     slop (3.5.0)
-    social-buttons (0.3.7)
+    social-buttons (0.3.9)
       rails (>= 3.0.0)
-    sprockets (2.11.0)
+    sprockets (2.12.5)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -203,9 +205,8 @@ GEM
       sprockets (~> 2.8)
     statistics2 (0.54)
     subexec (0.2.3)
-    thor (0.19.1)
-    thread_safe (0.3.1)
-      atomic (>= 1.1.7, < 2)
+    thor (1.0.1)
+    thread_safe (0.3.6)
     thumbs_up (0.6.7)
       activerecord
       statistics2
@@ -213,13 +214,14 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.1)
-      coffee-rails
-    tzinfo (0.3.39)
+    turbolinks (5.2.1)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
+    tzinfo (0.3.56)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    warden (1.2.3)
+    warden (1.2.7)
       rack (>= 1.0)
     will_paginate (3.0.5)
 
@@ -233,14 +235,14 @@ DEPENDENCIES
   bootstrap-will_paginate (~> 0.0.10)
   bootsy
   carrierwave
-  coffee-rails (~> 4.0.0)
-  devise
+  coffee-rails (~> 4.0.1)
+  devise (>= 3.2.4)
   fog
   impressionist
   jbuilder (~> 1.2)
-  jquery-rails
-  jquery-turbolinks
-  jquery-validation-rails
+  jquery-rails (>= 3.1.0)
+  jquery-turbolinks (>= 2.0.2)
+  jquery-validation-rails (>= 1.11.1.1)
   oauth2
   omniauth
   omniauth-facebook (= 1.4.0)
@@ -250,10 +252,13 @@ DEPENDENCIES
   pry-nav
   rails (= 4.0.3)
   rmagick
-  sass-rails (~> 4.0.0)
+  sass-rails (~> 4.0.2)
   sdoc
   sitemap_generator
-  social-buttons (~> 0.3)
+  social-buttons (~> 0.3, >= 0.3.7)
   thumbs_up
   uglifier (>= 1.3.0)
   will_paginate
+
+BUNDLED WITH
+   1.17.3
