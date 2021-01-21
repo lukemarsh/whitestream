@@ -46,7 +46,7 @@ gem 'rmagick', :require => 'RMagick'
 gem 'jquery-validation-rails'
 gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
-gem 'omniauth-twitter'
+gem 'omniauth-twitter', '>= 1.0.1'
 gem 'oauth2'
 gem 'sitemap_generator'
 
