@@ -29,10 +29,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'carrierwave'
+gem 'carrierwave', '>= 1.3.2'
 gem 'jquery-turbolinks'
 gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bootsy'
+gem 'bootsy', '>= 2.4.0'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'devise'
