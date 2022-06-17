@@ -1,10 +1,10 @@
 GIT
-  remote: git://github.com/bernat/best_in_place.git
-  revision: df178520bf9ba405baee9528d5dbb630d6ff760c
+  remote: https://github.com/bernat/best_in_place.git
+  revision: a3560e874444af8b2cf78419dc5eef020626c93c
   specs:
-    best_in_place (2.1.0)
-      jquery-rails
-      rails (>= 3.1)
+    best_in_place (3.1.1)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -59,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    concurrent-ruby (1.1.10)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -92,7 +93,8 @@ GEM
     hike (1.2.3)
     httpauth (0.2.0)
     httpclient (2.3.4.1)
-    i18n (0.6.9)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     impressionist (1.5.1)
       httpclient (~> 2.2)
       nokogiri (~> 1.5)
