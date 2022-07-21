@@ -1,10 +1,10 @@
 GIT
-  remote: git://github.com/bernat/best_in_place.git
-  revision: df178520bf9ba405baee9528d5dbb630d6ff760c
+  remote: https://github.com/bernat/best_in_place.git
+  revision: a3560e874444af8b2cf78419dc5eef020626c93c
   specs:
-    best_in_place (2.1.0)
-      jquery-rails
-      rails (>= 3.1)
+    best_in_place (3.1.1)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -215,7 +215,7 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.1)
       coffee-rails
-    tzinfo (0.3.39)
+    tzinfo (0.3.61)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
