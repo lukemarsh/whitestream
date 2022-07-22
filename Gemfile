@@ -7,13 +7,13 @@ gem 'rails', '4.0.3'
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.1'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 1.5', '>= 1.5.3'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -37,7 +37,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'devise'
 gem 'thumbs_up'
-gem "social-buttons", '~> 0.3'
+gem "social-buttons", "~> 0.3", ">= 0.3.7"
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'impressionist'
 gem 'acts_as_commentable'
