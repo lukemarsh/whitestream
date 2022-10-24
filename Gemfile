@@ -7,13 +7,13 @@ gem 'rails', '4.0.3'
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.1'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -37,7 +37,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'devise'
 gem 'thumbs_up'
-gem "social-buttons", '~> 0.3'
+gem "social-buttons", "~> 0.3", ">= 0.3.7"
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'impressionist'
 gem 'acts_as_commentable'
@@ -45,9 +45,9 @@ gem 'fog'
 gem 'rmagick', :require => 'RMagick'
 gem 'jquery-validation-rails'
 gem 'omniauth'
-gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook', '1.6.0'
 gem 'omniauth-twitter'
-gem 'oauth2'
+gem 'oauth2', '>= 1.4.11'
 gem 'sitemap_generator'
 
 group :development, :test do
