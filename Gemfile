@@ -29,7 +29,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'carrierwave'
+gem 'carrierwave', '>= 2.2.5'
 gem 'jquery-turbolinks'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootsy'
