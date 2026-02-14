@@ -45,9 +45,9 @@ gem 'fog'
 gem 'rmagick', :require => 'RMagick'
 gem 'jquery-validation-rails'
 gem 'omniauth'
-gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook', '1.6.0'
 gem 'omniauth-twitter'
-gem 'oauth2'
+gem 'oauth2', '>= 1.4.8'
 gem 'sitemap_generator'
 
 group :development, :test do
